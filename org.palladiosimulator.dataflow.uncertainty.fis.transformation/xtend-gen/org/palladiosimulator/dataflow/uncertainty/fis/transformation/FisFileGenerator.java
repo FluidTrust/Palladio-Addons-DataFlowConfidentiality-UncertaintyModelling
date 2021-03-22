@@ -1,8 +1,12 @@
 package org.palladiosimulator.dataflow.uncertainty.fis.transformation;
 
 import com.google.common.base.Objects;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ACCU_Method;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ACT_Operator;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.AND_Operator;
@@ -25,9 +29,23 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ZMF;
 @SuppressWarnings("all")
 public class FisFileGenerator {
   public void doGenerate(final FISContainer container) {
-    EList<FuzzyInferenceSystem> _fuzzyInferenceSystems = container.getFuzzyInferenceSystems();
-    for (final FuzzyInferenceSystem fis : _fuzzyInferenceSystems) {
-      this.compile(fis);
+    try {
+      EList<FuzzyInferenceSystem> _fuzzyInferenceSystems = container.getFuzzyInferenceSystems();
+      for (final FuzzyInferenceSystem fis : _fuzzyInferenceSystems) {
+        {
+          CharSequence output = this.compile(fis);
+          String _name = fis.getName();
+          String _plus = ("/home/nicolas/Dokumente/Uni/Masterarbeit/" + _name);
+          String _plus_1 = (_plus + ".fis");
+          FileOutputStream fos = new FileOutputStream(_plus_1);
+          BufferedOutputStream _bufferedOutputStream = new BufferedOutputStream(fos);
+          DataOutputStream outStream = new DataOutputStream(_bufferedOutputStream);
+          outStream.writeUTF(output.toString());
+          outStream.close();
+        }
+      }
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
     }
   }
   
@@ -35,14 +53,14 @@ public class FisFileGenerator {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("[System]");
     _builder.newLine();
-    _builder.append("Name = \'");
+    _builder.append("Name=\'");
     String _name = sys.getName();
     _builder.append(_name);
     _builder.append("\'");
     _builder.newLineIfNotEmpty();
-    _builder.append("Type = \'mamdani\'");
+    _builder.append("Type=\'mamdani\'");
     _builder.newLine();
-    _builder.append("Version = 2.0");
+    _builder.append("Version=2.0");
     _builder.newLine();
     _builder.append("NumInputs=");
     int _size = sys.getInput().size();
@@ -79,7 +97,13 @@ public class FisFileGenerator {
     _builder.newLine();
     {
       EList<FuzzificationFunction> _input = sys.getInput();
+      boolean _hasElements = false;
       for(final FuzzificationFunction in : _input) {
+        if (!_hasElements) {
+          _hasElements = true;
+        } else {
+          _builder.appendImmediate("\n", "");
+        }
         _builder.append("[Input");
         int _indexOf = sys.getInput().indexOf(in);
         int _plus = (_indexOf + 1);
@@ -114,38 +138,34 @@ public class FisFileGenerator {
       for(final Rule rule : _rules) {
         {
           EList<FuzzificationFunction> _input_1 = sys.getInput();
-          boolean _hasElements = false;
-          for(final FuzzificationFunction sysIn : _input_1) {
-            if (!_hasElements) {
-              _hasElements = true;
-            } else {
-              _builder.appendImmediate(" ", "");
-            }
-            int _ruleMFIndex = this.getRuleMFIndex(sysIn, rule.getInputs());
-            _builder.append(_ruleMFIndex);
-            _builder.newLineIfNotEmpty();
-          }
-        }
-        _builder.append(",");
-        _builder.newLine();
-        {
-          EList<DefuzzificationFunction> _output_1 = sys.getOutput();
           boolean _hasElements_1 = false;
-          for(final DefuzzificationFunction sysOut : _output_1) {
+          for(final FuzzificationFunction sysIn : _input_1) {
             if (!_hasElements_1) {
               _hasElements_1 = true;
             } else {
               _builder.appendImmediate(" ", "");
             }
-            int _ruleMFIndex_1 = this.getRuleMFIndex(sysOut, rule.getOutput());
-            _builder.append(_ruleMFIndex_1);
-            _builder.newLineIfNotEmpty();
+            int _ruleMFIndex = this.getRuleMFIndex(sysIn, rule.getInputs());
+            _builder.append(_ruleMFIndex);
           }
         }
-        _builder.append(" ");
-        _builder.append("(1) : ");
+        _builder.append(", ");
+        {
+          EList<DefuzzificationFunction> _output_1 = sys.getOutput();
+          boolean _hasElements_2 = false;
+          for(final DefuzzificationFunction sysOut : _output_1) {
+            if (!_hasElements_2) {
+              _hasElements_2 = true;
+            } else {
+              _builder.appendImmediate(" ", "");
+            }
+            int _ruleMFIndex_1 = this.getRuleMFIndex(sysOut, rule.getOutput());
+            _builder.append(_ruleMFIndex_1);
+          }
+        }
+        _builder.append(" (1) : ");
         int _value = rule.getOperator().getValue();
-        _builder.append(_value, " ");
+        _builder.append(_value);
         _builder.newLineIfNotEmpty();
       }
     }
@@ -205,7 +225,6 @@ public class FisFileGenerator {
     String _name = mf.getName();
     _builder.append(_name);
     _builder.append("\':");
-    _builder.newLineIfNotEmpty();
     {
       if ((mf instanceof TriangularMF)) {
         CharSequence _compile = this.compile(((TriangularMF)mf));
@@ -258,7 +277,6 @@ public class FisFileGenerator {
     double _c = mf.getC();
     _builder.append(_c);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -271,7 +289,6 @@ public class FisFileGenerator {
     double _c = mf.getC();
     _builder.append(_c);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -290,7 +307,6 @@ public class FisFileGenerator {
     double _d = mf.getD();
     _builder.append(_d);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -306,7 +322,6 @@ public class FisFileGenerator {
     double _c = mf.getC();
     _builder.append(_c);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -319,7 +334,6 @@ public class FisFileGenerator {
     double _c = mf.getC();
     _builder.append(_c);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -332,7 +346,6 @@ public class FisFileGenerator {
     double _c = mf.getC();
     _builder.append(_c);
     _builder.append("]");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   

@@ -16,15 +16,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//PropertyType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InformationSource">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" lowerBound="1"
-        eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyType"/>
   <eSubpackages name="FuzzyInferenceSystem" nsURI="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0"
       nsPrefix="org.palladiosimulator.dataflow.uncertainty.fis">
     <eClassifiers xsi:type="ecore:EClass" name="FISContainer">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="membershipFunctions"
-          upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="fuzzificationFunctions"
           upperBound="-1" eType="#//FuzzyInferenceSystem/FuzzificationFunction" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="defuzzificationFunction"
@@ -65,7 +62,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
     <eClassifiers xsi:type="ecore:EClass" name="DefuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
-    <eClassifiers xsi:type="ecore:EClass" name="MembershipFunction">
+    <eClassifiers xsi:type="ecore:EClass" name="MembershipFunction" abstract="true">
       <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
         <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       </eOperations>
@@ -108,6 +105,7 @@
           upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
           upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="AND_Operator">
       <eLiterals name="MIN"/>

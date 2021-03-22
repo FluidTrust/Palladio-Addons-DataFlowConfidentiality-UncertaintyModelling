@@ -16,20 +16,28 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ZMF
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.MembershipFunction
 import org.eclipse.emf.common.util.EList
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FISContainer
+import java.io.FileOutputStream
+import java.io.DataOutputStream
+import java.io.BufferedOutputStream
 
 class FisFileGenerator {
 	
 	def doGenerate(FISContainer container) {
 		for(fis:container.fuzzyInferenceSystems) {
-			fis.compile
+			var output = fis.compile
+			
+			var fos = new FileOutputStream("/home/nicolas/Dokumente/Uni/Masterarbeit/" + fis.name + ".fis");
+		    var outStream = new DataOutputStream(new BufferedOutputStream(fos));
+		    outStream.writeUTF(output.toString);
+		    outStream.close();
 		}
 	}
 	
 	def compile(FuzzyInferenceSystem sys) '''
 	[System]
-	Name = '«sys.name»'
-	Type = 'mamdani'
-	Version = 2.0
+	Name='«sys.name»'
+	Type='mamdani'
+	Version=2.0
 	NumInputs=«sys.input.size»
 	NumOutputs=«sys.output.size»
 	NumRules=«sys.rules.size»
@@ -39,7 +47,7 @@ class FisFileGenerator {
 	AggMethod=«sys.ACCU.compile»
 	DefuzzMethod=«sys.METHOD.compile»
 	
-	«FOR in:sys.input»
+	«FOR in:sys.input SEPARATOR "\n" »
 	[Input«sys.input.indexOf(in)+1»]
 	«in.compile»
 	«ENDFOR»
@@ -51,14 +59,7 @@ class FisFileGenerator {
 	
 	[Rules]
 	«FOR rule:sys.rules»
-	«FOR sysIn:sys.input SEPARATOR ' '»
-	«getRuleMFIndex(sysIn, rule.inputs)»
-	«ENDFOR»
-	,
-	«FOR sysOut:sys.output SEPARATOR ' '»
-	«getRuleMFIndex(sysOut, rule.output)»
-	«ENDFOR»
-	 (1) : «rule.operator.value»
+	«FOR sysIn:sys.input SEPARATOR ' '»«getRuleMFIndex(sysIn, rule.inputs)»«ENDFOR», «FOR sysOut:sys.output SEPARATOR ' '»«getRuleMFIndex(sysOut, rule.output)»«ENDFOR» (1) : «rule.operator.value»
 	«ENDFOR»
 	'''
 	
@@ -81,8 +82,7 @@ class FisFileGenerator {
 	'''
 	
 	def compile(MembershipFunction mf) '''
-	'«mf.name»':
-	«IF mf instanceof TriangularMF»«mf.compile»
+	'«mf.name»':«IF mf instanceof TriangularMF»«mf.compile»
 	«ELSEIF mf instanceof GaussianMF»«mf.compile»
 	«ELSEIF mf instanceof TrapezoidalMF»«mf.compile»
 	«ELSEIF mf instanceof GeneralizedBellMF»«mf.compile»
@@ -91,29 +91,17 @@ class FisFileGenerator {
 	«ENDIF»
 	'''
 	
-	def compile(TriangularMF mf) '''
-	'trimf',[«mf.a» «mf.b» «mf.c»]
-	'''
+	def compile(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.c»]'''
 	
-	def compile(GaussianMF mf) '''
-	'gaussmf',[«mf.o» «mf.c»]
-	'''
+	def compile(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.c»]'''
 	
-	def compile(TrapezoidalMF mf) '''
-	'trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]
-	'''
+	def compile(TrapezoidalMF mf) ''''trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]'''
 	
-	def compile(GeneralizedBellMF mf) '''
-	'gbellmf',[«mf.a» «mf.b» «mf.c»]
-	'''
+	def compile(GeneralizedBellMF mf) ''''gbellmf',[«mf.a» «mf.b» «mf.c»]'''
 	
-	def compile(SMF mf) '''
-	'smf',[«mf.a» «mf.c»]
-	'''
+	def compile(SMF mf) ''''smf',[«mf.a» «mf.c»]'''
 	
-	def compile(ZMF mf) '''
-	'zmf',[«mf.a» «mf.c»]
-	'''
+	def compile(ZMF mf) ''''zmf',[«mf.a» «mf.c»]'''
 	
 	def compile(AND_Operator op) '''
 	«IF op.value == 0»'min'

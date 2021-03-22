@@ -56,7 +56,6 @@
         <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method/RM"/>
       </genEnums>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/membershipFunctions"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/fuzzificationFunctions"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/defuzzificationFunction"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/fuzzyInferenceSystems"/>
@@ -122,6 +121,7 @@
             ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/Rule/inputs"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/Rule/output"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/Rule/name"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

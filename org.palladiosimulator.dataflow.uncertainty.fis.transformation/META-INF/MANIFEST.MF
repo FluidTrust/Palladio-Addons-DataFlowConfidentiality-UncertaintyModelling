@@ -9,4 +9,5 @@ Require-Bundle: com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
- org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0"
+ org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.16.0"
