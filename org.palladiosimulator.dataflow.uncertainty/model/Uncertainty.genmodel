@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/org.palladiosimulator.dataflow.uncertainty/src-gen"
+    creationIcons="false" editDirectory="/org.palladiosimulator.dataflow.uncertainty.edit/src-gen"
+    editorDirectory="/org.palladiosimulator.dataflow.uncertainty.editor/src-gen" modelPluginID="org.palladiosimulator.dataflow.uncertainty"
+    modelName="Uncertainty" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" importOrganizing="true">
+  <foreignModel>Uncertainty.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Uncertainty" basePackage="org.palladiosimulator.dataflow" disposableProviderFactory="true"
+      ecorePackage="Uncertainty.ecore#/">
+    <genClasses ecoreClass="Uncertainty.ecore#//UncertaintyContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//UncertaintyContainer/sources"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//UncertaintyContainer/propertyTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//UncertaintyContainer/fisContainer"/>
+    </genClasses>
+    <genClasses ecoreClass="Uncertainty.ecore#//AccessControlProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//AccessControlProperty/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//AccessControlProperty/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Uncertainty.ecore#//InformationSource">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//InformationSource/trustSystem"/>
+    </genClasses>
+    <genClasses ecoreClass="Uncertainty.ecore#//PropertyType"/>
+    <nestedGenPackages prefix="FuzzyInferenceSystem" disposableProviderFactory="true"
+        ecorePackage="Uncertainty.ecore#//FuzzyInferenceSystem">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator/MIN"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator/PROD"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator/BDIF"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/OR_Operator">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/OR_Operator/MAX"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/OR_Operator/ASUM"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/OR_Operator/BSUM"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/ACT_Operator">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/ACT_Operator/PROD"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/ACT_Operator/MIN"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/ACCU_Method">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/ACCU_Method/MAX"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/ACCU_Method/BSUM"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/ACCU_Method/NSUM"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/RULE_Operator">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/RULE_Operator/AND"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/RULE_Operator/OR"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method">
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method/COG"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method/COA"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method/LM"/>
+        <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/DEFUZZY_Method/RM"/>
+      </genEnums>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/membershipFunctions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/fuzzificationFunctions"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/defuzzificationFunction"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FISContainer/fuzzyInferenceSystems"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/input"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/output"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/rules"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/METHOD"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/ACCU"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/AND"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/OR"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/ACT"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyInferenceSystem/name"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyFunction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyFunction/term"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyFunction/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/FuzzyFunction/range"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/FuzzificationFunction"/>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/DefuzzificationFunction"/>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/MembershipFunction">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/MembershipFunction/parentFuzzyFunction"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/MembershipFunction/name"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/MembershipFunction/calculateTrustWeight">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/MembershipFunction/calculateTrustWeight/x"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/a"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/b"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/c"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/o"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/c"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/a"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/b"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/c"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/d"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/a"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/b"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/c"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/SMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/SMF/a"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/SMF/c"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/ZMF">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/a"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/c"/>
+      </genClasses>
+      <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/Rule">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/Rule/operator"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/Rule/inputs"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Uncertainty.ecore#//FuzzyInferenceSystem/Rule/output"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

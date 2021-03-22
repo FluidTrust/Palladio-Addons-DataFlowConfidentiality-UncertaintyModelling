@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Uncertainty" nsURI="http://palladiosimulator.org/dataflow/uncertainty/1.0"
+    nsPrefix="org.palladiosimulator.dataflow.uncertainty">
+  <eClassifiers xsi:type="ecore:EClass" name="UncertaintyContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sources" upperBound="-1"
+        eType="#//InformationSource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyTypes" upperBound="-1"
+        eType="#//PropertyType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fisContainer" upperBound="-1"
+        eType="#//FuzzyInferenceSystem/FISContainer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessControlProperty">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//InformationSource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//PropertyType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InformationSource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" lowerBound="1"
+        eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyType"/>
+  <eSubpackages name="FuzzyInferenceSystem" nsURI="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0"
+      nsPrefix="org.palladiosimulator.dataflow.uncertainty.fis">
+    <eClassifiers xsi:type="ecore:EClass" name="FISContainer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="membershipFunctions"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fuzzificationFunctions"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/FuzzificationFunction" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="defuzzificationFunction"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/DefuzzificationFunction"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fuzzyInferenceSystems"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FuzzyInferenceSystem">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/FuzzificationFunction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/DefuzzificationFunction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rules" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/Rule" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="METHOD" lowerBound="1"
+          eType="#//FuzzyInferenceSystem/DEFUZZY_Method" defaultValueLiteral="COG"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ACCU" lowerBound="1"
+          eType="#//FuzzyInferenceSystem/ACCU_Method" defaultValueLiteral="MAX"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="AND" lowerBound="1" eType="#//FuzzyInferenceSystem/AND_Operator"
+          defaultValueLiteral="MIN"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="OR" lowerBound="1" eType="#//FuzzyInferenceSystem/OR_Operator"
+          defaultValueLiteral="MAX"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ACT" lowerBound="1" eType="#//FuzzyInferenceSystem/ACT_Operator"
+          defaultValueLiteral="PROD"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FuzzyFunction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="term" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction" containment="true"
+          eOpposite="#//FuzzyInferenceSystem/MembershipFunction/parentFuzzyFunction"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="range" lowerBound="2"
+          upperBound="2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          defaultValueLiteral="0"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DefuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parentFuzzyFunction"
+          eType="#//FuzzyInferenceSystem/FuzzyFunction" eOpposite="#//FuzzyInferenceSystem/FuzzyFunction/term"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TriangularMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GaussianMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="o" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TrapezoidalMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="d" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GeneralizedBellMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ZMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Rule">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//FuzzyInferenceSystem/RULE_Operator"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
+          upperBound="-1" eType="#//FuzzyInferenceSystem/MembershipFunction"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="AND_Operator">
+      <eLiterals name="MIN"/>
+      <eLiterals name="PROD" value="1"/>
+      <eLiterals name="BDIF" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="OR_Operator">
+      <eLiterals name="MAX"/>
+      <eLiterals name="ASUM" value="1"/>
+      <eLiterals name="BSUM" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ACT_Operator">
+      <eLiterals name="PROD"/>
+      <eLiterals name="MIN" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ACCU_Method">
+      <eLiterals name="MAX"/>
+      <eLiterals name="BSUM" value="1"/>
+      <eLiterals name="NSUM" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="RULE_Operator">
+      <eLiterals name="AND" value="1"/>
+      <eLiterals name="OR" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="DEFUZZY_Method">
+      <eLiterals name="COG"/>
+      <eLiterals name="COA" value="1"/>
+      <eLiterals name="LM" value="2"/>
+      <eLiterals name="RM" value="3"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

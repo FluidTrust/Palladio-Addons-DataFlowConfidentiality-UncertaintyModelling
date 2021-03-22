@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Uncertainty -->
+      <package
+            uri="http://palladiosimulator.org/dataflow/uncertainty/1.0"
+            class="org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage"
+            genModel="model/Uncertainty.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Uncertainty -->
+      <package
+            uri="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0"
+            class="org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyInferenceSystemPackage"
+            genModel="model/Uncertainty.genmodel"/>
+   </extension>
+
+</plugin>
