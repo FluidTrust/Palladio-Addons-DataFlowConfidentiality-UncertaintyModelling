@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
+  <sources/>
+  <fisContainer>
+    <fuzzificationFunctions name="GPSAccuracy">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="low" o="15.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="mid" o="15.0" m="50.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="high" o="15.0" m="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="GPSAge">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:ZMF" name="valid" a="2.5" b="5.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:SMF" name="invalid" a="3.5" b="8.0"/>
+      <range>0.0</range>
+      <range>10.0</range>
+    </fuzzificationFunctions>
+    <defuzzificationFunction name="LocationTrust">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="low" c="40.0" d="60.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="mid" a="50.0" b="60.0" c="80.0" d="90.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="high" a="80.0" b="90.0" c="100.0" d="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.0 //@fisContainer.0/@fuzzificationFunctions.1" output="//@fisContainer.0/@defuzzificationFunction.0" ACT="MIN" name="GPSFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.2 //@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="high"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="mid"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.2 //@fisContainer.0/@fuzzificationFunctions.1/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="high invalid"/>
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0 //@fisContainer.0/@fuzzificationFunctions.1/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="low"/>
+    </fuzzyInferenceSystems>
+  </fisContainer>
+</org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer>
