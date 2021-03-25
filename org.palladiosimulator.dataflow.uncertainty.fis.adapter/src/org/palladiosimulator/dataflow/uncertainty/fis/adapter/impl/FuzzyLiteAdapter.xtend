@@ -23,7 +23,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		}
 	}
 	
-	override runFIS(List<Double> inputs, String fisPath) {
+	override runFIS(List<Double> inputs, Path fisPath) {
 		var dataPath = createDataFile(inputs)
 		var resultPath = runSystem(fisPath, dataPath)
 		var output = parseOutputFromResultFile(resultPath)
@@ -32,7 +32,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		return output
 	}
 	
-	def createDataFile(List<Double> data) {
+	private def createDataFile(List<Double> data) {
 		try {
 			var line = String.join(" ", data.map[d| Double.toString(d)])
             var tempFile = Files.createTempFile("tmpFISInputs", ".fld");
@@ -45,10 +45,10 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
         }
 	}
 	
-	def runSystem(String systemPath, Path dataPath) {
+	private def runSystem(Path systemPath, Path dataPath) {
 	    try {
 	    	var resultPath = Files.createTempFile("tmpFISOutput", ".fld");
-	        val pb = new ProcessBuilder(fuzzylitePath, "-i", systemPath, "-of", "fld", "-o", resultPath.toString, "-d", dataPath.toString)
+	        val pb = new ProcessBuilder(fuzzylitePath, "-i", systemPath.toString, "-of", "fld", "-o", resultPath.toString, "-d", dataPath.toString)
 	        pb.redirectOutput(Redirect.INHERIT)
 	        pb.redirectError(Redirect.INHERIT)
 	        val process = pb.start()
@@ -61,7 +61,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	    }
 	}
 	
-	def parseOutputFromResultFile(Path resultFilePath) {
+	private def parseOutputFromResultFile(Path resultFilePath) {
 		var result = readResultFile(resultFilePath)
 		
 		var split = result.split("\n")
@@ -74,13 +74,13 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		return Double.NaN
 	}
 	
-	def readResultFile(Path resultPath) {
+	private def readResultFile(Path resultPath) {
 		var resultFileContent = Files.readString(resultPath);
         return resultFileContent
 	}
 	
 
-	def String getFileName() {
+	private def String getFileName() {
 		var os = "";
 		var ending = "";
 		if (SystemUtils.IS_OS_WINDOWS) {
@@ -95,7 +95,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		return String.format("fuzzylite-%s-%s-%s%s", version, os, architecture, ending);
 	}
 	
-	def Optional<File> extractExecutable() {
+	private def Optional<File> extractExecutable() {
 		var cl = FuzzyLiteAdapter.classLoader
 		var execFileName = getFileName
 		if (cl.getResource(execFileName) === null) {

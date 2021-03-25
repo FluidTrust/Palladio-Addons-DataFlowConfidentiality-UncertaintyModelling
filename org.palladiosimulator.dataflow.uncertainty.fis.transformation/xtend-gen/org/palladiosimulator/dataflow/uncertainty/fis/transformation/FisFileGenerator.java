@@ -1,9 +1,10 @@
 package org.palladiosimulator.dataflow.uncertainty.fis.transformation;
 
 import com.google.common.base.Objects;
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -12,7 +13,6 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ACT_Opera
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.AND_Operator;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.DEFUZZY_Method;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.DefuzzificationFunction;
-import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FISContainer;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzificationFunction;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyFunction;
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyInferenceSystem;
@@ -28,22 +28,17 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ZMF;
 
 @SuppressWarnings("all")
 public class FisFileGenerator {
-  public void doGenerate(final FISContainer container) {
+  public Path doGenerate(final FuzzyInferenceSystem fis) {
     try {
-      EList<FuzzyInferenceSystem> _fuzzyInferenceSystems = container.getFuzzyInferenceSystems();
-      for (final FuzzyInferenceSystem fis : _fuzzyInferenceSystems) {
-        {
-          CharSequence output = this.compile(fis);
-          String _name = fis.getName();
-          String _plus = ("/home/nicolas/Dokumente/Uni/Masterarbeit/" + _name);
-          String _plus_1 = (_plus + ".fis");
-          FileOutputStream fos = new FileOutputStream(_plus_1);
-          BufferedOutputStream _bufferedOutputStream = new BufferedOutputStream(fos);
-          DataOutputStream outStream = new DataOutputStream(_bufferedOutputStream);
-          outStream.writeUTF(output.toString());
-          outStream.close();
-        }
-      }
+      CharSequence output = this.compile(fis);
+      Path tmpFisPath = Files.createTempFile(fis.getName(), ".fis");
+      File tmpFis = tmpFisPath.toFile();
+      tmpFis.deleteOnExit();
+      String _string = tmpFisPath.toString();
+      FileOutputStream fos = new FileOutputStream(_string);
+      fos.write(output.toString().getBytes());
+      fos.close();
+      return tmpFisPath;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -274,8 +269,8 @@ public class FisFileGenerator {
     double _b = mf.getB();
     _builder.append(_b);
     _builder.append(" ");
-    double _c = mf.getC();
-    _builder.append(_c);
+    double _m = mf.getM();
+    _builder.append(_m);
     _builder.append("]");
     return _builder;
   }
@@ -286,8 +281,8 @@ public class FisFileGenerator {
     double _o = mf.getO();
     _builder.append(_o);
     _builder.append(" ");
-    double _c = mf.getC();
-    _builder.append(_c);
+    double _m = mf.getM();
+    _builder.append(_m);
     _builder.append("]");
     return _builder;
   }
@@ -331,8 +326,8 @@ public class FisFileGenerator {
     double _a = mf.getA();
     _builder.append(_a);
     _builder.append(" ");
-    double _c = mf.getC();
-    _builder.append(_c);
+    double _b = mf.getB();
+    _builder.append(_b);
     _builder.append("]");
     return _builder;
   }
@@ -343,8 +338,8 @@ public class FisFileGenerator {
     double _a = mf.getA();
     _builder.append(_a);
     _builder.append(" ");
-    double _c = mf.getC();
-    _builder.append(_c);
+    double _b = mf.getB();
+    _builder.append(_b);
     _builder.append("]");
     return _builder;
   }

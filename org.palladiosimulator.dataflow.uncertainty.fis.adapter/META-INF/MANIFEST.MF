@@ -11,3 +11,4 @@ Require-Bundle: com.google.guava,
  org.eclipse.xtend.lib.macro,
  org.apache.commons.lang3;bundle-version="3.1.0",
  org.apache.commons.io;bundle-version="2.6.0"
+Export-Package: org.palladiosimulator.dataflow.uncertainty.fis.adapter
