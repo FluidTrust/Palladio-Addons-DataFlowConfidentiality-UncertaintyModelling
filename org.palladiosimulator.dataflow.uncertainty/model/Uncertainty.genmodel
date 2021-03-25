@@ -90,30 +90,54 @@
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/a"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/b"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/c"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/m"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/calculateTrustWeight"
+            body="if (a&lt;x &amp;&amp; x&lt;=m) {&#xA;&#x9;return (x-a)/(m-a);&#xA;} else if (m&lt;x &amp;&amp; x &lt;= b) {&#xA;&#x9;return (b-x)/(b-m);&#xA;}&#xA;&#xA;return 0;">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/TriangularMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/o"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/c"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/m"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/calculateTrustWeight"
+            body="double denom = -(x-m) * (x-m);&#xA;double counter = 2*o*o;&#xA;&#xA;return java.lang.Math.exp((denom/counter));">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/GaussianMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/a"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/b"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/c"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/d"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/calculateTrustWeight"
+            body="if (a &lt;= x &amp;&amp; x &lt;= b) {&#xA;&#x9;return (x-a)/(b-a);&#xA;} else if (b &lt;= x &amp;&amp; x &lt;= c) {&#xA;&#x9;return 1;&#xA;} else if (c &lt;= x &amp;&amp; x &lt;= d) {&#xA;&#x9;return (d-x)/(d-c);&#xA;} else {&#xA;&#x9;return 0;&#xA;}&#xA;">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/TrapezoidalMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/a"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/b"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/c"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/calculateTrustWeight"
+            body="double abs = java.lang.Math.abs(x-c/a);&#xA;double pow = java.lang.Math.pow(abs, 2*b);&#xA;double counter = 1 + pow;&#xA;&#xA;return 1/counter;">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/GeneralizedBellMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/SMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/SMF/a"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/SMF/c"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/SMF/b"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/SMF/calculateTrustWeight"
+            body="double ab = (a+b)/2;&#xA;if(x&lt;=a) {&#xA;&#x9;return 0;&#xA;} else if (a&lt;=x &amp;&amp; x&lt;=ab) {&#xA;&#x9;return 2*((x-a)/(b-a))*((x-a)/(b-a));&#xA;} else if (ab&lt;=x &amp;&amp; x&lt;=b) {&#xA;&#x9;return 1 - 2*((x-b)/(b-a))*((x-b)/(b-a));&#xA;} else {&#xA;&#x9;return 1;&#xA;}">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/SMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/ZMF">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/a"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/c"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/b"/>
+        <genOperations ecoreOperation="Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/calculateTrustWeight"
+            body="double ab = (a+b)/2;&#xA;if(x&lt;=a) {&#xA;&#x9;return 1;&#xA;} else if (a&lt;=x &amp;&amp; x&lt;=ab) {&#xA;&#x9;return 1 - 2*((x-a)/(b-a))*((x-a)/(b-a));&#xA;} else if (ab&lt;=x &amp;&amp; x&lt;=b) {&#xA;&#x9;return 2*((x-b)/(b-a))*((x-b)/(b-a));&#xA;} else {&#xA;&#x9;return 0;&#xA;}">
+          <genParameters ecoreParameter="Uncertainty.ecore#//FuzzyInferenceSystem/ZMF/calculateTrustWeight/x"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="Uncertainty.ecore#//FuzzyInferenceSystem/Rule">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Uncertainty.ecore#//FuzzyInferenceSystem/Rule/operator"/>

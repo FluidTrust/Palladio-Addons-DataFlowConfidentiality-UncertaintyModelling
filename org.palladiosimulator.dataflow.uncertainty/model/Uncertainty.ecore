@@ -62,7 +62,8 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
     <eClassifiers xsi:type="ecore:EClass" name="DefuzzificationFunction" eSuperTypes="#//FuzzyInferenceSystem/FuzzyFunction"/>
-    <eClassifiers xsi:type="ecore:EClass" name="MembershipFunction" abstract="true">
+    <eClassifiers xsi:type="ecore:EClass" name="MembershipFunction" abstract="true"
+        interface="true">
       <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
         <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       </eOperations>
@@ -72,32 +73,68 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TriangularMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="if (a&lt;x &amp;&amp; x&lt;=m) {&#xA;&#x9;return (x-a)/(m-a);&#xA;} else if (m&lt;x &amp;&amp; x &lt;= b) {&#xA;&#x9;return (b-x)/(b-m);&#xA;}&#xA;&#xA;return 0;"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="m" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="GaussianMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="double denom = -(x-m) * (x-m);&#xA;double counter = 2*o*o;&#xA;&#xA;return java.lang.Math.exp((denom/counter));"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="o" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="m" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TrapezoidalMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="if (a &lt;= x &amp;&amp; x &lt;= b) {&#xA;&#x9;return (x-a)/(b-a);&#xA;} else if (b &lt;= x &amp;&amp; x &lt;= c) {&#xA;&#x9;return 1;&#xA;} else if (c &lt;= x &amp;&amp; x &lt;= d) {&#xA;&#x9;return (d-x)/(d-c);&#xA;} else {&#xA;&#x9;return 0;&#xA;}&#xA;"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="d" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="GeneralizedBellMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="double abs = java.lang.Math.abs(x-c/a);&#xA;double pow = java.lang.Math.pow(abs, 2*b);&#xA;double counter = 1 + pow;&#xA;&#xA;return 1/counter;"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="double ab = (a+b)/2;&#xA;if(x&lt;=a) {&#xA;&#x9;return 0;&#xA;} else if (a&lt;=x &amp;&amp; x&lt;=ab) {&#xA;&#x9;return 2*((x-a)/(b-a))*((x-a)/(b-a));&#xA;} else if (ab&lt;=x &amp;&amp; x&lt;=b) {&#xA;&#x9;return 1 - 2*((x-b)/(b-a))*((x-b)/(b-a));&#xA;} else {&#xA;&#x9;return 1;&#xA;}"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ZMF" eSuperTypes="#//FuzzyInferenceSystem/MembershipFunction">
+      <eOperations name="calculateTrustWeight" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="double ab = (a+b)/2;&#xA;if(x&lt;=a) {&#xA;&#x9;return 1;&#xA;} else if (a&lt;=x &amp;&amp; x&lt;=ab) {&#xA;&#x9;return 1 - 2*((x-a)/(b-a))*((x-a)/(b-a));&#xA;} else if (ab&lt;=x &amp;&amp; x&lt;=b) {&#xA;&#x9;return 2*((x-b)/(b-a))*((x-b)/(b-a));&#xA;} else {&#xA;&#x9;return 0;&#xA;}"/>
+        </eAnnotations>
+        <eParameters name="x" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="c" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="b" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Rule">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//FuzzyInferenceSystem/RULE_Operator"/>
