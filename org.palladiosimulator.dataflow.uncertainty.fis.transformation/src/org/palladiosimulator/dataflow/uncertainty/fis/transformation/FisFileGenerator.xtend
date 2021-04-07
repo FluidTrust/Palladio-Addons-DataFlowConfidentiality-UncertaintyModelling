@@ -20,7 +20,7 @@ import java.nio.file.Files
 
 class FisFileGenerator { 
 	
-	def doGenerate(FuzzyInferenceSystem fis) {
+	static def doGenerate(FuzzyInferenceSystem fis) {
 		var output = fis.compile
 		var tmpFisPath = Files.createTempFile(fis.name, ".fis")
 		var tmpFis = tmpFisPath.toFile
@@ -31,7 +31,7 @@ class FisFileGenerator {
 	    return tmpFisPath;
 	}
 	
-	def compile(FuzzyInferenceSystem sys) '''
+	static def compile(FuzzyInferenceSystem sys) '''
 	[System]
 	Name='«sys.name»'
 	Type='mamdani'
@@ -61,7 +61,7 @@ class FisFileGenerator {
 	«ENDFOR»
 	'''
 	
-	def getRuleMFIndex(FuzzyFunction funct, EList<MembershipFunction> ruleMFS) {
+	static def getRuleMFIndex(FuzzyFunction funct, EList<MembershipFunction> ruleMFS) {
 		for(ruleFunct:ruleMFS) {
 			if(ruleFunct.parentFuzzyFunction == funct) {
 				return funct.term.indexOf(ruleFunct)+1
@@ -70,7 +70,7 @@ class FisFileGenerator {
 		return 0
 	}
 	
-	def compile(FuzzyFunction funct)'''
+	static def compile(FuzzyFunction funct)'''
 	Name='«funct.name»'
 	Range=[«funct.range.get(0)» «funct.range.get(1)»]
 	NumMFs=«funct.term.size»
@@ -79,7 +79,7 @@ class FisFileGenerator {
 	«ENDFOR»
 	'''
 	
-	def compile(MembershipFunction mf) '''
+	static def compile(MembershipFunction mf) '''
 	'«mf.name»':«IF mf instanceof TriangularMF»«mf.compile»
 	«ELSEIF mf instanceof GaussianMF»«mf.compile»
 	«ELSEIF mf instanceof TrapezoidalMF»«mf.compile»
@@ -89,42 +89,42 @@ class FisFileGenerator {
 	«ENDIF»
 	'''
 	
-	def compile(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.m»]'''
+	static def compile(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.m»]'''
 	
-	def compile(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.m»]'''
+	static def compile(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.m»]'''
 	
-	def compile(TrapezoidalMF mf) ''''trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]'''
+	static def compile(TrapezoidalMF mf) ''''trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]'''
 	
-	def compile(GeneralizedBellMF mf) ''''gbellmf',[«mf.a» «mf.b» «mf.c»]'''
+	static def compile(GeneralizedBellMF mf) ''''gbellmf',[«mf.a» «mf.b» «mf.c»]'''
 	
-	def compile(SMF mf) ''''smf',[«mf.a» «mf.b»]'''
+	static def compile(SMF mf) ''''smf',[«mf.a» «mf.b»]'''
 	
-	def compile(ZMF mf) ''''zmf',[«mf.a» «mf.b»]'''
+	static def compile(ZMF mf) ''''zmf',[«mf.a» «mf.b»]'''
 	
-	def compile(AND_Operator op) '''
+	static def compile(AND_Operator op) '''
 	«IF op.value == 0»'min'
 	«ELSEIF op.value == 1»'prod'
 	«ELSEIF op.value == 2»'bounded_difference'
 	«ENDIF»'''
 	
-	def compile(OR_Operator op) '''
+	static def compile(OR_Operator op) '''
 	«IF op.value == 0»'max'
 	«ELSEIF op.value == 1»'probor'
 	«ELSEIF op.value == 2»'bounded_sum'
 	«ENDIF»'''
 	
-	def compile(ACT_Operator op) '''
+	static def compile(ACT_Operator op) '''
 	«IF op.value == 0»'prod'
 	«ELSEIF op.value == 1»'min'
 	«ENDIF»'''
 	
-	def compile(ACCU_Method op) '''
+	static def compile(ACCU_Method op) '''
 	«IF op.value == 0»'max'
 	«ELSEIF op.value == 1»'bounded_sum'
 	«ELSEIF op.value == 2»'normalized_sum'
 	«ENDIF»'''
 	
-	def compile(DEFUZZY_Method op) '''
+	static def compile(DEFUZZY_Method op) '''
 	«IF op.value == 0»'centroid'
 	«ELSEIF op.value == 1»'bisector'
 	«ELSEIF op.value == 2»'som'
