@@ -5,20 +5,34 @@
   <eClassifiers xsi:type="ecore:EClass" name="UncertaintyContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sources" upperBound="-1"
         eType="#//InformationSource" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyTypes" upperBound="-1"
-        eType="#//PropertyType" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fisContainer" upperBound="-1"
         eType="#//FuzzyInferenceSystem/FISContainer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharTypes" upperBound="-1"
+        eType="#//TrustedEnumCharacteristicType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumChars" upperBound="-1"
+        eType="#//TrustedEnumCharacteristic"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessControlProperty">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+  <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristicType" eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//EnumCharacteristicType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trust" lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristic" eSuperTypes="../../org.palladiosimulator.dataflow.diagram.characterized/model/DataFlowDiagramCharacterized.ecore#//EnumCharacteristic">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharacteristicType"
+        lowerBound="1" eType="#//TrustedEnumCharacteristicType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSource" lowerBound="1"
         eType="#//InformationSource"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//PropertyType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InformationSource">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fisInputs" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TrustedDataCharacteristicReference"
+      eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//expressions/DataCharacteristicReference #//Trustable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TrustedContainerCharacteristicReference"
+      eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//expressions/ContainerCharacteristicReference #//Trustable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Trustable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trust" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Literal"/>
+  </eClassifiers>
   <eSubpackages name="FuzzyInferenceSystem" nsURI="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0"
       nsPrefix="org.palladiosimulator.dataflow.uncertainty.fis">
     <eClassifiers xsi:type="ecore:EClass" name="FISContainer">
