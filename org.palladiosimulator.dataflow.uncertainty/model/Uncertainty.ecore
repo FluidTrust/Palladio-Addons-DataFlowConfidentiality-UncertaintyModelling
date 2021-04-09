@@ -10,7 +10,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharTypes" upperBound="-1"
         eType="#//TrustedEnumCharacteristicType" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumChars" upperBound="-1"
-        eType="#//TrustedEnumCharacteristic"/>
+        eType="#//TrustedEnumCharacteristic" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustEnumerations" upperBound="-1"
+        eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristicType" eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//EnumCharacteristicType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trust" lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"/>
@@ -22,9 +25,11 @@
         eType="#//InformationSource"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InformationSource">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trustSystem" lowerBound="1"
+        eType="#//FuzzyInferenceSystem/FuzzyInferenceSystem"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fisInputs" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrustedDataCharacteristicReference"
       eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//expressions/DataCharacteristicReference #//Trustable"/>
@@ -48,7 +53,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="input" lowerBound="1"
           upperBound="-1" eType="#//FuzzyInferenceSystem/FuzzificationFunction"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="output" lowerBound="1"
-          upperBound="-1" eType="#//FuzzyInferenceSystem/DefuzzificationFunction"/>
+          eType="#//FuzzyInferenceSystem/DefuzzificationFunction"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="rules" lowerBound="1"
           upperBound="-1" eType="#//FuzzyInferenceSystem/Rule" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="METHOD" lowerBound="1"

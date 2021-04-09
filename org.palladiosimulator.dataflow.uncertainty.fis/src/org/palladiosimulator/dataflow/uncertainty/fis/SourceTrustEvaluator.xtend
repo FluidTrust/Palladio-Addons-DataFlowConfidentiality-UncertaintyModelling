@@ -10,6 +10,6 @@ class SourceTrustEvaluator {
 			var fisPath = FisFileGenerator.doGenerate(source.trustSystem)
 			var fisExecution = FuzzySystemExecutionFactory.create()
 			var executionResult = fisExecution.runFIS(source.fisInputs, fisPath)
-			FuzzySystemResultInterpreter.getMaxMembershipFunction(source.trustSystem.output.get(0).term, executionResult)
+			FuzzySystemResultInterpreter.getMaxMembershipFunction(source.trustSystem.output.term, executionResult)
 	}
 }

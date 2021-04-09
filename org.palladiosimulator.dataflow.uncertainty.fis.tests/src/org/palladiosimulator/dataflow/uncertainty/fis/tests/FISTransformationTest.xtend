@@ -49,15 +49,15 @@ class FISTransformationTest {
 		
 		
 		var executionResult = fisExecution.runFIS(List.of(80.0, 1.0), fisPath)
-		var maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.get(0).term, executionResult).name
+		var maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.term, executionResult).name
 		assertEquals("mid", maxMembershipName)
 		
 		executionResult = fisExecution.runFIS(List.of(90.0, 1.0), fisPath)
-		maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.get(0).term, executionResult).name
+		maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.term, executionResult).name
 		assertEquals("high", maxMembershipName)
 		
 		executionResult = fisExecution.runFIS(List.of(90.0, 9.5), fisPath)
-		maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.get(0).term, executionResult).name
+		maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.term, executionResult).name
 		assertEquals("low", maxMembershipName)
 	}
 	

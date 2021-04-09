@@ -37,7 +37,7 @@ class FisFileGenerator {
 	Type='mamdani'
 	Version=2.0
 	NumInputs=«sys.input.size»
-	NumOutputs=«sys.output.size»
+	NumOutputs=1
 	NumRules=«sys.rules.size»
 	AndMethod=«sys.AND.compile»
 	OrMethod=«sys.OR.compile»
@@ -50,14 +50,13 @@ class FisFileGenerator {
 	«in.compile»
 	«ENDFOR»
 	
-	«FOR out:sys.output»
-	[Output«sys.output.indexOf(out)+1»]
-	«out.compile»
-	«ENDFOR»
+	
+	[Output 1]
+	«sys.output.compile»
 	
 	[Rules]
 	«FOR rule:sys.rules»
-	«FOR sysIn:sys.input SEPARATOR ' '»«getRuleMFIndex(sysIn, rule.inputs)»«ENDFOR», «FOR sysOut:sys.output SEPARATOR ' '»«getRuleMFIndex(sysOut, rule.output)»«ENDFOR» (1) : «rule.operator.value»
+	«FOR sysIn:sys.input SEPARATOR ' '»«getRuleMFIndex(sysIn, rule.inputs)»«ENDFOR», «getRuleMFIndex(sys.output, rule.output)» (1) : «rule.operator.value»
 	«ENDFOR»
 	'''
 	
