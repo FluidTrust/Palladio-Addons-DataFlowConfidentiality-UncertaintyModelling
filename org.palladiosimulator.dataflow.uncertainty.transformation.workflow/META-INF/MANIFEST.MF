@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Workflow
+Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.transformation.workflow
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty.transformation.workflow
+Require-Bundle: org.palladiosimulator.dataflow.confidentiality.transformation.workflow;bundle-version="1.0.0",
+ org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
+ de.uka.ipd.sdq.workflow.mdsd,
+ de.uka.ipd.sdq.workflow,
+ org.palladiosimulator.dataflow.uncertainty.transformation;bundle-version="1.0.0",
+ org.palladiosimulator.dataflow.confidentiality.transformation.prolog;bundle-version="0.1.0"
+Export-Package: org.palladiosimulator.dataflow.uncertainty.transformation.workflow,
+ org.palladiosimulator.dataflow.uncertainty.transformation.workflow.jobs
