@@ -18,6 +18,8 @@
 *.zip
 *.tar.gz
 *.rar
+
+# Xtend files
 *.xtendbin
 *._trace
 
