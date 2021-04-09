@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.tests
+package org.palladiosimulator.dataflow.uncertainty.fis.tests
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,11 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
-Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.tests
+Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.fis.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty.tests
-Export-Package: org.palladiosimulator.dataflow.uncertainty.tests
 Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.16.0",
  org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
  org.palladiosimulator.dataflow.uncertainty.fis;bundle-version="1.0.0",
