@@ -11,7 +11,6 @@ import org.palladiosimulator.supporting.prolog.model.prolog.Rule
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
 import org.palladiosimulator.supporting.prolog.model.prolog.expressions.Expression
 import org.palladiosimulator.supporting.prolog.model.prolog.Clause
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Entity
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedStore
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Assignment
@@ -32,6 +31,8 @@ import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.TransformationResultImpl
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.DFD2PrologTransformationWritableTraceImpl
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedActorProcess
+import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.Entity
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.DataCharacteristicReference
 
 class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationImpl {
 	
@@ -49,7 +50,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		addPreamble(dfd)
 		
 		add(createHeaderComment("Characteristic types"))
-		var charTypes = #[trustedCharacteristicTypesInBehaviors, trustedCharacteristicTypesInNodes].flatten.distinct as Iterable<TrustedEnumCharacteristicType>
+		var charTypes = #[trustedCharacteristicTypesInBehaviors, trustedCharacteristicTypesInNodes].flatten.distinct
 		charTypes.forEach[transformCharacteristicType.add]
 		
 		add(createHeaderComment("Nodes"))
@@ -301,6 +302,11 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		)
 	}
 	
+	// In case there are data DataCharacteristicReferences and not TrustedDataCharacteristicReferences currently this only works when only using "Trusted" objects
+//	protected def dispatch Expression transformAssignmentTerm(DataCharacteristicReference rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
+//		super.transformAssignmentTerm(rhs,node,pin,ct,value)
+//	}
+	
 	protected def dispatch Expression transformAssignmentTerm(TrustedContainerCharacteristicReference rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
 		var referencedCharacteristicType = rhs.characteristicType ?: ct
 		var referencedValue = rhs.literal ?: value
@@ -316,13 +322,13 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 	
 	protected def static Iterable<TrustedEnumCharacteristicType> findAllTrustedCharacteristicTypesInNodes(DataFlowDiagram dfd) {
 		val characterizedNodes = dfd.eAllContents.filter(CharacterizedNode)
-		characterizedNodes.flatMap[characteristics.iterator].filter(TrustedEnumCharacteristic).map[trustedEnumCharacteristicType].distinct as Iterable<TrustedEnumCharacteristicType>
+		characterizedNodes.flatMap[characteristics.iterator].filter(TrustedEnumCharacteristic).map[trustedEnumCharacteristicType].distinct
 	}
 	
 	protected def static Iterable<TrustedEnumCharacteristicType> findAllTrustedCharacteristicTypesInBehaviors(DataFlowDiagram dfd) {
 		val characterizedNodes = dfd.eAllContents.filter(CharacterizedNode)
 		val assignments = characterizedNodes.map[behavior].flatMap[assignments.iterator].toSet
-		assignments.map[lhs].map[characteristicType].filter(TrustedEnumCharacteristicType).distinct as Iterable<TrustedEnumCharacteristicType>
+		assignments.map[lhs].map[characteristicType].filter(TrustedEnumCharacteristicType).distinct
 	}
 	
 	def getLiteralForMembershipFunction(MembershipFunction funct, TrustedEnumCharacteristicType ct) {

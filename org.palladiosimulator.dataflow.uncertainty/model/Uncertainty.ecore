@@ -2,6 +2,10 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="Uncertainty" nsURI="http://palladiosimulator.org/dataflow/uncertainty/1.0"
     nsPrefix="org.palladiosimulator.dataflow.uncertainty">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="UncertaintyContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sources" upperBound="-1"
         eType="#//InformationSource" containment="true"/>
@@ -10,7 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharTypes" upperBound="-1"
         eType="#//TrustedEnumCharacteristicType" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumChars" upperBound="-1"
-        eType="#//TrustedEnumCharacteristic" containment="true"/>
+        eType="#//TrustedEnumCharacteristic"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustEnumerations" upperBound="-1"
         eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"
         containment="true"/>
@@ -19,8 +23,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="trust" lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristic" eSuperTypes="../../org.palladiosimulator.dataflow.diagram.characterized/model/DataFlowDiagramCharacterized.ecore#//EnumCharacteristic">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="trustLiteralsAndFISOutputMatches"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+      <details key="trustLiteralsAndFISOutputMatches" value="let lit : Sequence(String) = self.trustedEnumCharacteristicType.trust.literals->collect(l|l.name), out : Sequence(String)= self.trustSource.trustSystem.output.term-> collect(t|t.name) in lit = out"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharacteristicType"
-        lowerBound="1" eType="#//TrustedEnumCharacteristicType"/>
+        lowerBound="1" eType="#//TrustedEnumCharacteristicType" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="derivation" value="self.type.oclAsType(Uncertainty::TrustedEnumCharacteristicType)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trustSource" lowerBound="1"
         eType="#//InformationSource"/>
   </eClassifiers>
@@ -35,7 +50,7 @@
       eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//expressions/DataCharacteristicReference #//Trustable"/>
   <eClassifiers xsi:type="ecore:EClass" name="TrustedContainerCharacteristicReference"
       eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//expressions/ContainerCharacteristicReference #//Trustable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Trustable">
+  <eClassifiers xsi:type="ecore:EClass" name="Trustable" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trust" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Literal"/>
   </eClassifiers>
   <eSubpackages name="FuzzyInferenceSystem" nsURI="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0"

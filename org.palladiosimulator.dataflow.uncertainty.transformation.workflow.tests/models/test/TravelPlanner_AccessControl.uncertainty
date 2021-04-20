@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="remoteAuthenticationService">
+    <fisInputs>70.0</fisInputs>
+    <fisInputs>1.0</fisInputs>
+    <fisInputs>2.5</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="onSiteAuthenticationService">
+    <fisInputs>90.0</fisInputs>
+    <fisInputs>10.0</fisInputs>
+  </sources>
+  <fisContainer>
+    <fuzzificationFunctions name="remoteAuthEncryption">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="DES"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="AES/RSA" a="1.0" b="1.0" c="1.0" d="1.0"/>
+      <range>0.0</range>
+      <range>1.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="remoteAuthAge">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:ZMF" name="remoteAgeValid" b="6.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:SMF" name="remoteAgeDeprecated" a="2.5" b="8.0"/>
+      <range>0.0</range>
+      <range>10.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="authAccuracy">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="lowAcc" a="-40.0" m="40.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="midAcc" a="10.0" b="50.0" m="90.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="highAcc" a="60.0" b="100.0" m="140.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="onSiteAuthAge">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:ZMF" name="onSiteAgeValid" b="25.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:SMF" name="onSiteAgeDeprecated" a="18.0" b="30.0"/>
+      <range>0.0</range>
+      <range>30.0</range>
+    </fuzzificationFunctions>
+    <defuzzificationFunction name="authDefuzzy">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="lowTrust" o="18.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="midTrust" o="18.0" m="50.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="highTrust" o="18.0" m="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.2 //@fisContainer.0/@fuzzificationFunctions.3" output="//@fisContainer.0/@defuzzificationFunction.0" name="onSiteAuthFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.2 //@fisContainer.0/@fuzzificationFunctions.3/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="high"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.1 //@fisContainer.0/@fuzzificationFunctions.3/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="mid"/>
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.0 //@fisContainer.0/@fuzzificationFunctions.3/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="low"/>
+    </fuzzyInferenceSystems>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.2 //@fisContainer.0/@fuzzificationFunctions.1 //@fisContainer.0/@fuzzificationFunctions.0" output="//@fisContainer.0/@defuzzificationFunction.0" name="remoteAuthFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.2 //@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="highAES"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.1 //@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="midAES"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.0 //@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="lowAES"/>
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0 //@fisContainer.0/@fuzzificationFunctions.1/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="deprecatedDES"/>
+    </fuzzyInferenceSystems>
+  </fisContainer>
+</org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer>

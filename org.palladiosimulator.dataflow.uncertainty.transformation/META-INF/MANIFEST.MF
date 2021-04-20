@@ -18,4 +18,5 @@ Require-Bundle: org.palladiosimulator.dataflow.confidentiality.transformation.pr
  org.palladiosimulator.supporting.prolog;bundle-version="4.3.0",
  org.palladiosimulator.supporting.prolog.api;bundle-version="1.0.0",
  org.palladiosimulator.dataflow.uncertainty.fis;bundle-version="1.0.0"
-Export-Package: org.palladiosimulator.dataflow.uncertainty.transformation
+Export-Package: org.palladiosimulator.dataflow.uncertainty.transformation,
+ org.palladiosimulator.dataflow.uncertainty.transformation.impl

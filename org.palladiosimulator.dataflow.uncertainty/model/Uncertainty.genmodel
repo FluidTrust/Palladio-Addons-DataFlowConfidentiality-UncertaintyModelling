@@ -11,7 +11,7 @@
   <foreignModel>Uncertainty.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="Uncertainty" basePackage="org.palladiosimulator.dataflow" disposableProviderFactory="true"
-      ecorePackage="Uncertainty.ecore#/">
+      extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="Uncertainty.ecore#/">
     <genClasses ecoreClass="Uncertainty.ecore#//UncertaintyContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//UncertaintyContainer/sources"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//UncertaintyContainer/fisContainer"/>
@@ -37,7 +37,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Uncertainty.ecore#//Trustable/trust"/>
     </genClasses>
     <nestedGenPackages prefix="FuzzyInferenceSystem" basePackage="org.palladiosimulator.dataflow.Uncertainty"
-        disposableProviderFactory="true" ecorePackage="Uncertainty.ecore#//FuzzyInferenceSystem">
+        disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
+        ecorePackage="Uncertainty.ecore#//FuzzyInferenceSystem">
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator">
         <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator/MIN"/>
         <genEnumLiterals ecoreEnumLiteral="Uncertainty.ecore#//FuzzyInferenceSystem/AND_Operator/PROD"/>
