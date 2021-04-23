@@ -211,7 +211,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		
 		add(createHeaderComment("HELPER: collect all available data characteristics"))
 		add(createRule(
-			createCompoundTerm("setof_characteristics", "N", "PIN", "CT", "RESULT", "S"),
+			createCompoundTerm("setof_characteristics", "N", "PIN", "CT", "RESULT", "T","S"),
 			createConjunction(
 				createCompoundTerm("flowTree", "N".toVar, "PIN".toVar, "S".toVar),
 				createCompoundTerm("setof", "V".toVar, createCompoundTerm("characteristic", "N", "PIN", "CT", "V", "T", "S"), "RESULT".toVar)
@@ -228,12 +228,22 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		))
 		
 		// needed?
-		add(createHeaderComment("HELPER: collect all available trust values for a specific data characteristic"))
+		add(createHeaderComment("HELPER: collect all available trust values for a specific data characteristic value"))
 		add(createRule(
 			createCompoundTerm("setof_characteristic_trust", "N", "PIN", "CT", "V", "RESULT", "S"),
 			createConjunction(
 				createCompoundTerm("flowTree", "N".toVar, "PIN".toVar, "S".toVar),
 				createCompoundTerm("setof", "T".toVar, createCompoundTerm("characteristic", "N", "PIN", "CT", "V", "T", "S"), "RESULT".toVar)
+			)
+		))
+		
+		add(createHeaderComment("HELPER: collects all characteristic trusts and compares if there is no match in trust values"))
+		add(createRule(
+			createCompoundTerm("nomatch", "P", "PIN", "NODECHARTYPE", "DATACHARTYPE", "S", "V"), 
+			createConjunction(
+				createCompoundTerm("setof", "T1".toVar, createCompoundTerm("nodeCharacteristic", "P", "NODECHARTYPE", "V", "T1"), "NODETRUST".toVar),
+				createCompoundTerm("setof_characteristic_trust", "P", "PIN", "DATACHARTYPE", "V", "DATATRUST", "S"),
+				createCompoundTerm("intersection", "NODETRUST".toVar, "DATATRUST".toVar, createList(#[]))
 			)
 		))
 		

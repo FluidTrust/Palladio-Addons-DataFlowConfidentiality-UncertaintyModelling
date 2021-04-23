@@ -13,7 +13,7 @@ public class TransformUncertaintyDFDtoPrologJob <T extends KeyValueMDSDBlackboar
             NameGenerationStrategie nameGenerationStrategy) {
     	super(dfdLocation, prologLocation, traceKey, nameGenerationStrategy);
 
-        setTransformationBuilder( UncertaintyDFD2PrologTransformationBuilder.create()
+        setTransformationBuilder(UncertaintyDFD2PrologTransformationBuilder.create()
             .setNameProvider(nameGenerationStrategy));
     }
 

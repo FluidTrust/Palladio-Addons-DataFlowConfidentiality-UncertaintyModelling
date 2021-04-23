@@ -101,24 +101,24 @@ class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 			intersection(REQ, ROLES, []).
 		'''
 
-		var query = prover.query(queryString2)
-		query.bind("CTROLES", '''«roleName» («roleId»)'''.toString)
-		query.bind("CTRIGHTS", '''«accessRightsName» («accessRightsId»)'''.toString)
+		
 
 		// get all matching characteristic values
 		// check for each match, for not matching corresponding trusts of node and data
-		// nomatch muss dann noch in die Präambel
 		var queryString3 = '''
 			inputPin(P, PIN),
 			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
-			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, S),
+			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, ?, S),
 			intersection(REQ, ROLES, INTER),
-			maplist(nomatch(P, PIN, ?CTROLES, ?CTRIGHTS, S), INTER),
-			nomatch(P, PIN, NODECHARTYPE, DATACHARTYPE, V) :- setof(T1, nodeCharacteristic(P, NODECHARTYPE, V, T1), NODETRUST),
-			setof_characteristic_trusts(P, PIN, DATACHARTYPE, V, DATATRUST, S),
-			intersection(NODETRUST, DATATRUST, []).
+			maplist(nomatch(P, PIN, ?CTROLES2, ?CTRIGHTS2, S), INTER).
 		'''
-
+		
+		var query = prover.query(queryString2)
+		query.bind("CTROLES", '''«roleName» («roleId»)'''.toString)
+		query.bind("CTRIGHTS", '''«accessRightsName» («accessRightsId»)'''.toString)
+		//query.bind("CTROLES2", '''«roleName» («roleId»)'''.toString)
+		//query.bind("CTRIGHTS2", '''«accessRightsName» («accessRightsId»)'''.toString)
+		
 		return query
 	}
 	
