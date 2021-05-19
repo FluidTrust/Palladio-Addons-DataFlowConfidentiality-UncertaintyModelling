@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="defaultSource">
+    <fisInputs>50.0</fisInputs>
+  </sources>
+  <fisContainer>
+    <fuzzificationFunctions name="input">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="fullArea1" b="1.0" c="99.0" d="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </fuzzificationFunctions>
+    <defuzzificationFunction name="output">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="fullArea2" b="1.0" c="99.0" d="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.0" output="//@fisContainer.0/@defuzzificationFunction.0" name="modelUpdate">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="oneToOneMapping"/>
+    </fuzzyInferenceSystems>
+  </fisContainer>
+</org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer>

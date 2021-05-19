@@ -18,20 +18,21 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
 public class UncertaintyTransformationWorkflowBuilder extends TransformationWorkflowBuilder {
 	
-	private static final ModelLocation DEFAULT_UC_LOCATION = new ModelLocation("dfd", URI.createFileURI("tmp/uc.xmi"));
+	protected static final ModelLocation DEFAULT_UC_LOCATION = new ModelLocation("dfd", URI.createFileURI("tmp/uc.xmi"));
+	protected ModelLocation ddcLocation;
+	protected ModelLocation ucLocation;
 	
-	public UncertaintyTransformationWorkflowBuilder addUC(UncertaintyContainer uc) {
+	public TransformationWorkflowBuilder addDFD(DataFlowDiagram dfd, DataDictionary dd, UncertaintyContainer uc) {
+		addDFD(dfd, dd);
 		getBlackboard().setContents(DEFAULT_UC_LOCATION, Arrays.asList(uc));
+		ucLocation = DEFAULT_UC_LOCATION;
 		return this;
 	}
 	
-	public UncertaintyTransformationWorkflowBuilder addDFD(DataFlowDiagram dfd, DataDictionary dd, UncertaintyContainer uc) {
-		getBlackboard().removePartition(DEFAULT_DFD_LOCATION.getPartitionID());
-		getBlackboard().addPartition(DEFAULT_DFD_LOCATION.getPartitionID(), new ResourceSetPartition());
-		getBlackboard().setContents(DEFAULT_UC_LOCATION, Arrays.asList(uc));
-		getBlackboard().setContents(DEFAULT_DD_LOCATION, Arrays.asList(dd));
-		getBlackboard().setContents(DEFAULT_DFD_LOCATION, Arrays.asList(dfd));
-		dfdLocation = DEFAULT_DFD_LOCATION;
+	@Override
+	public TransformationWorkflowBuilder addDFD(DataFlowDiagram dfd, DataDictionary dd) {
+		super.addDFD(dfd, dd);
+		ddcLocation = DEFAULT_DD_LOCATION;
 		return this;
 	}
 	
@@ -42,9 +43,6 @@ public class UncertaintyTransformationWorkflowBuilder extends TransformationWork
         // add model loading job
         var loadDFDJob = new LoadModelJob<>(getDFDLocation());
         jobSequence.add(loadDFDJob);
-        
-//        var loadUCJob = new LoadModelJob<>(DEFAULT_UC_LOCATION);
-//        jobSequence.add(loadUCJob);
 
         // create transformation job
         getBlackboard().addPartition(getPrologLocation().getPartitionID(), new ResourceSetPartition());
