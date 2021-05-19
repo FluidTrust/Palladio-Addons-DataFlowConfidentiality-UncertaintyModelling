@@ -23,7 +23,7 @@ import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.
 class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 
 	new() {
-		super("TrustedRoles", "_-OSe8J3GEeuI4pUKoRa1Cw", "TrustedAccessPermissions", "_xO2TZp3OEeuiD8YzsPy-rw")
+		super("Roles", "_-OSe8J3GEeuI4pUKoRa1Cw", "AccessPermissions", "_xO2TZp3OEeuiD8YzsPy-rw")
 	}
 	
 	@BeforeAll
@@ -41,7 +41,7 @@ class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 	protected def DataFlowDiagram loadAndInitDFD() {
 		UncertaintyPackage.eINSTANCE.getClass
 		var resourceSet = new ResourceSetImpl
-		var ucUri = getRelativeURI("models/test/TravelPlanner_AccessControl.uncertainty")
+		var ucUri = getRelativeURI("models/test/modelupdate.uncertainty")
 		var ucResource = resourceSet.getResource(ucUri, true)
 		var uc = ucResource.contents.iterator.next as UncertaintyContainer
 		var ddUri = getRelativeURI("models/test/DDC_TravelPlanner_AccessControl.xmi")
@@ -81,12 +81,12 @@ class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 
 	protected override getQuery() {
 		// general no matching characteristic values of node and Pin
-		var queryString = '''
-			inputPin(P, PIN),
-			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
-			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, S),
-			intersection(REQ, ROLES, []).
-		'''
+//		var queryString = '''
+//			inputPin(P, PIN),
+//			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
+//			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, S),
+//			intersection(REQ, ROLES, []).
+//		'''
 
 		// extended variant of using setof_characteristic
 		// only get the set of characteristics with trust T
@@ -105,24 +105,22 @@ class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 
 		// get all matching characteristic values
 		// check for each match, for not matching corresponding trusts of node and data
-		var queryString3 = '''
-			inputPin(P, PIN),
-			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
-			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, ?, S),
-			intersection(REQ, ROLES, INTER),
-			maplist(nomatch(P, PIN, ?CTROLES2, ?CTRIGHTS2, S), INTER).
-		'''
+//		var queryString3 = '''
+//			inputPin(P, PIN),
+//			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
+//			setof_characteristics(P, PIN, ?CTRIGHTS, REQ, ?, S),
+//			intersection(REQ, ROLES, INTER),
+//			maplist(nomatch(P, PIN, ?CTROLES2, ?CTRIGHTS2, S), INTER).
+//		'''
 		
 		var query = prover.query(queryString2)
 		query.bind("CTROLES", '''«roleName» («roleId»)'''.toString)
 		query.bind("CTRIGHTS", '''«accessRightsName» («accessRightsId»)'''.toString)
-		//query.bind("CTROLES2", '''«roleName» («roleId»)'''.toString)
-		//query.bind("CTRIGHTS2", '''«accessRightsName» («accessRightsId»)'''.toString)
 		
 		return query
 	}
 	
-	protected static def getRelativeURI(String path) {
+	protected override getRelativeURI(String path) {
 		return UncertaintyStandaloneUtil.getRelativeURI(path)
 	}
 }

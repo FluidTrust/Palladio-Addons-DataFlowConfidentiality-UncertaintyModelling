@@ -34,6 +34,8 @@
               href="DDC_TravelPlanner_AccessControl.xmi#_xO2TZp3OEeuiD8YzsPy-rw"/>
           <literal
               href="DDC_TravelPlanner_AccessControl.xmi#_tkFZ4NvTEeqNdo_V4bA-xw"/>
+          <trust
+              href="DDC_TravelPlanner_AccessControl.xmi#_IBCycJ3HEeuI4pUKoRa1Cw"/>
         </lhs>
         <rhs
             xsi:type="expressions:True"
@@ -64,7 +66,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_tkFZ4NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor"
@@ -101,7 +103,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedStore"
@@ -119,7 +121,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedStore"
@@ -137,7 +139,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_tkFZ4NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedStore"
@@ -155,7 +157,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedActorProcess"
@@ -180,7 +182,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_qiLIENvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -198,7 +200,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -216,7 +218,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_qiLIENvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedActorProcess"
@@ -248,7 +250,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_tkFZ4NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -266,7 +268,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_tkFZ4NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -284,7 +286,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -302,7 +304,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -320,7 +322,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_qiLIENvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.0"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess"
@@ -338,7 +340,7 @@
       <values
           href="DDC_TravelPlanner_AccessControl.xmi#_sJIe0NvTEeqNdo_V4bA-xw"/>
       <trustSource
-          href="TravelPlanner_AccessControl.uncertainty#//@sources.1"/>
+          href="modelupdate.uncertainty#//@sources.0"/>
     </characteristics>
   </nodes>
   <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow"
