@@ -11,13 +11,6 @@
         eType="#//InformationSource" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fisContainer" upperBound="-1"
         eType="#//FuzzyInferenceSystem/FISContainer" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumCharTypes" upperBound="-1"
-        eType="#//TrustedEnumCharacteristicType" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trustedEnumChars" upperBound="-1"
-        eType="#//TrustedEnumCharacteristic"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trustEnumerations" upperBound="-1"
-        eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristicType" eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//EnumCharacteristicType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trust" lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"/>

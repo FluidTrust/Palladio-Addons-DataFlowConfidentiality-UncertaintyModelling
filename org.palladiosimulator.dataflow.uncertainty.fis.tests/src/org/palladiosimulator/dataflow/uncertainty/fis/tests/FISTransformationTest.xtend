@@ -32,7 +32,6 @@ class FISTransformationTest {
 	def void testTransformation() {
 		UncertaintyPackage.eINSTANCE.getClass
 		val reg = Resource.Factory.Registry.INSTANCE
-//		reg.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
       	reg.getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl)
 		val resSet = new ResourceSetImpl()
 		

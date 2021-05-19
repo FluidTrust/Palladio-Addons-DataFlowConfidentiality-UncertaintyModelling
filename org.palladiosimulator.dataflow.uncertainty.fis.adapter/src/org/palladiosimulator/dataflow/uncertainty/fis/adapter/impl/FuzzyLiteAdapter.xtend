@@ -27,8 +27,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		var dataPath = createDataFile(inputs)
 		var resultPath = runSystem(fisPath, dataPath)
 		var output = parseOutputFromResultFile(resultPath)
-		Files.deleteIfExists(dataPath);
-		Files.deleteIfExists(resultPath);
+		
 		return output
 	}
 	
@@ -36,11 +35,11 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		try {
 			var line = String.join(" ", data.map[d| Double.toString(d)])
             var tempFile = Files.createTempFile("tmpFISInputs", ".fld");
+            Files.deleteIfExists(tempFile);
             Files.write(tempFile, line.getBytes(StandardCharsets.UTF_8));
             
             return tempFile
         } catch (IOException e) {
-        	println(e.message)
             e.printStackTrace
         }
 	}
@@ -48,15 +47,15 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	private def runSystem(Path systemPath, Path dataPath) {
 	    try {
 	    	var resultPath = Files.createTempFile("tmpFISOutput", ".fld");
+	    	Files.deleteIfExists(resultPath);
 	        val pb = new ProcessBuilder(fuzzylitePath, "-i", systemPath.toString, "-of", "fld", "-o", resultPath.toString, "-d", dataPath.toString)
-	        pb.redirectOutput(Redirect.INHERIT)
-	        pb.redirectError(Redirect.INHERIT)
+	        pb.redirectOutput(Redirect.DISCARD)
+	        pb.redirectError(Redirect.DISCARD)
 	        val process = pb.start()
 	        process.waitFor();
 	        
 	        return resultPath
 	    } catch(IOException e) {
-	        println(e.message)
 	        e.printStackTrace
 	    }
 	}
@@ -68,17 +67,26 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		if(split.size == 2) {
 			var resultLine = split.get(1).split(" ")
 			if(resultLine.size == 3) {
-				return Double.parseDouble(resultLine.get(2))
+				try {
+					return Double.parseDouble(resultLine.get(2))
+				} catch (NumberFormatException e) {
+					// Value is not formated as a double
+					// should never occur
+					e.printStackTrace
+				}
 			}
 		}
 		return Double.NaN
 	}
 	
 	private def readResultFile(Path resultPath) {
-		var resultFileContent = Files.readString(resultPath);
-        return resultFileContent
+		try {
+			var resultFileContent = Files.readString(resultPath);
+        	return resultFileContent
+		} catch (IOException e) {
+			e.printStackTrace
+		}
 	}
-	
 
 	private def String getFileName() {
 		var os = "";
@@ -101,7 +109,10 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		if (cl.getResource(execFileName) === null) {
 			return Optional.empty
 		}
-		try (var InputStream execInStream = cl.getResourceAsStream(execFileName)) {
+		
+		var InputStream execInStream 
+		try {
+			execInStream = cl.getResourceAsStream(execFileName) 
 			var execFilePath = Files.createTempFile(execFileName, "")
 	        var execFile = execFilePath.toFile
 	        execFile.deleteOnExit
@@ -110,11 +121,12 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	        FileUtils.writeByteArrayToFile(execFile, execFileBytes)
 	        
 	        execFile.setExecutable(true)
-			execInStream.close
 			
 			return Optional.of(execFile)
 		} catch (IOException e) {
 			e.printStackTrace
+		} finally {
+			execInStream.close
 		}
 		
 		return Optional.empty

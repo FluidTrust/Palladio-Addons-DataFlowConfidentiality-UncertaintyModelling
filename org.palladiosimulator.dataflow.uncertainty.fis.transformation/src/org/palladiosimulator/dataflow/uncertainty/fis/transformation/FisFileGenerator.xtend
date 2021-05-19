@@ -66,7 +66,7 @@ class FisFileGenerator {
 				return funct.term.indexOf(ruleFunct)+1
 			}
 		}
-		return 0
+		return -1
 	}
 	
 	static def compile(FuzzyFunction funct)'''

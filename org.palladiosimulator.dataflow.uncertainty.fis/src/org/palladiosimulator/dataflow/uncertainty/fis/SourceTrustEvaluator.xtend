@@ -6,6 +6,13 @@ import org.palladiosimulator.dataflow.uncertainty.fis.adapter.FuzzySystemExecuti
 
 class SourceTrustEvaluator {
 	
+	private new() { }
+	
+	/**
+	 * Executes the given InformationSource and returns the interpreted
+	 * MemberschipFunction, the result maps to.
+	 * 
+	 * */
 	static def evaluate(InformationSource source) {
 			var fisPath = FisFileGenerator.doGenerate(source.trustSystem)
 			var fisExecution = FuzzySystemExecutionFactory.create()

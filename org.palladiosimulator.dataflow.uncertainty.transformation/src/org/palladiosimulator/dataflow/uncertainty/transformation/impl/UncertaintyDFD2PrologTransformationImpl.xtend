@@ -27,6 +27,7 @@ import org.palladiosimulator.dataflow.Uncertainty.TrustedEnumCharacteristic
 import org.palladiosimulator.dataflow.uncertainty.fis.SourceTrustEvaluator
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.MembershipFunction
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyFactory
+import org.palladiosimulator.dataflow.Uncertainty.InformationSource
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.TransformationResultImpl
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.DFD2PrologTransformationWritableTraceImpl
@@ -162,6 +163,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		
 		// node characteristics
 		node.characteristics.filter(TrustedEnumCharacteristic).forEach[characteristic |
+			// evaluate the certainty value and get the fitting enum literal
 			val trust = SourceTrustEvaluator.evaluate(characteristic.trustSource).getLiteralForMembershipFunction(characteristic.trustedEnumCharacteristicType)
 			characteristic.values.forEach[literal |
 				clauses += createFact(createCompoundTerm("nodeCharacteristic", node.uniqueQuotedString, characteristic.type.uniqueQuotedString, literal.uniqueQuotedString, trust.uniqueQuotedString))
@@ -341,8 +343,8 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		assignments.map[lhs].map[characteristicType].filter(TrustedEnumCharacteristicType).distinct
 	}
 	
-	def getLiteralForMembershipFunction(MembershipFunction funct, TrustedEnumCharacteristicType ct) {
-		ct.trust.literals.findFirst[l| l.name == funct.name]
+	protected def getLiteralForMembershipFunction(MembershipFunction funct, TrustedEnumCharacteristicType ct) {
+		ct.trust.literals.findFirst[l| l.name.equals(funct.name)]
 	}
 	
 }

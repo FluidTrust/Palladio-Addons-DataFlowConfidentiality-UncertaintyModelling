@@ -1,11 +1,17 @@
 package org.palladiosimulator.dataflow.uncertainty.fis
 
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.MembershipFunction
-import org.eclipse.emf.common.util.EList
+import java.util.List
 
 class FuzzySystemResultInterpreter {
-		// transforming the result back to the fuzzy set with the highest membership value
-	static def getMaxMembershipFunction(EList<MembershipFunction> terms, double executionResult) {
+	
+	private new() { }
+	
+	// transforming the result back to the fuzzy set with the highest membership value
+	/**
+	 * Transforms the result 
+	 */
+	static def getMaxMembershipFunction(List<MembershipFunction> terms, double executionResult) {
 		var membershipValues = terms.map[t|t.calculateTrustWeight(executionResult)]
 		var membership = 0;
 		var maxMembershipValue = Double.MIN_VALUE;
