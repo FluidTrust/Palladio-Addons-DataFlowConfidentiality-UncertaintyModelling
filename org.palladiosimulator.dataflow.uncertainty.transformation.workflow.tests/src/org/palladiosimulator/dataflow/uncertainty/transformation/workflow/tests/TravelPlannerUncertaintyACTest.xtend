@@ -120,7 +120,7 @@ class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 		return query
 	}
 	
-	protected override getRelativeURI(String path) {
+	protected static def getRelativeURI(String path) {
 		return UncertaintyStandaloneUtil.getRelativeURI(path)
 	}
 }

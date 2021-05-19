@@ -16,18 +16,12 @@ public class ModelUpdaterTransformationWorkflowBuilder extends UncertaintyTransf
 	
 	private static int JOB_SEQUENCE_ADDITION_INDEX = 1;
 	
-	public TransformationWorkflowBuilder addDFD(URI dfdURI) {
-		getBlackboard().removePartition(DEFAULT_DFD_LOCATION.getPartitionID());
-		getBlackboard().addPartition(DEFAULT_DFD_LOCATION.getPartitionID(), new ResourceSetPartition());
-		dfdLocation = new ModelLocation(DEFAULT_DFD_LOCATION.getPartitionID(), dfdURI);
-		return this;
-	}
-	
-	// Only sets a class variable. The model is added to the blackboard, when addDFD is called
+	// Only needed for testing
 	public void addDDC(URI ddcURI) {
 		ddcLocation = new ModelLocation(DEFAULT_DFD_LOCATION.getPartitionID(), ddcURI);
 	}
 	
+	// Only needed for testing
 	public void addUC(URI ucURI) {
 		ucLocation = new ModelLocation(DEFAULT_DFD_LOCATION.getPartitionID(), ucURI);
 	}

@@ -2,7 +2,6 @@ package org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.SimpleModelsAnalysisIntegrationTest
 import org.junit.jupiter.api.BeforeAll
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.util.UncertaintyStandaloneUtil
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,8 +11,7 @@ class SimpleModelsModelUpdateAnalysisIntegrationTest extends SimpleModelsAnalysi
 	
 	@BeforeAll
 	static def void init() {
-		AnalysisIntegrationTestBase.init()
-		UncertaintyStandaloneUtil.init();
+		ModelUpdateTestUtil.initTest
 	}
 	
 	@BeforeEach
