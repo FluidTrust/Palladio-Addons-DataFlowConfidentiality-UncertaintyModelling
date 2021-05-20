@@ -4,48 +4,31 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.naming.UniqueNameProvider
 import org.palladiosimulator.dataflow.Uncertainty.TrustedEnumCharacteristicType
 import java.util.ArrayList
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Pin
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedNode
 import org.palladiosimulator.supporting.prolog.model.prolog.Rule
-import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
 import org.palladiosimulator.supporting.prolog.model.prolog.expressions.Expression
 import org.palladiosimulator.supporting.prolog.model.prolog.Clause
-import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedStore
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Assignment
-import java.util.Optional
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.True
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.False
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Or
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.And
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Not
-import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.Node
 import org.palladiosimulator.dataflow.Uncertainty.TrustedDataCharacteristicReference
 import org.palladiosimulator.dataflow.Uncertainty.TrustedContainerCharacteristicReference
 import org.palladiosimulator.dataflow.Uncertainty.TrustedEnumCharacteristic
 import org.palladiosimulator.dataflow.uncertainty.fis.SourceTrustEvaluator
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.MembershipFunction
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyFactory
-import org.palladiosimulator.dataflow.Uncertainty.InformationSource
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.TransformationResultImpl
-import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.DFD2PrologTransformationWritableTraceImpl
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedActorProcess
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.Entity
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.DataCharacteristicReference
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType
+import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.DFD2PrologTransformationImpl.DFD2PrologOutputBehaviorCreator
 
 class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationImpl {
 	
 	val uncertaintyDFDFactory = UncertaintyFactory.eINSTANCE
-	protected var Iterable<TrustedEnumCharacteristicType> trustedCharacteristicTypesInBehaviors
-	protected var Iterable<TrustedEnumCharacteristicType> trustedCharacteristicTypesInNodes
 	
 	new(UniqueNameProvider nameProvider) {
 		super(nameProvider)
 	}
 	
-	override transform(DataFlowDiagram dfd) {
 		initTransformationState(dfd)
 		
 		addPreamble(dfd)
@@ -80,17 +63,12 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 	
 	interface TrustedOutputBehaviorCreator {	    
 	    def Rule createTrustedOutputCharacteristicRule(CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust)
+		def Rule createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param)
 	}
 	
 	protected def dispatch transformCharacteristicType(TrustedEnumCharacteristicType characteristicType) {
 		val facts = new ArrayList
-		facts += createFact(createCompoundTerm("characteristicType", characteristicType.uniqueQuotedString))
-		facts.last.stageTrace[trace.add(characteristicType, characteristicType.uniqueQuotedString.value)]
-		for (var i = 0; i < characteristicType.type.literals.size; i++) {
-			val literal = characteristicType.type.literals.get(i)
-			facts += createFact(createCompoundTerm("characteristicTypeValue", characteristicType.uniqueQuotedString, literal.uniqueQuotedString, i.toInt))
-			stageTrace(facts.last, [trace.add(literal, literal.uniqueQuotedString.value)])
-		}
+		facts += _transformCharacteristicType(characteristicType as EnumCharacteristicType)
 		
 		for (var i = 0; i < characteristicType.trust.literals.size; i++) {
 			val trustLiteral = characteristicType.trust.literals.get(i)
@@ -101,59 +79,37 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		facts
 	}
 	
-	protected override dispatch transformNode(CharacterizedProcess process) {
-		process.transformNode("process", [node, pin, ct, l, t |
-			val assignmentToTransform = node.behavior.assignments.findLastMatchingAssignment(pin, ct, l)
-			val transformedAssignment = assignmentToTransform.transformAssignment(node, pin, ct, l, t)
-			val needsFlowTree = assignmentToTransform.needsFlowTree
-			if (needsFlowTree) {
-				val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(node, node.behavior.inputs))
-				flowClauses += transformedAssignment
-				createRule(
-					createCompoundTerm("characteristic", node.uniqueQuotedString, pin.getUniqueQuotedString(process as Node), ct.uniqueQuotedString, l.uniqueQuotedString, t.uniqueQuotedString, "S".toVar, "VISITED".toVar),
-					createConjunction(flowClauses)
-				)
-			} else {
-				val fsVar = process.needsEmptyFlowTree ? createList : "_".toVar
-				createRule(
-					createCompoundTerm("characteristic", node.uniqueQuotedString, pin.getUniqueQuotedString(process as Node), ct.uniqueQuotedString, l.uniqueQuotedString, t.uniqueQuotedString, fsVar, "_".toVar),
-					createConjunction(transformedAssignment)
-				)
-			}
-		])
-	}
-	
-	protected override dispatch transformNode(CharacterizedExternalActor actor) {
-		actor.transformNode("actor", [node, pin, ct, l, t|
-			val assignmentToTransform = node.behavior.assignments.findLastMatchingAssignment(pin, ct, l)
-			if (assignmentToTransform.needsFlowTree) {
-				throw new IllegalArgumentException("Actors must not refer to input pins in their behavior.")
-			} else {
-				createRule(
-					createCompoundTerm("characteristic", node.uniqueQuotedString, pin.getUniqueQuotedString(node), ct.uniqueQuotedString, l.uniqueQuotedString, t.uniqueQuotedString, createList, "_".toVar),
-					createConjunction(assignmentToTransform.transformAssignment(node, pin, ct, l, t))
-				)
-			}
-		])
-	}
-	
 	protected override dispatch transformNode(CharacterizedStore store) {
-		store.transformNode("store", [node, pin, ct, l, t|
-				val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(node, node.behavior.inputs))
+		store.transformNodeWithUncertainty("store", new UncertaintyDFD2PrologOutputBehaviorCreator() {
+			
+			override createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param) {
+				// the flow tree has to be bound before the assignments can use them because the assignment
+				// could be a pure negation, which is not able to bind a valid flow stack.
+				val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs))
 				val term = uncertaintyDFDFactory.createTrustedDataCharacteristicReference
-				term.pin = node.behavior.inputs.get(0)
-				term.characteristicType = ct
-				term.literal = l
-				term.trust = t
-				flowClauses += term.transformAssignmentTerm(node, pin, ct, l, t)
+				term.pin = param.node.behavior.inputs.get(0)
+				term.characteristicType = param.ct
+				term.literal = param.l 
+				term.trust = param.t
+				flowClauses += term.transformAssignmentTerm(param)
 				createRule(
-					createCompoundTerm("characteristic", node.uniqueQuotedString, pin.getUniqueQuotedString(node), ct.uniqueQuotedString, l.uniqueQuotedString, t.uniqueQuotedString, "S".toVar, "VISITED".toVar),
+					createCharacteristicTerm(param.node, param, "S".toVar, "VISITED".toVar),
 					createConjunction(flowClauses)
 				)
-		])
+			}
+		})
 	}
 	
-	protected def transformNode(CharacterizedNode node, String factName, TrustedOutputBehaviorCreator outputBehaviorCreator) {
+	protected override transformNode(CharacterizedNode node, String factName, DFD2PrologOutputBehaviorCreator outputBehaviorCreator) {
+		this.transformNodeWithUncertainty(node, factName, new UncertaintyDFD2PrologOutputBehaviorCreator() {
+			
+			override createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param) {
+				outputBehaviorCreator.createOutputCharacteristicRule(param)
+			}
+		})
+	}
+	
+	protected def transformNodeWithUncertainty(CharacterizedNode node, String factName, UncertaintyDFD2PrologOutputBehaviorCreator outputBehaviorCreator) {
 		val clauses = new ArrayList<Clause>
 		
 		// type-specific fact
@@ -166,7 +122,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 			// evaluate the certainty value and get the fitting enum literal
 			val trust = SourceTrustEvaluator.evaluate(characteristic.trustSource).getLiteralForMembershipFunction(characteristic.trustedEnumCharacteristicType)
 			characteristic.values.forEach[literal |
-				clauses += createFact(createCompoundTerm("nodeCharacteristic", node.uniqueQuotedString, characteristic.type.uniqueQuotedString, literal.uniqueQuotedString, trust.uniqueQuotedString))
+				clauses += createFact(createNodeCharacteristicTerm(new UncertaintyDFD2PrologTransformationParameter(node, characteristic.trustedEnumCharacteristicType, literal, trust)))
 			]
 		]
 		
@@ -178,19 +134,22 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		node.behavior.outputs.forEach[pin |
 			clauses += createFact(createCompoundTerm("outputPin", node.uniqueQuotedString, pin.getUniqueQuotedString(node)))
 			clauses.last.stageTrace[trace.add(node, pin, pin.getUniqueQuotedString(node).value)]
-			trustedCharacteristicTypesInBehaviors.forEach[ct |
-				ct.type.literals.forEach[l |
-					ct.trust.literals.forEach[t | 
-						clauses += outputBehaviorCreator.createTrustedOutputCharacteristicRule(node, pin, ct, l, t)
-						
+			characteristicTypesInBehaviors.forEach[ct |
+				if(ct instanceof TrustedEnumCharacteristicType) {
+					val trustedCt = ct as TrustedEnumCharacteristicType
+					trustedCt.type.literals.forEach[l |
+					trustedCt.trust.literals.forEach[t | 
+						clauses += outputBehaviorCreator.createOutputCharacteristicRule(
+							new UncertaintyDFD2PrologTransformationParameter(node, pin, trustedCt, l, t)
+						)
+						]
 					]
-				]
+				}
 			]
 		]
 		
 		clauses
 	}
-	
 	
 	protected override void addCharacteristicHelper(DataFlowDiagram dfd) {
 		add(createHeaderComment("HELPER: Shortcuts for common use cases"))
@@ -229,7 +188,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 			)
 		))
 		
-		// needed?
+		// TODO: Remove this rule if not needed for queries
 		add(createHeaderComment("HELPER: collect all available trust values for a specific data characteristic value"))
 		add(createRule(
 			createCompoundTerm("setof_characteristic_trust", "N", "PIN", "CT", "V", "RESULT", "S"),
@@ -239,6 +198,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 			)
 		))
 		
+		// TODO: Remove this rule if not needed for queries
 		add(createHeaderComment("HELPER: collects all characteristic trusts and compares if there is no match in trust values"))
 		add(createRule(
 			createCompoundTerm("nomatch", "P", "PIN", "NODECHARTYPE", "DATACHARTYPE", "S", "V"), 
@@ -261,90 +221,31 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		))
 	}
 	
-	
-		/**
-	 * Transforms the right hand side of an assignment to an expression. 
-	 */
-	protected def Expression transformAssignment(Optional<Assignment> assignment, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		assignment.map[rhs.transformAssignmentTerm(node, pin, ct, value, trust)].orElse(createFalse)
+	protected def dispatch Expression transformAssignmentTerm(TrustedDataCharacteristicReference rhs, UncertaintyDFD2PrologTransformationParameter param) {
+		var referencedCharacteristicType = rhs.characteristicType as TrustedEnumCharacteristicType ?: param.trustedCt
+		var referencedLiteral = rhs.literal ?: param.l
+		var referencedTrust = rhs.trust ?: param.t
+		var treeVariable = '''S«param.node.behavior.inputs.indexOf(rhs.pin)»''' 
+		createCharacteristicTerm(param.node, new UncertaintyDFD2PrologTransformationParameter(param.node, rhs.pin, referencedCharacteristicType, referencedLiteral, referencedTrust), treeVariable.toVar, "VISITED".toVar)
 	}
 	
-	protected def dispatch Expression transformAssignmentTerm(True rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		createTrue
+	protected def dispatch Expression transformAssignmentTerm(TrustedContainerCharacteristicReference rhs, UncertaintyDFD2PrologTransformationParameter param) {
+		var referencedCharacteristicType = rhs.characteristicType as TrustedEnumCharacteristicType ?: param.trustedCt
+		var referencedLiteral = rhs.literal ?: param.l
+		var referencedTrust = rhs.trust ?: param.t
+		createNodeCharacteristicTerm(new UncertaintyDFD2PrologTransformationParameter(param.node, referencedCharacteristicType, referencedLiteral, referencedTrust))
 	}
 	
-	protected def dispatch Expression transformAssignmentTerm(False rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		createFalse
-	}
-	
-	protected def dispatch Expression transformAssignmentTerm(Or rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		createLogicalOr => [
-			left = rhs.left.transformAssignmentTerm(node, pin, ct, value, trust)
-			right = rhs.right.transformAssignmentTerm(node, pin, ct, value, trust)
-		]
-	}
-	
-	protected def dispatch Expression transformAssignmentTerm(And rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		createLogicalAnd => [
-			left = rhs.left.transformAssignmentTerm(node, pin, ct, value, trust)
-			right = rhs.right.transformAssignmentTerm(node, pin, ct, value, trust)
-		]
-	}
-	
-	protected def dispatch Expression transformAssignmentTerm(Not rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		createNotProvable => [
-			expr = rhs.term.transformAssignmentTerm(node, pin, ct, value, trust)
-		]
-	}
-	
-	protected def dispatch Expression transformAssignmentTerm(TrustedDataCharacteristicReference rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		var referencedCharacteristicType = rhs.characteristicType ?: ct
-		var referencedValue = rhs.literal ?: value
-		var referencedTrust = rhs.trust ?: trust
-		var treeVariable = '''S«node.behavior.inputs.indexOf(rhs.pin)»''' 
-		createCompoundTerm(
-			"characteristic",
-			node.uniqueQuotedString,
-			rhs.pin.getUniqueQuotedString(node),
-			referencedCharacteristicType.uniqueQuotedString,
-			referencedValue.uniqueQuotedString,
-			referencedTrust.uniqueQuotedString,
-			treeVariable.toVar,
-			"VISITED".toVar
-		)
-	}
-	
-	// In case there are data DataCharacteristicReferences and not TrustedDataCharacteristicReferences currently this only works when only using "Trusted" objects
-//	protected def dispatch Expression transformAssignmentTerm(DataCharacteristicReference rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-//		super.transformAssignmentTerm(rhs,node,pin,ct,value)
-//	}
-	
-	protected def dispatch Expression transformAssignmentTerm(TrustedContainerCharacteristicReference rhs, CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust) {
-		var referencedCharacteristicType = rhs.characteristicType ?: ct
-		var referencedValue = rhs.literal ?: value
-		var referencedTrust = rhs.trust ?: trust
-		createCompoundTerm(
-			"nodeCharacteristic",
-			node.uniqueQuotedString,
-			referencedCharacteristicType.uniqueQuotedString,
-			referencedValue.uniqueQuotedString,
-			referencedTrust.uniqueQuotedString
-		)
-	}
-	
-	protected def static Iterable<TrustedEnumCharacteristicType> findAllTrustedCharacteristicTypesInNodes(DataFlowDiagram dfd) {
-		val characterizedNodes = dfd.eAllContents.filter(CharacterizedNode)
-		characterizedNodes.flatMap[characteristics.iterator].filter(TrustedEnumCharacteristic).map[trustedEnumCharacteristicType].distinct
-	}
-	
-	protected def static Iterable<TrustedEnumCharacteristicType> findAllTrustedCharacteristicTypesInBehaviors(DataFlowDiagram dfd) {
-		val characterizedNodes = dfd.eAllContents.filter(CharacterizedNode)
-		val assignments = characterizedNodes.map[behavior].flatMap[assignments.iterator].toSet
-		assignments.map[lhs].map[characteristicType].filter(TrustedEnumCharacteristicType).distinct
-	}
-	
-	protected def getLiteralForMembershipFunction(MembershipFunction funct, TrustedEnumCharacteristicType ct) {
+	private def getLiteralForMembershipFunction(MembershipFunction funct, TrustedEnumCharacteristicType ct) {
 		ct.trust.literals.findFirst[l| l.name.equals(funct.name)]
+	}
+	
+	protected def dispatch createCharacteristicTerm(CharacterizedNode node, UncertaintyDFD2PrologTransformationParameter param, Expression s, Expression visited) {
+		createCompoundTerm("characteristic", param.node.uniqueQuotedString, param.pin.getUniqueQuotedString(node), param.ct.uniqueQuotedString, param.l.uniqueQuotedString, param.t.uniqueQuotedString, s, visited)
+	}
+	
+	protected def dispatch createNodeCharacteristicTerm(UncertaintyDFD2PrologTransformationParameter param) {
+		createCompoundTerm("nodeCharacteristic", param.node.uniqueQuotedString, param.ct.uniqueQuotedString, param.l.uniqueQuotedString, param.t.uniqueQuotedString)
 	}
 	
 }

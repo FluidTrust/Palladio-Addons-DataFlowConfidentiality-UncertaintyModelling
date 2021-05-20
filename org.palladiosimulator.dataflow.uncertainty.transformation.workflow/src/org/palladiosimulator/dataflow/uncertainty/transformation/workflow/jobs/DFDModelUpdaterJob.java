@@ -231,17 +231,16 @@ public class DFDModelUpdaterJob<T extends KeyValueMDSDBlackboard> extends Abstra
 		return "Update DFD and DDC to trusted characteristics job";
 	}
 
-	private <S> S getSingleModelFromBlackboard(ModelLocation location, Class<S> class1) {
+	private <S> S getSingleModelFromBlackboard(ModelLocation location, Class<S> class1) throws JobFailedException {
 		var dfds = getBlackboard().getContents(location)
 	            .stream()
 	            .filter(class1::isInstance)
 	            .map(class1::cast)
 	            .collect(Collectors.toList());
         if (dfds.size() != 1) {
-            new JobFailedException("There is not exactly one " + class1.getSimpleName() + " available.");
+            throw new JobFailedException("There is not exactly one " + class1.getSimpleName() + " available.");
         }
         
         return dfds.get(0);
 	}
-
 }

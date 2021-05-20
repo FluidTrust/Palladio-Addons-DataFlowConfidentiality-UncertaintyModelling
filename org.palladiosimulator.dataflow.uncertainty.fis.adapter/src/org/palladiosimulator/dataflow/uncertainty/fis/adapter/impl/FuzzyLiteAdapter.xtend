@@ -10,8 +10,8 @@ import java.nio.file.Path
 import org.apache.commons.lang3.SystemUtils
 import java.util.Optional
 import java.io.File
-import java.io.InputStream
 import org.apache.commons.io.FileUtils
+import java.util.regex.Pattern
 
 class FuzzyLiteAdapter implements FuzzySystemExecution {
 	var fuzzylitePath = ""
@@ -63,19 +63,21 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	private def parseOutputFromResultFile(Path resultFilePath) {
 		var result = readResultFile(resultFilePath)
 		
-		var split = result.split("\n")
-		if(split.size == 2) {
-			var resultLine = split.get(1).split(" ")
-			if(resultLine.size == 3) {
-				try {
-					return Double.parseDouble(resultLine.get(2))
-				} catch (NumberFormatException e) {
-					// Value is not formated as a double
-					// should never occur
-					e.printStackTrace
-				}
-			}
+		// The regex finds the last floating point number in the result string
+		var regexPattern = Pattern.compile("\\d*\\.\\d*$")
+		var matcher = regexPattern.matcher(result)
+		var String outputValue = ""
+		while(matcher.find()) {
+			outputValue = matcher.group
 		}
+		
+		try {
+			return Double.parseDouble(outputValue)
+		} catch (NumberFormatException e) {
+			// Value is not formated as a double, should never occur
+			e.printStackTrace
+		}
+		
 		return Double.NaN
 	}
 	
@@ -106,20 +108,17 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	private def Optional<File> extractExecutable() {
 		var cl = FuzzyLiteAdapter.classLoader
 		var execFileName = getFileName
-		if (cl.getResource(execFileName) === null) {
+		var execInStream = cl.getResourceAsStream(execFileName) 
+		if(execInStream === null) {
 			return Optional.empty
 		}
-		
-		var InputStream execInStream 
 		try {
-			execInStream = cl.getResourceAsStream(execFileName) 
 			var execFilePath = Files.createTempFile(execFileName, "")
 	        var execFile = execFilePath.toFile
+	        
+	        FileUtils.copyInputStreamToFile(execInStream, execFile)
+	        
 	        execFile.deleteOnExit
-	        
-	        var byte[] execFileBytes = execInStream.readAllBytes
-	        FileUtils.writeByteArrayToFile(execFile, execFileBytes)
-	        
 	        execFile.setExecutable(true)
 			
 			return Optional.of(execFile)

@@ -17,18 +17,28 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.Membershi
 import org.eclipse.emf.common.util.EList
 import java.io.FileOutputStream
 import java.nio.file.Files
+import java.io.IOException
+import java.nio.file.Path
 
 class FisFileGenerator { 
 	
 	static def doGenerate(FuzzyInferenceSystem fis) {
 		var output = fis.compile
-		var tmpFisPath = Files.createTempFile(fis.name, ".fis")
-		var tmpFis = tmpFisPath.toFile
-	    tmpFis.deleteOnExit
-		var fos = new FileOutputStream(tmpFisPath.toString);
-		fos.write(output.toString.bytes)
-		fos.close
-	    return tmpFisPath;
+		var FileOutputStream fos
+		var Path tmpFisPath
+		try {
+			tmpFisPath = Files.createTempFile(fis.name, ".fis")
+			var tmpFis = tmpFisPath.toFile
+		    tmpFis.deleteOnExit
+			fos = new FileOutputStream(tmpFisPath.toString);
+			fos.write(output.toString.bytes)
+		} catch(IOException e) {
+			e.printStackTrace
+		} finally {
+			fos.close
+		}
+		
+		return tmpFisPath
 	}
 	
 	static def compile(FuzzyInferenceSystem sys) '''
@@ -79,26 +89,20 @@ class FisFileGenerator {
 	'''
 	
 	static def compile(MembershipFunction mf) '''
-	'«mf.name»':«IF mf instanceof TriangularMF»«mf.compile»
-	«ELSEIF mf instanceof GaussianMF»«mf.compile»
-	«ELSEIF mf instanceof TrapezoidalMF»«mf.compile»
-	«ELSEIF mf instanceof GeneralizedBellMF»«mf.compile»
-	«ELSEIF mf instanceof SMF»«mf.compile»
-	«ELSEIF mf instanceof ZMF»«mf.compile»
-	«ENDIF»
+	'«mf.name»':«mf.compileMF»
 	'''
 	
-	static def compile(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.m»]'''
+	static def dispatch compileMF(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.m»]'''
 	
-	static def compile(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.m»]'''
+	static def dispatch compileMF(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.m»]'''
 	
-	static def compile(TrapezoidalMF mf) ''''trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]'''
+	static def dispatch compileMF(TrapezoidalMF mf) ''''trapmf',[«mf.a» «mf.b» «mf.c» «mf.d»]'''
 	
-	static def compile(GeneralizedBellMF mf) ''''gbellmf',[«mf.a» «mf.b» «mf.c»]'''
+	static def dispatch compileMF(GeneralizedBellMF mf) ''''gbellmf',[«mf.a» «mf.b» «mf.c»]'''
 	
-	static def compile(SMF mf) ''''smf',[«mf.a» «mf.b»]'''
+	static def dispatch compileMF(SMF mf) ''''smf',[«mf.a» «mf.b»]'''
 	
-	static def compile(ZMF mf) ''''zmf',[«mf.a» «mf.b»]'''
+	static def dispatch compileMF(ZMF mf) ''''zmf',[«mf.a» «mf.b»]'''
 	
 	static def compile(AND_Operator op) '''
 	«IF op.value == 0»'min'

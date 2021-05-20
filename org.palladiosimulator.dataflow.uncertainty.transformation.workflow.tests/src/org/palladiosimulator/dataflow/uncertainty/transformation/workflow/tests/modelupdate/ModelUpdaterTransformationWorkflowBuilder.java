@@ -1,7 +1,6 @@
 package org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate;
 
 import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.TransformationWorkflowBuilder;
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.blackboards.KeyValueMDSDBlackboard;
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.jobs.LoadModelJob;
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.UncertaintyTransformationWorkflowBuilder;
@@ -10,7 +9,6 @@ import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.jobs.D
 import de.uka.ipd.sdq.workflow.blackboard.Blackboard;
 import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
 public class ModelUpdaterTransformationWorkflowBuilder extends UncertaintyTransformationWorkflowBuilder {
 	
