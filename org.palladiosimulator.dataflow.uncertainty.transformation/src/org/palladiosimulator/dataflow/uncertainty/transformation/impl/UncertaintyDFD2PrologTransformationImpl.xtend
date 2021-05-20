@@ -29,40 +29,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		super(nameProvider)
 	}
 	
-		initTransformationState(dfd)
-		
-		addPreamble(dfd)
-		
-		add(createHeaderComment("Characteristic types"))
-		var charTypes = #[trustedCharacteristicTypesInBehaviors, trustedCharacteristicTypesInNodes].flatten.distinct
-		charTypes.forEach[transformCharacteristicType.add]
-		
-		add(createHeaderComment("Nodes"))
-		dfd.nodes.forEach[transformNode.add]
-		
-		if (!usedDataTypes.isEmpty) {
-			add(createHeaderComment("Data Types"))
-			usedDataTypes.forEach[transformDataType.add]
-		}
-		
-		add(createHeaderComment("Edges"))
-		dfd.edges.forEach[transformEdge.add]
-		
-		new TransformationResultImpl(program, trace)
-	}
-	
-	protected override void initTransformationState(DataFlowDiagram dfd) {
-		this.program = createProgram
-		this.trace = new DFD2PrologTransformationWritableTraceImpl
-		this.trace.add(dfd, program)
-		this.stagedTraces.clear()
-		this.trustedCharacteristicTypesInBehaviors = dfd.findAllTrustedCharacteristicTypesInBehaviors
-		this.trustedCharacteristicTypesInNodes = dfd.findAllTrustedCharacteristicTypesInNodes
-		this.usedDataTypes = dfd.findAllUsedDataTypes
-	}
-	
-	interface TrustedOutputBehaviorCreator {	    
-	    def Rule createTrustedOutputCharacteristicRule(CharacterizedNode node, Pin pin, TrustedEnumCharacteristicType ct, Literal value, Literal trust)
+	interface UncertaintyDFD2PrologOutputBehaviorCreator {
 		def Rule createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param)
 	}
 	
