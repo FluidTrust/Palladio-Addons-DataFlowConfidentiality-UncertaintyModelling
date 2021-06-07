@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataFlowDiagram:DataFlowDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataFlowDiagram="http://palladiosimulator.org/dataflow/diagram/1.0" xmlns:DataFlowDiagramCharacterized="http://palladiosimulator.org/dataflow/diagram/characterized/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" id="__WG0EMdyEeuG_ImeU_5DqQ">
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="__sRRUMdyEeuG_ImeU_5DqQ" name="Scientist">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_rFL7wsd2EeuG_ImeU_5DqQ" name="currentLocation">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_SHTJl8dwEeuG_ImeU_5DqQ"/>
+      <values href="runningExample.datadictionarycharacterized#_a28aQMdwEeuG_ImeU_5DqQ"/>
+      <trustSource href="runningExample.uncertainty#//@sources.0"/>
+    </ownedCharacteristics>
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_dDTVZcd2EeuG_ImeU_5DqQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="_EcA99cdzEeuG_ImeU_5DqQ" name="Worker">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_vqKi0sd2EeuG_ImeU_5DqQ" name="currentLocation">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_SHTJl8dwEeuG_ImeU_5DqQ"/>
+      <values href="runningExample.datadictionarycharacterized#_ZB91oMdwEeuG_ImeU_5DqQ"/>
+      <trustSource href="runningExample.uncertainty#//@sources.0"/>
+    </ownedCharacteristics>
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_dDTVZcd2EeuG_ImeU_5DqQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="_Ibu71cdzEeuG_ImeU_5DqQ" name="Visitor">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_zrS18sd2EeuG_ImeU_5DqQ" name="currentLocation">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_SHTJl8dwEeuG_ImeU_5DqQ"/>
+      <values href="runningExample.datadictionarycharacterized#_XhorUMdwEeuG_ImeU_5DqQ"/>
+      <trustSource href="runningExample.uncertainty#//@sources.1"/>
+    </ownedCharacteristics>
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_dDTVZcd2EeuG_ImeU_5DqQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedStore" id="_XVqvFsd0EeuG_ImeU_5DqQ" name="LaboratoryDB">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_hpg9csd0EeuG_ImeU_5DqQ" name="readAccess">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_cC9Ph8dyEeuG_ImeU_5DqQ"/>
+      <values href="runningExample.datadictionarycharacterized#_a28aQMdwEeuG_ImeU_5DqQ"/>
+      <trustSource href="runningExample.uncertainty#//@sources.2"/>
+    </ownedCharacteristics>
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_LxKKFcd0EeuG_ImeU_5DqQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess" id="_4pQPp8d0EeuG_ImeU_5DqQ" name="ReadDB">
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_kxZw5cdzEeuG_ImeU_5DqQ"/>
+  </nodes>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_9TgGWcd2EeuG_ImeU_5DqQ" name="DB2Process" target="_4pQPp8d0EeuG_ImeU_5DqQ" source="_XVqvFsd0EeuG_ImeU_5DqQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_OtJaEcd0EeuG_ImeU_5DqQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_oZGQUMdzEeuG_ImeU_5DqQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_mlC7-Md3EeuG_ImeU_5DqQ" name="Process2Scientist" target="__sRRUMdyEeuG_ImeU_5DqQ" source="_4pQPp8d0EeuG_ImeU_5DqQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_rNx-ccdzEeuG_ImeU_5DqQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_ewGOYMd2EeuG_ImeU_5DqQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_sPR66cd3EeuG_ImeU_5DqQ" name="Process2Worker" target="_EcA99cdzEeuG_ImeU_5DqQ" source="_4pQPp8d0EeuG_ImeU_5DqQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_rNx-ccdzEeuG_ImeU_5DqQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_ewGOYMd2EeuG_ImeU_5DqQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_1ZmVacd3EeuG_ImeU_5DqQ" name="Process2Visitor" target="_Ibu71cdzEeuG_ImeU_5DqQ" source="_4pQPp8d0EeuG_ImeU_5DqQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_rNx-ccdzEeuG_ImeU_5DqQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_ewGOYMd2EeuG_ImeU_5DqQ"/>
+  </edges>
+</DataFlowDiagram:DataFlowDiagram>

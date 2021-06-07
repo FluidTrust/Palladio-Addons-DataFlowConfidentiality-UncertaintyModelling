@@ -11,7 +11,6 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.te
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.DataFlowDiagramCharacterizedFactory
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Behaving
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterized
 
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyContainer
@@ -19,6 +18,7 @@ import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.Uncert
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage
 import org.junit.jupiter.api.BeforeAll
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.util.UncertaintyStandaloneUtil
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.Behaving
 
 class TravelPlannerUncertaintyACTest extends AccessControlAnalysesIflow {
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataDictionaryCharacterized:DataDictionaryCharacterized xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://palladiosimulator.org/dataflow/dictionary/characterized/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" id="_LHKusMdwEeuG_ImeU_5DqQ">
+  <characteristicTypes xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" id="_SHTJl8dwEeuG_ImeU_5DqQ" name="UserLocation" type="_LnNgsMdwEeuG_ImeU_5DqQ" trust="_Qs3y9MdwEeuG_ImeU_5DqQ"/>
+  <characteristicTypes xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" id="_cC9Ph8dyEeuG_ImeU_5DqQ" name="ReadAccess" type="_LnNgsMdwEeuG_ImeU_5DqQ" trust="_Qs3y9MdwEeuG_ImeU_5DqQ"/>
+  <enumerations id="_LnNgsMdwEeuG_ImeU_5DqQ" name="Location">
+    <literals id="_XhorUMdwEeuG_ImeU_5DqQ" name="Outside"/>
+    <literals id="_ZB91oMdwEeuG_ImeU_5DqQ" name="MeetingRoom"/>
+    <literals id="_a28aQMdwEeuG_ImeU_5DqQ" name="Laboratory"/>
+  </enumerations>
+  <enumerations id="_Qs3y9MdwEeuG_ImeU_5DqQ" name="LocationTrust">
+    <literals id="_mvvNMMdwEeuG_ImeU_5DqQ" name="trust_low"/>
+    <literals id="_oZ3MsMdwEeuG_ImeU_5DqQ" name="trust_mid"/>
+    <literals id="_rHkJEMdwEeuG_ImeU_5DqQ" name="trust_high"/>
+  </enumerations>
+  <behaviorDefinitions id="_kxZw5cdzEeuG_ImeU_5DqQ" name="Forwarding">
+    <inputs id="_oZGQUMdzEeuG_ImeU_5DqQ" name="input"/>
+    <outputs id="_rNx-ccdzEeuG_ImeU_5DqQ" name="output"/>
+    <assignments id="_s9TbUsdzEeuG_ImeU_5DqQ">
+      <lhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_3GU5yMdzEeuG_ImeU_5DqQ" pin="_rNx-ccdzEeuG_ImeU_5DqQ"/>
+      <rhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_tLBHMcdzEeuG_ImeU_5DqQ" pin="_oZGQUMdzEeuG_ImeU_5DqQ"/>
+    </assignments>
+  </behaviorDefinitions>
+  <behaviorDefinitions id="_LxKKFcd0EeuG_ImeU_5DqQ" name="Store">
+    <inputs id="_Nr5_gMd0EeuG_ImeU_5DqQ" name="input"/>
+    <outputs id="_OtJaEcd0EeuG_ImeU_5DqQ" name="output"/>
+  </behaviorDefinitions>
+  <behaviorDefinitions id="_dDTVZcd2EeuG_ImeU_5DqQ" name="ReadLabDB">
+    <inputs id="_ewGOYMd2EeuG_ImeU_5DqQ" name="input"/>
+    <outputs id="_fL6Aocd2EeuG_ImeU_5DqQ" name="output"/>
+    <assignments id="_gqjI4sd2EeuG_ImeU_5DqQ">
+      <lhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_g4feSMd2EeuG_ImeU_5DqQ" characteristicType="_SHTJl8dwEeuG_ImeU_5DqQ" pin="_fL6Aocd2EeuG_ImeU_5DqQ"/>
+      <rhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedContainerCharacteristicReference" id="_h24ZKsd2EeuG_ImeU_5DqQ" characteristicType="_SHTJl8dwEeuG_ImeU_5DqQ"/>
+    </assignments>
+  </behaviorDefinitions>
+  <characteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_iUNyOMdyEeuG_ImeU_5DqQ" type="_cC9Ph8dyEeuG_ImeU_5DqQ" values="_a28aQMdwEeuG_ImeU_5DqQ"/>
+</DataDictionaryCharacterized:DataDictionaryCharacterized>

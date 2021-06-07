@@ -1,5 +1,7 @@
 package org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.util;
 
+import java.nio.file.Paths;
+
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.DFD2PrologTransformation;
 import org.palladiosimulator.dataflow.uncertainty.transformation.impl.UncertaintyDFD2PrologTransformationImpl;

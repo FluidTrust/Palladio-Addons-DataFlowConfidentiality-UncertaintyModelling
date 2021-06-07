@@ -10,6 +10,7 @@ Require-Bundle: org.palladiosimulator.dataflow.confidentiality.transformation.wo
  de.uka.ipd.sdq.workflow.mdsd,
  de.uka.ipd.sdq.workflow,
  org.palladiosimulator.dataflow.uncertainty.transformation;bundle-version="1.0.0",
- org.palladiosimulator.dataflow.confidentiality.transformation.prolog;bundle-version="0.1.0"
+ org.palladiosimulator.dataflow.confidentiality.transformation.prolog;bundle-version="0.1.0",
+ org.palladiosimulator.dataflow.dictionary.characterized
 Export-Package: org.palladiosimulator.dataflow.uncertainty.transformation.workflow,
  org.palladiosimulator.dataflow.uncertainty.transformation.workflow.jobs

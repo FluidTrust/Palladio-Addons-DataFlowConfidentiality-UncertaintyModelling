@@ -15,7 +15,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristicType" eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//EnumCharacteristicType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trust" lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//Enumeration"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristic" eSuperTypes="../../org.palladiosimulator.dataflow.diagram.characterized/model/DataFlowDiagramCharacterized.ecore#//EnumCharacteristic">
+  <eClassifiers xsi:type="ecore:EClass" name="TrustedEnumCharacteristic" eSuperTypes="../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.ecore#//EnumCharacteristic">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="trustLiteralsAndFISOutputMatches"/>
     </eAnnotations>
