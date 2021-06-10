@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="HighSensitivityLocationService">
+    <fisInputs>20.0</fisInputs>
+    <fisInputs>0.8</fisInputs>
+    <fisInputs>4.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="LowSensitivityLocationService">
+    <fisInputs>5.0</fisInputs>
+    <fisInputs>18.0</fisInputs>
+    <fisInputs>4.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="ReadAccessLocationService">
+    <fisInputs>2.0</fisInputs>
+    <fisInputs>1.0</fisInputs>
+    <fisInputs>0.0</fisInputs>
+  </sources>
+  <fisContainer>
+    <fuzzificationFunctions name="SignalDampening">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="dampening_low" o="7.5" m="10.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="dampening_mid" o="5.0" m="30.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="dampening_high" o="5.0" m="40.0"/>
+      <range>0.0</range>
+      <range>50.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="AcquisitionTime">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="acquisition_low" c="10.0" d="25.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="acquisition_mid" a="20.0" b="50.0" c="150.0" d="250.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="acquisition_high" a="200.0" b="400.0" c="500.0" d="500.0"/>
+      <range>0.0</range>
+      <range>500.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="PositionDeviation">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="deviation_low" c="3.0" d="8.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="deviation_mid" a="3.0" b="8.0" c="17.0" d="22.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="deviation_high" a="18.0" b="23.0" c="50.0" d="50.0"/>
+      <range>0.0</range>
+      <range>50.0</range>
+    </fuzzificationFunctions>
+    <defuzzificationFunction name="GPSTrust">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_low" o="10.0" m="25.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_mid" o="10.0" m="50.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_high" o="10.0" m="75.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.0 //@fisContainer.0/@fuzzificationFunctions.1 //@fisContainer.0/@fuzzificationFunctions.2" output="//@fisContainer.0/@defuzzificationFunction.0" name="highSensitivityGPSSensor">
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.1/@term.2 //@fisContainer.0/@fuzzificationFunctions.2/@term.2" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="1"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.2 //@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="2"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0 //@fisContainer.0/@fuzzificationFunctions.1/@term.0 //@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="3"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0 //@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="4"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="5"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0 //@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="6"/>
+    </fuzzyInferenceSystems>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.0 //@fisContainer.0/@fuzzificationFunctions.1 //@fisContainer.0/@fuzzificationFunctions.2" output="//@fisContainer.0/@defuzzificationFunction.0" name="lowSensitivityGPSSensor">
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.2" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="1"/>
+      <rules operator="OR" inputs="//@fisContainer.0/@fuzzificationFunctions.1/@term.2 //@fisContainer.0/@fuzzificationFunctions.2/@term.2" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="2"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.2 //@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="3"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0 //@fisContainer.0/@fuzzificationFunctions.1/@term.0 //@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.2" name="4"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.0 //@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="5"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="6"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.1 //@fisContainer.0/@fuzzificationFunctions.1/@term.1 //@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.0/@term.1" name="7"/>
+    </fuzzyInferenceSystems>
+  </fisContainer>
+</org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer>

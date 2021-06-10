@@ -73,10 +73,11 @@ class FisFileGenerator {
 	static def getRuleMFIndex(FuzzyFunction funct, EList<MembershipFunction> ruleMFS) {
 		for(ruleFunct:ruleMFS) {
 			if(ruleFunct.parentFuzzyFunction == funct) {
-				return funct.term.indexOf(ruleFunct)+1
+				return funct.term.indexOf(ruleFunct)+1 // uses the conventional counting, starting at 1
 			}
 		}
-		return -1
+		// the index 0 implies, that no mf of this input is used
+		return 0
 	}
 	
 	static def compile(FuzzyFunction funct)'''
@@ -92,7 +93,7 @@ class FisFileGenerator {
 	'«mf.name»':«mf.compileMF»
 	'''
 	
-	static def dispatch compileMF(TriangularMF mf) ''''trimf',[«mf.a» «mf.b» «mf.m»]'''
+	static def dispatch compileMF(TriangularMF mf) ''''trimf',[«mf.a» «mf.m» «mf.b»]'''
 	
 	static def dispatch compileMF(GaussianMF mf) ''''gaussmf',[«mf.o» «mf.m»]'''
 	

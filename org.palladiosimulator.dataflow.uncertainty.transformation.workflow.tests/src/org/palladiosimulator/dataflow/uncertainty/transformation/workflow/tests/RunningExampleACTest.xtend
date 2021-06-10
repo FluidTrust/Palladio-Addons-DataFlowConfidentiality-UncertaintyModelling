@@ -25,9 +25,8 @@ import static org.junit.jupiter.api.Assertions.*
 import java.io.FileOutputStream
 import java.nio.file.Path
 import java.nio.file.Files
-import java.nio.file.FileSystems
-import java.nio.file.Paths
 import java.io.IOException
+import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 
 class RunningExampleACTest {
 	
@@ -52,8 +51,17 @@ class RunningExampleACTest {
 	}
 	
 	@Test
-	def void testLoadAndPrologGeneration() {
-		this.loadAndInitDFD
+	def void testRunningExampleScenario1() {
+		testRunningExampleScenario(1)	
+	}
+	
+	@Test
+	def void testRunningExampleScenario2() {
+		testRunningExampleScenario(2)
+	}
+	
+	def void testRunningExampleScenario(int index) {
+		this.loadAndInitDFD(index)
 		
 		builder.addSerializeToString(SaveOptions.newBuilder.format.getOptions.toOptionsMap)
 		builder.setNameDerivationMethod(NameGenerationStrategie.DETAILED)
@@ -63,38 +71,62 @@ class RunningExampleACTest {
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
 		
-		writeToFile(result.get)
+		writeToFile(result.get, index)
 
 		prover.loadTheory(result.get)
 
 		var solution = query.solve
 		
-		solution.get
+		assertTrue(solution.success)
 	}
 	
 		protected def getQuery() {
 		var queryString = '''
-			inputPin(P, PIN),
-			setof(R, nodeCharacteristic(P, ?CTROLES, R, T), ROLES),
-			setof_characteristics_with_trust(P, PIN, ?CTRIGHTS, REQ, T, S),
-			intersection(REQ, ROLES, []).
+		actor(A), 
+		store(ST), 
+		nodeCharacteristic(A, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST), 
+		\+ nodeCharacteristic(ST, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST), 
+		inputPin(A,PIN), 
+		flowTree(A,PIN,S), 
+		traversedNode(S,ST).
 		'''
-		var query = prover.query(queryString)
-		query.bind("CTROLES", '''UserLocation (_SHTJl8dwEeuG_ImeU_5DqQ)'''.toString)
-		query.bind("CTRIGHTS", '''ReadAccess (_cC9Ph8dyEeuG_ImeU_5DqQ)'''.toString)
 		
+//		'''
+//		actor(A),
+//		store(ST),
+//		nodeCharacteristic(A, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST),
+//		nodeCharacteristic(ST, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', ACCESS_LOC, ACCESS_TRUST),
+//		inputPin(A, PIN),
+//		flowTree(A, PIN, S),
+//		traversedNode(S, ST),
+//		(
+//			SUBJ_LOC \= ACCESS_LOC;
+//			SUBJ_LOC = ACCESS_LOC,
+//			SUBJ_TRUST \= ACCESS_TRUST
+//		).
+//		'''
+		
+//		'''
+//		inputPin(P, PIN),
+//		setof(R, nodeCharacteristic(P, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', R, T), LOC),
+//		setof_characteristics_with_trust(P, PIN, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', RIGHTS, T, S),
+//		intersection(RIGHTS, LOC, []).
+//		'''
+		
+		var query = prover.query(queryString)
+		query	
 	}
 	
-	protected def DataFlowDiagram loadAndInitDFD() {
+	protected def DataFlowDiagram loadAndInitDFD(int i) {
 		UncertaintyPackage.eINSTANCE.getClass
 		var resourceSet = new ResourceSetImpl
-		var ucUri = getRelativeURI("models/runningExample/runningExample.uncertainty")
+		var ucUri = getRelativeURI("models/runningExample/runningExample" + i + ".uncertainty")
 		var ucResource = resourceSet.getResource(ucUri, true)
 		var uc = ucResource.contents.iterator.next as UncertaintyContainer
 		var ddUri = getRelativeURI("models/runningExample/runningExample.datadictionarycharacterized")
 		var ddResource = resourceSet.getResource(ddUri, true)
 		var dd = ddResource.contents.iterator.next as DataDictionaryCharacterized
-		var dfdUri = getRelativeURI("models/runningExample/runningExample.dataflowdiagram")
+		var dfdUri = getRelativeURI("models/runningExample/runningExample" + i + ".dataflowdiagram")
 		var dfdResource = resourceSet.getResource(dfdUri, true)
 		var dfd = dfdResource.contents.iterator.next as DataFlowDiagram
 		
@@ -106,9 +138,9 @@ class RunningExampleACTest {
 		return UncertaintyStandaloneUtil.getRelativeURI(path)
 	}
 	
-	private def writeToFile(String prolog) {
+	private def writeToFile(String prolog, int i) {
 		var FileOutputStream fos
-		var Path prologPath = Path.of("/home/nicolas/Dokumente/Uni/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests/models/runningExample/runningExample.pl")
+		var Path prologPath = Path.of("/home/nicolas/Dokumente/Uni/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests/models/runningExample/runningExample" + i + ".pl")
 		try {
 			if(Files.exists(prologPath)) {
 				Files.delete(prologPath)

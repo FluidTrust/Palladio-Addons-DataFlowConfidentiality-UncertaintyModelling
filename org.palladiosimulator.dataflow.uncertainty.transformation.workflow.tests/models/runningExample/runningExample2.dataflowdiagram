@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataFlowDiagram:DataFlowDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataFlowDiagram="http://palladiosimulator.org/dataflow/diagram/1.0" xmlns:DataFlowDiagramCharacterized="http://palladiosimulator.org/dataflow/diagram/characterized/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" id="_MD4awNVeEeqRbpVUMz5XAQ">
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="_EoxepdVfEeqRbpVUMz5XAQ" name="Scientist">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_GjnIwdVhEeqRbpVUMz5XAQ" name="location">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_marvYNVeEeqRbpVUMz5XAQ"/>
+      <trustSource href="runningExample2.uncertainty#//@sources.0"/>
+    </ownedCharacteristics>
+    <ownedBehavior id="_nGK1ANVhEeqRbpVUMz5XAQ">
+      <inputs id="_oG4EENVhEeqRbpVUMz5XAQ" name="input"/>
+      <outputs id="_oaeVgdVhEeqRbpVUMz5XAQ" name="output"/>
+      <assignments id="_mnj40shFEeu_Wf8wLuiSoQ">
+        <lhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_nFBQ6MhFEeu_Wf8wLuiSoQ" pin="_oaeVgdVhEeqRbpVUMz5XAQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </lhs>
+        <rhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedContainerCharacteristicReference" id="_nzcdKshFEeu_Wf8wLuiSoQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </rhs>
+      </assignments>
+    </ownedBehavior>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="_Glj7ddVfEeqRbpVUMz5XAQ" name="Worker">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_Mew4kdVhEeqRbpVUMz5XAQ" name="location">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_lwXnENVeEeqRbpVUMz5XAQ"/>
+      <trustSource href="runningExample2.uncertainty#//@sources.0"/>
+    </ownedCharacteristics>
+    <ownedBehavior id="_yIYlQNVhEeqRbpVUMz5XAQ">
+      <inputs id="_ytCKcNVhEeqRbpVUMz5XAQ" name="input"/>
+      <outputs id="_y8wBcdVhEeqRbpVUMz5XAQ" name="output"/>
+      <assignments id="_zz3iEshFEeu_Wf8wLuiSoQ">
+        <lhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_0EafiMhFEeu_Wf8wLuiSoQ" pin="_y8wBcdVhEeqRbpVUMz5XAQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </lhs>
+        <rhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedContainerCharacteristicReference" id="_0t_oCshFEeu_Wf8wLuiSoQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </rhs>
+      </assignments>
+    </ownedBehavior>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedExternalActor" id="_JEgDFdVfEeqRbpVUMz5XAQ" name="Visitor">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_WwV2EdVhEeqRbpVUMz5XAQ" name="location">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_marvYNVeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_lwXnENVeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_kF3NENVeEeqRbpVUMz5XAQ"/>
+      <trustSource href="runningExample2.uncertainty#//@sources.1"/>
+    </ownedCharacteristics>
+    <ownedBehavior id="_-gCecNVhEeqRbpVUMz5XAQ">
+      <inputs id="_-2tSANVhEeqRbpVUMz5XAQ" name="input"/>
+      <outputs id="__MIvcdVhEeqRbpVUMz5XAQ" name="output"/>
+      <assignments id="_AH11IshGEeu_Wf8wLuiSoQ">
+        <lhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedDataCharacteristicReference" id="_Ay7ZiMhGEeu_Wf8wLuiSoQ" pin="__MIvcdVhEeqRbpVUMz5XAQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </lhs>
+        <rhs xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedContainerCharacteristicReference" id="_BNX52chGEeu_Wf8wLuiSoQ">
+          <characteristicType xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_o7_1k9VeEeqRbpVUMz5XAQ"/>
+        </rhs>
+      </assignments>
+    </ownedBehavior>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess" id="_bt1Dx9VhEeqRbpVUMz5XAQ" name="read DB">
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_5wj-9dVeEeqRbpVUMz5XAQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedProcess" id="_qSfIF8hpEeuNMePdRPFY4g" name="write DB">
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_5wj-9dVeEeqRbpVUMz5XAQ"/>
+  </nodes>
+  <nodes xsi:type="DataFlowDiagramCharacterized:CharacterizedStore" id="_gIROyNVhEeqRbpVUMz5XAQ" name="Laboratory DB">
+    <ownedCharacteristics xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic" id="_tIZAsdViEeqRbpVUMz5XAQ" name="read access">
+      <type xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristicType" href="runningExample.datadictionarycharacterized#_rd9cA9VeEeqRbpVUMz5XAQ"/>
+      <values href="runningExample.datadictionarycharacterized#_marvYNVeEeqRbpVUMz5XAQ"/>
+      <trustSource href="runningExample2.uncertainty#//@sources.2"/>
+    </ownedCharacteristics>
+    <referencedBehavior href="runningExample.datadictionarycharacterized#_Bda89dVfEeqRbpVUMz5XAQ"/>
+  </nodes>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_OMdmechGEeu_Wf8wLuiSoQ" name="dbEntry" target="_EoxepdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_oG4EENVhEeqRbpVUMz5XAQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_fis5ichGEeu_Wf8wLuiSoQ" name="dbEntry" target="_Glj7ddVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_ytCKcNVhEeqRbpVUMz5XAQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_j8-sechGEeu_Wf8wLuiSoQ" name="dbEntry" target="_JEgDFdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_-2tSANVhEeqRbpVUMz5XAQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_nI-uachGEeu_Wf8wLuiSoQ" name="dbEntry" target="_bt1Dx9VhEeqRbpVUMz5XAQ" source="_gIROyNVhEeqRbpVUMz5XAQ">
+    <sourcePin href="runningExample.datadictionarycharacterized#_DEBuYdVfEeqRbpVUMz5XAQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_7LfE0NVeEeqRbpVUMz5XAQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_F09lqchqEeuNMePdRPFY4g" name="dbEntry" target="_qSfIF8hpEeuNMePdRPFY4g" source="_EoxepdVfEeqRbpVUMz5XAQ" sourcePin="_oaeVgdVhEeqRbpVUMz5XAQ">
+    <targetPin href="runningExample.datadictionarycharacterized#_7LfE0NVeEeqRbpVUMz5XAQ"/>
+  </edges>
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_J7OQachqEeuNMePdRPFY4g" name="dbEntry" target="_gIROyNVhEeqRbpVUMz5XAQ" source="_qSfIF8hpEeuNMePdRPFY4g">
+    <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
+    <targetPin href="runningExample.datadictionarycharacterized#_CsafoNVfEeqRbpVUMz5XAQ"/>
+  </edges>
+</DataFlowDiagram:DataFlowDiagram>

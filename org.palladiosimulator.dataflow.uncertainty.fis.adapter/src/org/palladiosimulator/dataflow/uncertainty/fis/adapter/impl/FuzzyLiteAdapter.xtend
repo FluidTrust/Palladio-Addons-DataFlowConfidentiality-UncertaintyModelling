@@ -74,8 +74,9 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		try {
 			return Double.parseDouble(outputValue)
 		} catch (NumberFormatException e) {
-			// Value is not formated as a double, should never occur
-			e.printStackTrace
+			// Value is not formated as a double
+			// remove for testing randomly created FIS
+			//System.err.println("Result is NaN. FIS rules do not create a that can be defuzzyfied (possibly no rule applies with the given inputs and the fuzzy output is 0 across the whole range). ")
 		}
 		
 		return Double.NaN

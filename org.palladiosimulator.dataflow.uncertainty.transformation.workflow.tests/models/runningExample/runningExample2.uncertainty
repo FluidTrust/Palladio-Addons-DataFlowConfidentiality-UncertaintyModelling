@@ -2,8 +2,8 @@
 <org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
   <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="HighSensitivityLocationService">
     <fisInputs>20.0</fisInputs>
-    <fisInputs>1.0</fisInputs>
-    <fisInputs>5.0</fisInputs>
+    <fisInputs>0.8</fisInputs>
+    <fisInputs>4.0</fisInputs>
   </sources>
   <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="LowSensitivityLocationService">
     <fisInputs>20.0</fisInputs>
@@ -38,9 +38,9 @@
       <range>50.0</range>
     </fuzzificationFunctions>
     <defuzzificationFunction name="GPSTrust">
-      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_low" o="18.0"/>
-      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_mid" o="12.0" m="50.0"/>
-      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_high" o="18.0" m="100.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_low" o="10.0" m="25.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_mid" o="10.0" m="50.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GaussianMF" name="trust_high" o="10.0" m="75.0"/>
       <range>0.0</range>
       <range>100.0</range>
     </defuzzificationFunction>
