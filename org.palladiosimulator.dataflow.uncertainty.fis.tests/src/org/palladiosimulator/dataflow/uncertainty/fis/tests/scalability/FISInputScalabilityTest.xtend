@@ -5,12 +5,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.palladiosimulator.dataflow.uncertainty.fis.transformation.FisFileGenerator
 import org.palladiosimulator.dataflow.uncertainty.fis.adapter.FuzzySystemExecutionFactory
 import org.palladiosimulator.dataflow.uncertainty.fis.FuzzySystemResultInterpreter
-import java.util.List
-import java.util.ArrayList
-import java.util.HashMap
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability.ScalabilityTestTimeMapper
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability.FISScalabilityTestUtil
+import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability.FISCreator
 
 class FISInputScalabilityTest {
 	
@@ -19,8 +17,6 @@ class FISInputScalabilityTest {
 	static val TEST_START = 2
 	static val ITERATION_FACTOR = 2
 	static val TEST_ITERATION = 2048
-	val fisGenerator = new FuzzyficationFunctionCreator
-	
 	
 	var ScalabilityTestTimeMapper genTimeMapper
 	var ScalabilityTestTimeMapper runTimeMapper
@@ -62,7 +58,7 @@ class FISInputScalabilityTest {
 	def generateAndRunFIS() {
 		for(var i = TEST_START; i <= TEST_ITERATION; i= i*ITERATION_FACTOR) {
 			print(i + " ")
-			var fis = fisGenerator.generateFISWithInputs(i)
+			var fis = FISCreator.generateFISWithInputs(i)
 			var fisInputs = FISScalabilityTestUtil.instance.generateInputsForFIS(fis)
 			var beforeGenerate = System.currentTimeMillis
 			var fisPath = FisFileGenerator.doGenerate(fis)

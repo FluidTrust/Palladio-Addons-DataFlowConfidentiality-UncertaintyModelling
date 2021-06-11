@@ -41,12 +41,4 @@ class FISScalabilityTestUtil {
 		var input = upperRange * tmp
 		input
 	}
-	
-	static def calculateMean(List<Long> list) {
-		ScalabilityTestTimeMapper.calculateMean(list)
-	}
-	
-	static def calculateMedian(List<Long> list) {
-		ScalabilityTestTimeMapper.calculateMedian(list)
-	}
 }

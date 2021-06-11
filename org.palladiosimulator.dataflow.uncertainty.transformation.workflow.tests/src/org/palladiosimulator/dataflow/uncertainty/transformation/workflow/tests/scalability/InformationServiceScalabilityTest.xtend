@@ -1,71 +1,16 @@
 package org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability
 
-import org.prolog4j.IProverFactory
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.UncertaintyTransformationWorkflowBuilder
-import org.prolog4j.Prover
-import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.util.UncertaintyStandaloneUtil
-import org.palladiosimulator.dataflow.Uncertainty.UncertaintyContainer
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterized
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.util.StandaloneUtil
-import org.prolog4j.swicli.SWIPrologCLIProverFactory
-import org.prolog4j.swicli.SWIPrologCLIProverFactory.SWIPrologExecutableProviderStandalone
-import java.util.Arrays
-import org.prolog4j.swicli.DefaultSWIPrologExecutableProvider
-import org.prolog4j.swicli.enabler.SWIPrologEmbeddedFallbackExecutableProvider
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.eclipse.xtext.resource.SaveOptions
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.NameGenerationStrategie
 
 import static org.junit.jupiter.api.Assertions.*
-import org.palladiosimulator.dataflow.Uncertainty.UncertaintyFactory
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyInferenceSystem
 import org.palladiosimulator.dataflow.Uncertainty.TrustedEnumCharacteristicType
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 
-class InformationServiceScalabilityTest {
-	
-	static val TEST_RUNS = 10
-	
-	static val TEST_START = 2
-	static val ITERATION_FACTOR = 2
-	static val TEST_ITERATION = 2048
-	
-	static var IProverFactory proverFactory
-	protected var UncertaintyTransformationWorkflowBuilder builder
-	protected var Prover prover
-	
-	protected var UncertaintyFactory uncertaintyFactory
-	
-	protected var UncertaintyContainer uncertaintyContainer
-	protected var DataFlowDiagram dfd
-	protected var DataDictionaryCharacterized dataDictionary
-	
-	protected var ScalabilityTestTimeMapper prologMappingTimeMapper
-	
-	@BeforeAll
-	static def void init() {
-		StandaloneUtil.init();
-		var factory = new SWIPrologCLIProverFactory(
-			Arrays.asList(new SWIPrologExecutableProviderStandalone(new DefaultSWIPrologExecutableProvider(), 2),
-				new SWIPrologExecutableProviderStandalone(new SWIPrologEmbeddedFallbackExecutableProvider(), 1)));
-		proverFactory = factory;
-		UncertaintyStandaloneUtil.init();
-	}
-	
-	@BeforeEach
-	def void setup() {
-		builder = new UncertaintyTransformationWorkflowBuilder();
-		prover = proverFactory.createProver();
-		
-		uncertaintyFactory = UncertaintyFactory.eINSTANCE
-		
-		prologMappingTimeMapper = new ScalabilityTestTimeMapper("Prolog Mapping Time: ", TEST_START, TEST_ITERATION,ITERATION_FACTOR)
-	}
+class InformationServiceScalabilityTest extends ScalabilityTestBase {
 	
 	@Test
 	def void runScalabilityTest() {
@@ -108,12 +53,7 @@ class InformationServiceScalabilityTest {
 		prologMappingTimeMapper.addTime(count, mappingTime)
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
-
-//		prover.loadTheory(result.get)
-//
-//		var solution = query.solve
-//		
-//		assertTrue(solution.success)
+		writeToFile(result.get, "InfoServiceScalability", count)
 	}
 	
 	def createInformationServices(FuzzyInferenceSystem fis, int count) {
@@ -136,40 +76,4 @@ class InformationServiceScalabilityTest {
 			dataDictionary.characteristics.add(characteristic)
 		}
 	}
-	
-	protected def loadAndInitDFD() {
-		UncertaintyPackage.eINSTANCE.getClass
-		var resourceSet = new ResourceSetImpl
-		var ucUri = getRelativeURI("models/runningExample/runningExample1.uncertainty")
-		var ucResource = resourceSet.getResource(ucUri, true)
-		uncertaintyContainer = ucResource.contents.iterator.next as UncertaintyContainer
-		var ddUri = getRelativeURI("models/runningExample/runningExample.datadictionarycharacterized")
-		var ddResource = resourceSet.getResource(ddUri, true)
-		dataDictionary = ddResource.contents.iterator.next as DataDictionaryCharacterized
-		var dfdUri = getRelativeURI("models/runningExample/runningExample1.dataflowdiagram")
-		var dfdResource = resourceSet.getResource(dfdUri, true)
-		dfd = dfdResource.contents.iterator.next as DataFlowDiagram
-		
-		builder.addDFD(dfd, dataDictionary, uncertaintyContainer)
-	}
-	
-	protected static def getRelativeURI(String path) {
-		return UncertaintyStandaloneUtil.getRelativeURI(path)
-	}
-	
-	protected def getQuery() {
-		var queryString = '''
-		actor(A), 
-		store(ST), 
-		nodeCharacteristic(A, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST), 
-		\+ nodeCharacteristic(ST, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST), 
-		inputPin(A,PIN), 
-		flowTree(A,PIN,S), 
-		traversedNode(S,ST).
-		'''
-		
-		var query = prover.query(queryString)
-		query	
-	}
-	
 }
