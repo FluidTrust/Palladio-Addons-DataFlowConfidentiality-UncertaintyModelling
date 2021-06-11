@@ -1,6 +1,5 @@
 package org.palladiosimulator.dataflow.uncertainty.fis.tests.scalability
 
-import java.util.Random
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyInferenceSystemFactory
 import java.util.ArrayList
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.FuzzyInferenceSystem
@@ -13,6 +12,7 @@ import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.AND_Opera
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.ACCU_Method
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.OR_Operator
 import org.palladiosimulator.dataflow.Uncertainty.FuzzyInferenceSystem.DEFUZZY_Method
+import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability.FISScalabilityTestUtil
 
 class FuzzyficationFunctionCreator {
 	
@@ -26,7 +26,7 @@ class FuzzyficationFunctionCreator {
 	
 	static val RULE_NUMBER = 5
 	
-	val random = new Random
+	val scalabilityUtil = FISScalabilityTestUtil.instance
 	
 	def generateFISWithInputs(int inputCount) {
 		var fis = fuzzyFactory.createFuzzyInferenceSystem
@@ -59,17 +59,17 @@ class FuzzyficationFunctionCreator {
 				var int mfIndex 
 				var MembershipFunction mf
 				if(list.size == 0) { // all mfs have been used in a rule
-					mfIndex = getRandomNumberBetween(0, fuzzy.term.size - 1)
+					mfIndex = scalabilityUtil.getRandomNumberBetween(0, fuzzy.term.size - 1)
 					mf = fuzzy.term.get(mfIndex)
 				} else {
-					mfIndex = getRandomNumberBetween(0, list.size - 1)
+					mfIndex = scalabilityUtil.getRandomNumberBetween(0, list.size - 1)
 					mf = list.remove(mfIndex)
 				}
 				rule.inputs.add(mf)
 			]
 			
 			// Add random output mf to rule
-			var outputMFIndex = getRandomNumberBetween(0, fis.output.term.size - 1)
+			var outputMFIndex = scalabilityUtil.getRandomNumberBetween(0, fis.output.term.size - 1)
 			rule.output.add(fis.output.term.get(outputMFIndex))
 			fis.rules.add(rule)
 		}
@@ -137,23 +137,12 @@ class FuzzyficationFunctionCreator {
 		
 		fuzzyfication
 	}
-	
-	def int getRandomNumberBetween(int low, int high) {
-		// + 1 because nextInt creates a number between 0(inclusive) and the value(exclusive)
-		random.nextInt(high - low + 1) + low 
-	}
-	
-	def double getRandomInputValue(double upperRange) {
-		var tmp = random.nextFloat
-		var input = upperRange * tmp
-		input
-	}
 
 	def int getMFNumber() {
-		getRandomNumberBetween(MF_LOW, MF_HIGH)
+		scalabilityUtil.getRandomNumberBetween(MF_LOW, MF_HIGH)
 	}
 	
 	def int getUpperRange() {
-		getRandomNumberBetween(RANGE_LOW, RANGE_HIGH)
+		scalabilityUtil.getRandomNumberBetween(RANGE_LOW, RANGE_HIGH)
 	}
 }

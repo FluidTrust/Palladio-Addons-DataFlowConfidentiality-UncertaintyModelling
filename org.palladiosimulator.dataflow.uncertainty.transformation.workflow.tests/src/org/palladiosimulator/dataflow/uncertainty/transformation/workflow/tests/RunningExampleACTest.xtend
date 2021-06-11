@@ -26,7 +26,6 @@ import java.io.FileOutputStream
 import java.nio.file.Path
 import java.nio.file.Files
 import java.io.IOException
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 
 class RunningExampleACTest {
 	
@@ -80,7 +79,7 @@ class RunningExampleACTest {
 		assertTrue(solution.success)
 	}
 	
-		protected def getQuery() {
+	protected def getQuery() {
 		var queryString = '''
 		actor(A), 
 		store(ST), 

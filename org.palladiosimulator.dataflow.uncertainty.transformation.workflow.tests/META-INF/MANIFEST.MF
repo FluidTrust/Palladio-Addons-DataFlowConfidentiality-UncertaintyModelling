@@ -28,3 +28,4 @@ Require-Bundle: org.eclipse.ocl.ecore,
  org.palladiosimulator.dataflow.confidentiality.transformation.prolog;bundle-version="0.1.0",
  org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests;bundle-version="1.0.0",
  org.palladiosimulator.dataflow.uncertainty.transformation
+Export-Package: org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.scalability
