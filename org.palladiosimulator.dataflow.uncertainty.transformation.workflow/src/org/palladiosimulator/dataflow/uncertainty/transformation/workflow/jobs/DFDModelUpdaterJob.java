@@ -121,8 +121,11 @@ public class DFDModelUpdaterJob<T extends KeyValueMDSDBlackboard> extends Abstra
 					});
 					
 					// Remove all EnumCharacteristics, that have been replaces with trusted ones
-					charNode.getCharacteristics().removeAll(replacedChars);
-					charNode.getCharacteristics().addAll(trustedChars);
+					charNode.getOwnedCharacteristics().removeAll(replacedChars);
+					charNode.getReferencedCharacteristics().removeAll(replacedChars);
+					charNode.getOwnedCharacteristics().addAll(trustedChars);
+//					charNode.getCharacteristics().removeAll(replacedChars);
+//					charNode.getCharacteristics().addAll(trustedChars);
 					
 					// 6. DFD -> if a CharacterizedNode has a owned behavior (defined in the dfd and not the ddc),
 					// do the same as for the BehaviorDefinitions defined in the ddc.

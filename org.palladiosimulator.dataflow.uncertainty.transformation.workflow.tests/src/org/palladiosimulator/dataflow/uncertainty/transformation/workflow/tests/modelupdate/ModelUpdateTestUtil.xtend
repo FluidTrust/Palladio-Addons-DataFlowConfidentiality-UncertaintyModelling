@@ -12,12 +12,31 @@ class ModelUpdateTestUtil {
 			setof_characteristics_with_trust(P, PIN, ?CTRIGHTS, REQ, T, S),
 			intersection(REQ, ROLES, []).
 		'''
+		
+	static val ABAC_QUERY = '''
+			actor(A),
+			inputPin(A,PIN),
+			nodeCharacteristic(A, 'EmployeeLocation (_j_v1Y-JAEeqO9NqdRSqKUA)', SUBJ_LOC, LOC_TRUST),
+			nodeCharacteristic(A, 'EmployeeRole (_nNduk-JAEeqO9NqdRSqKUA)', SUBJ_ROLE, ROLE_TRUST),
+			characteristic(A, PIN, 'CustomerLocation (_h6k4o-JAEeqO9NqdRSqKUA)', OBJ_LOC, ORIG_TRUST, S),
+			characteristic(A, PIN, 'CustomerStatus (_lmMOw-JAEeqO9NqdRSqKUA)', OBJ_STAT, STAT_TRUST, S),
+			(
+				SUBJ_LOC \= OBJ_LOC, SUBJ_ROLE \= 'Manager (_dvk30OJAEeqO9NqdRSqKUA)';
+				OBJ_STAT = 'Celebrity (_hCxt8OJAEeqO9NqdRSqKUA)', SUBJ_ROLE \= 'Manager (_dvk30OJAEeqO9NqdRSqKUA)'
+			).
+		'''
 	
-	static def getQuery(Prover prover, String roleName, String roleId, String accessRightsName, String accessRightsId) {
+	static def getAccessControlQuery(Prover prover, String roleName, String roleId, String accessRightsName, String accessRightsId) {
 		var queryString = ACCESS_CONTROL_QUERY
 		var query = prover.query(queryString)
 		query.bind("CTROLES", '''«roleName» («roleId»)'''.toString)
 		query.bind("CTRIGHTS", '''«accessRightsName» («accessRightsId»)'''.toString)	
+	}
+	
+	static def getABACQuery(Prover prover) {
+		var queryString = ABAC_QUERY
+		var query = prover.query(queryString)
+		query
 	}
 	
 	static def initTest() {

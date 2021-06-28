@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.dataflow.uncertainty="http://palladiosimulator.org/dataflow/uncertainty/1.0" xmlns:org.palladiosimulator.dataflow.uncertainty.fis="http://palladiosimulator.org/dataflow/uncertainty/fis/1.0">
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.0" name="defaultSource">
+    <fisInputs>50.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="MaxMindGeoLiteServiceAsia">
+    <fisInputs>35.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="MaxMindGeoLiteServiceUS">
+    <fisInputs>93.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="NetAcuityUS">
+    <fisInputs>91.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="NetAcuityAsia">
+    <fisInputs>80.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.2" name="ManagerNewAuth">
+    <fisInputs>45.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.2" name="ManagerOldAuth">
+    <fisInputs>330.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.3" name="ClerkNewAuth">
+    <fisInputs>90.0</fisInputs>
+  </sources>
+  <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.3" name="ClerkOldAuth">
+    <fisInputs>500.0</fisInputs>
+  </sources>
+  <fisContainer>
+    <fuzzificationFunctions name="defaultInput">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="fullArea1" b="1.0" c="99.0" d="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="locationAccuracy">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:ZMF" name="errorProne" a="60.0" b="85.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:SMF" name="sufficient" a="70.0" b="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="managerAuthAge">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="new" a="110.0" b="3.5"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="intermediate" a="75.0" b="3.5" c="200.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="invalid" a="275.0" b="5.0" c="600.0"/>
+      <range>0.0</range>
+      <range>600.0</range>
+    </fuzzificationFunctions>
+    <fuzzificationFunctions name="clerkAuthAge">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="new" a="150.0" b="3.5"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="intermediate" a="120.0" b="3.5" c="280.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:GeneralizedBellMF" name="invalid" a="120.0" b="5.0" c="600.0"/>
+      <range>0.0</range>
+      <range>600.0</range>
+    </fuzzificationFunctions>
+    <defuzzificationFunction name="defaultTrust">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TrapezoidalMF" name="default" b="1.0" c="99.0" d="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <defuzzificationFunction name="locationTrust">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="lowLocation" b="60.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="highLocation" a="40.0" b="100.0" m="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <defuzzificationFunction name="roleTrust">
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="lowRole" b="20.0" m="40.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="midRole" a="30.0" b="50.0" m="70.0"/>
+      <term xsi:type="org.palladiosimulator.dataflow.uncertainty.fis:TriangularMF" name="highRole" a="60.0" b="80.0" m="100.0"/>
+      <range>0.0</range>
+      <range>100.0</range>
+    </defuzzificationFunction>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.0" output="//@fisContainer.0/@defuzzificationFunction.0" name="defaultFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.0/@term.0" output="//@fisContainer.0/@defuzzificationFunction.0/@term.0" name="oneToOneMapping"/>
+    </fuzzyInferenceSystems>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.1" output="//@fisContainer.0/@defuzzificationFunction.1" name="locationFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.1/@term.0" output="//@fisContainer.0/@defuzzificationFunction.1/@term.0" name="errorLow"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.1/@term.1" output="//@fisContainer.0/@defuzzificationFunction.1/@term.1" name="sufficientHigh"/>
+    </fuzzyInferenceSystems>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.2" output="//@fisContainer.0/@defuzzificationFunction.2" name="managerRoleFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.0" output="//@fisContainer.0/@defuzzificationFunction.2/@term.2" name="newHigh"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.1" output="//@fisContainer.0/@defuzzificationFunction.2/@term.1" name="intermediateMid"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.2/@term.2" output="//@fisContainer.0/@defuzzificationFunction.2/@term.0" name="invalidLow"/>
+    </fuzzyInferenceSystems>
+    <fuzzyInferenceSystems input="//@fisContainer.0/@fuzzificationFunctions.3" output="//@fisContainer.0/@defuzzificationFunction.2" name="clerkRoleFIS">
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.3/@term.0" output="//@fisContainer.0/@defuzzificationFunction.2/@term.2" name="newHigh"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.3/@term.1" output="//@fisContainer.0/@defuzzificationFunction.2/@term.1" name="intermediateMid"/>
+      <rules inputs="//@fisContainer.0/@fuzzificationFunctions.3/@term.2" output="//@fisContainer.0/@defuzzificationFunction.2/@term.0" name="invalidLow"/>
+    </fuzzyInferenceSystems>
+  </fisContainer>
+</org.palladiosimulator.dataflow.uncertainty:UncertaintyContainer>
