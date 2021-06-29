@@ -20,6 +20,15 @@ import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramChara
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.Entity
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.impl.DFD2PrologTransformationImpl.DFD2PrologOutputBehaviorCreator
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
+import java.util.Optional
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Assignment
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal
+import java.util.List
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Pin
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.EnumCharacteristicReference
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Term
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 
 class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationImpl {
 	
@@ -66,6 +75,121 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 			}
 		})
 	}
+	
+	protected override dispatch transformNode(CharacterizedProcess process) {
+		process.transformNodeWithUncertainty("process", new UncertaintyDFD2PrologOutputBehaviorCreator() {
+			
+			override createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param) {
+				val assignmentToTransform = param.node.behavior.assignments.findLastMatchingAssignment(param.pin, param.ct as TrustedEnumCharacteristicType, param.l, param.t)
+				val transformedAssignment = assignmentToTransform.transformAssignment(param)
+				val needsFlowTree = assignmentToTransform.needsFlowTree
+				if (needsFlowTree) {
+					// the flow tree has to be bound before the assignments can use them because the assignment
+					// could be a pure negation, which is not able to bind a valid flow stack.
+					val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs))
+					flowClauses += transformedAssignment
+					createRule(
+						createCharacteristicTerm(process, param, "S".toVar, "VISITED".toVar),
+						createConjunction(flowClauses)
+					)
+				} else {
+					val fsVar = process.needsEmptyFlowTree ? createList : "_".toVar
+					createRule(
+						createCharacteristicTerm(process, param, fsVar, "_".toVar),
+						createConjunction(transformedAssignment)
+					)
+				}
+			}
+		})
+	}
+	
+	protected override dispatch transformNode(CharacterizedExternalActor actor) {
+		actor.transformNodeWithUncertainty("actor", new UncertaintyDFD2PrologOutputBehaviorCreator() {
+			
+			override createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param) {
+				val assignmentToTransform = param.node.behavior.assignments.findLastMatchingAssignment(param.pin, param.ct as TrustedEnumCharacteristicType, param.l, param.t)
+				if (assignmentToTransform.needsFlowTree) {
+					throw new IllegalArgumentException("Actors must not refer to input pins in their behavior.")
+				} else {
+					createRule(
+						createCharacteristicTerm(param.node, param, createList, "_".toVar),
+						createConjunction(assignmentToTransform.transformAssignment(param))
+					)
+				}
+			}	
+		})
+	}
+	
+	// has to be copied in order to call the correct _transformNode...
+	protected override dispatch transformNode(CharacterizedActorProcess process) {
+		val clauses = new ArrayList<Clause>
+		clauses += createFact(createCompoundTerm("actorProcess", (process as CharacterizedNode).uniqueQuotedString, process.actor.uniqueQuotedString))
+		clauses += (process as CharacterizedProcess)._transformNode
+		clauses
+	}
+	
+	protected static def Optional<Assignment> findLastMatchingAssignment(List<Assignment> assignments, Pin pin,
+            TrustedEnumCharacteristicType ct, Literal l, Literal t) {
+        for (assignment : assignments.reverseView) {
+			if (isMatchingAssignment(assignment, pin, ct, l, t)) {
+				return Optional.of(assignment);
+			}
+        }
+        // there is no matching assignment
+        return Optional.empty();
+    }
+    
+    protected static def isMatchingAssignment(Assignment assignment, Pin pin, TrustedEnumCharacteristicType ct, Literal l, Literal t) {
+    	var lhs = assignment.getLhs() as TrustedDataCharacteristicReference
+           
+        // trust does not match
+        if (lhs.trust !== null && lhs.trust !== t) {
+			return false
+		}
+		
+		// check original matching
+		isMatchingAssignment(assignment, pin, ct, l)
+    }
+    
+    protected static def dispatch boolean isRhsTermCompatible(TrustedDataCharacteristicReference term, TrustedEnumCharacteristicType ct) {
+    	var termCharacteristicType = term.characteristicType as TrustedEnumCharacteristicType
+        var termLiteral = term.literal
+        var termTrust = term.trust
+        
+        // case 0: only wildcards except for trust -> incompatible (characteristic type has to be compatbile)
+        if (termCharacteristicType === null && termLiteral === null && termTrust !== null) {
+            return false;
+        }
+        
+    	// case 1: only trust wildcard -> characteristic type has to be compatbile
+        if (termCharacteristicType !== null && termLiteral !== null && termTrust === null 
+                && termCharacteristicType.getType() == ct.getType()) {
+            return true;
+        }
+
+    	// case 2: Check compatibility based on original definition
+    	isRhsTermCompatible(term, ct)
+    }
+    
+    protected static def dispatch boolean isRhsTermCompatible(TrustedContainerCharacteristicReference term, TrustedEnumCharacteristicType ct) {
+    	var termCharacteristicType = term.characteristicType as TrustedEnumCharacteristicType
+        var termLiteral = term.literal
+        var termTrust = term.trust
+        
+        // case 0: only wildcards except for trust -> incompatible (characteristic type has to be compatbile)
+        if (termCharacteristicType === null && termLiteral === null && termTrust !== null) {
+            return false;
+        }
+        
+    	// case 1: only trust wildcard -> characteristic type has to be compatbile
+        if (termCharacteristicType !== null && termLiteral !== null && termTrust === null 
+                && termCharacteristicType.getType() == ct.getType()) {
+            return true;
+        }
+        
+        // case 2: Check compatibility based on original definition
+    	isRhsTermCompatible(term, ct)
+    }
 	
 	protected override transformNode(CharacterizedNode node, String factName, DFD2PrologOutputBehaviorCreator outputBehaviorCreator) {
 		this.transformNodeWithUncertainty(node, factName, new UncertaintyDFD2PrologOutputBehaviorCreator() {

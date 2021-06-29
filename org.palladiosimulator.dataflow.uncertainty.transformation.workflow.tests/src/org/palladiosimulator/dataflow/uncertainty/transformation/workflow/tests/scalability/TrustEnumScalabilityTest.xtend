@@ -81,7 +81,7 @@ class TrustEnumScalabilityTest extends ScalabilityTestBase {
 		prologMappingTimeMapper.addTime(count, mappingTime)
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
-		writeToFile(result.get, "TrustEnumScalability", count)
+		//writeToFile(result.get, "TrustEnumScalability", count)
 	}
 	
 	def matchAndSwapInformationService(TrustedEnumCharacteristic c) {

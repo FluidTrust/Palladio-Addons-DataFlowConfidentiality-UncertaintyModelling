@@ -7,10 +7,10 @@
     <fisInputs>35.0</fisInputs>
   </sources>
   <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="MaxMindGeoLiteServiceUS">
-    <fisInputs>93.0</fisInputs>
+    <fisInputs>91.0</fisInputs>
   </sources>
   <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="NetAcuityUS">
-    <fisInputs>91.0</fisInputs>
+    <fisInputs>93.0</fisInputs>
   </sources>
   <sources trustSystem="//@fisContainer.0/@fuzzyInferenceSystems.1" name="NetAcuityAsia">
     <fisInputs>80.0</fisInputs>

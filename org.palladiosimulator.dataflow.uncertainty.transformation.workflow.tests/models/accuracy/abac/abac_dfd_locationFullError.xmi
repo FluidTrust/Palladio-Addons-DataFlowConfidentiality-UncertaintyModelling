@@ -20,7 +20,7 @@
       <values
           href="abac_dd.xmi#_SQJAEOJAEeqO9NqdRSqKUA"/>
       <trustSource
-          href="abac.uncertainty#//@sources.3"/>
+          href="abac.uncertainty#//@sources.1"/>
     </ownedCharacteristics>
     <ownedCharacteristics
         xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic"
@@ -50,7 +50,7 @@
       <values
           href="abac_dd.xmi#_TCUq8OJAEeqO9NqdRSqKUA"/>
       <trustSource
-          href="abac.uncertainty#//@sources.4"/>
+          href="abac.uncertainty#//@sources.1"/>
     </ownedCharacteristics>
     <ownedCharacteristics
         xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic"
@@ -80,7 +80,7 @@
       <values
           href="abac_dd.xmi#_SQJAEOJAEeqO9NqdRSqKUA"/>
       <trustSource
-          href="abac.uncertainty#//@sources.3"/>
+          href="abac.uncertainty#//@sources.1"/>
     </ownedCharacteristics>
     <ownedCharacteristics
         xsi:type="org.palladiosimulator.dataflow.uncertainty:TrustedEnumCharacteristic"
