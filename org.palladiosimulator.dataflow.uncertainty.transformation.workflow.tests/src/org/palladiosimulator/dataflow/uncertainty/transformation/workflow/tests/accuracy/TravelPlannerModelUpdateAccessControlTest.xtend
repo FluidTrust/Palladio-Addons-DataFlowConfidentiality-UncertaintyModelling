@@ -20,10 +20,8 @@ class TravelPlannerModelUpdateAccessControlTest extends TravelPlannerAccessContr
 	}
 	
 	override DataFlowDiagram loadAndInitDFD(String ddcPath, String dfdPath) {
-		ModelUpdateTestUtil.addUCToBuilder(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder)
-		var dfd = super.loadAndInitDFD(ddcPath, dfdPath)
-		
-		dfd
+		ModelUpdateTestUtil.loadAndInitDFD(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder, ddcPath, dfdPath)
+
 	}
 	
 	protected override getQuery() { 

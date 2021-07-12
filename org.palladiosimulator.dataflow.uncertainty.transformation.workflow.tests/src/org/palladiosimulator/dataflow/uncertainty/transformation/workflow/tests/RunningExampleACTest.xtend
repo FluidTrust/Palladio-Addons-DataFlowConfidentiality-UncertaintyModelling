@@ -71,8 +71,6 @@ class RunningExampleACTest {
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
 		
-		writeToFile(result.get, index)
-
 		prover.loadTheory(result.get)
 
 		var solution = query.solve
@@ -136,23 +134,5 @@ class RunningExampleACTest {
 	
 	protected static def getRelativeURI(String path) {
 		return UncertaintyStandaloneUtil.getRelativeURI(path)
-	}
-	
-	private def writeToFile(String prolog, int i) {
-		var FileOutputStream fos
-		var Path prologPath = Path.of("/home/nicolas/Dokumente/Uni/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests/models/runningExample/runningExample" + i + ".pl")
-		try {
-			if(Files.exists(prologPath)) {
-				Files.delete(prologPath)
-			}
-			Files.createFile(prologPath)
-			var prologFile = prologPath.toFile
-			fos = new FileOutputStream(prologPath.toString);
-			fos.write(prolog.bytes)
-		} catch(IOException e) {
-			e.printStackTrace
-		} finally {
-			fos.close
-		}
 	}
 }

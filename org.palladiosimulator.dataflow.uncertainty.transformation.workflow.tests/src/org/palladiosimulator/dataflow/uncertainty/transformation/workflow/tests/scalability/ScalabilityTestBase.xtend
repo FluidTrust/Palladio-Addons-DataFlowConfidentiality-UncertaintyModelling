@@ -24,11 +24,11 @@ import java.nio.file.Files
 import java.io.IOException
 
 class ScalabilityTestBase {
-	protected static val TEST_RUNS = 10
+	protected static val TEST_RUNS = 1 //10 
 	
 	protected static val TEST_START = 2
 	protected static val ITERATION_FACTOR = 2
-	protected static val TEST_ITERATION = 2048
+	protected static val TEST_ITERATION = 128 //2048
 	
 	protected static var IProverFactory proverFactory
 	protected var UncertaintyTransformationWorkflowBuilder builder

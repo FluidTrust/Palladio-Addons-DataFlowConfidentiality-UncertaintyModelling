@@ -4,6 +4,7 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.te
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdateTestUtil
+import org.junit.jupiter.api.Test
 
 class DACModelUpdateAnalysisTest extends DACAnalysisTests {
 	
@@ -18,10 +19,31 @@ class DACModelUpdateAnalysisTest extends DACAnalysisTests {
 		builder = new org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 	}
 	
-	protected override initProver() {
-		ModelUpdateTestUtil.addUCToBuilder(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder)
-		(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder).addDDC(getRelativeURI("models/evaluation/dac/dac_dd.xmi"))
+	protected def initProver(String dfdPath) {
+		ModelUpdateTestUtil.loadAndInitDFD(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder, "models/evaluation/dac/dac_dd.xmi", dfdPath)
+
 		super.initProver
+	}
+	
+	@Test
+	override void testNoFlaw() {
+		initProver("models/evaluation/dac/dac_dfd.xmi")
+		assertNumberOfSolutions(findReadViolation(), 0, #["A", "STORE", "S"])
+		assertNumberOfSolutions(findWriteViolation(), 0, #["A", "STORE", "S"])
+	}
+	
+	@Test
+	override void testReadViolation() {
+		initProver("models/evaluation/dac/dac_dfd_readViolation.xmi")
+		assertNumberOfSolutions(findWriteViolation(), 0, #["A", "STORE", "S"])
+		assertNumberOfSolutions(findReadViolation(), 2, #["A", "STORE", "S"])
+	}
+	
+	@Test
+	override void testWriteViolation() {
+		initProver("models/evaluation/dac/dac_dfd_writeViolation.xmi")
+		assertNumberOfSolutions(findReadViolation(), 0, #["A", "STORE", "S"])
+		assertNumberOfSolutions(findWriteViolation(), 1, #["A", "STORE", "S"])
 	}
 	
 	protected override String getAnalysisRules(String ctIdentity, String ctReadAccess, String ctWriteAccess) '''

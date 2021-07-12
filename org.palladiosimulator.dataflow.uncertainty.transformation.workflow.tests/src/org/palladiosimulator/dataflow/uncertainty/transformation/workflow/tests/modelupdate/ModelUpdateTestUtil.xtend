@@ -3,6 +3,9 @@ package org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.util.UncertaintyStandaloneUtil
 import org.prolog4j.Prover
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterized
+import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 
 class ModelUpdateTestUtil {
 	
@@ -42,6 +45,19 @@ class ModelUpdateTestUtil {
 	static def initTest() {
 		AnalysisIntegrationTestBase.init()
 		UncertaintyStandaloneUtil.init();
+	}
+	
+	static def loadAndInitDFD(ModelUpdaterTransformationWorkflowBuilder builder, String ddcPath, String dfdPath) {
+		builder.addUCToBuilder
+		var resourceSet = new ResourceSetImpl
+		var ddUri = UncertaintyStandaloneUtil.getRelativeURI(ddcPath)
+		var ddResource = resourceSet.getResource(ddUri, true)
+		var dd = ddResource.contents.iterator.next as DataDictionaryCharacterized
+		var dfdUri = UncertaintyStandaloneUtil.getRelativeURI(dfdPath)
+		var dfdResource = resourceSet.getResource(dfdUri, true)
+		var dfd = dfdResource.contents.iterator.next as DataFlowDiagram
+		builder.addDFD(dfd, dd);
+		dfd
 	}
 	
 	static def addUCToBuilder(ModelUpdaterTransformationWorkflowBuilder builder) {

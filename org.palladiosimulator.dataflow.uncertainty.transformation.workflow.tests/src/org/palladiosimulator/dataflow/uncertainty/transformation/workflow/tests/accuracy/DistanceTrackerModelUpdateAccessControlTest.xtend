@@ -20,10 +20,8 @@ class DistanceTrackerModelUpdateAccessControlTest extends DistanceTrackerAccessC
 	}
 	
 	override DataFlowDiagram loadAndInitDFD(String ddcPath, String dfdPath) {
-		var dfd = super.loadAndInitDFD(ddcPath, dfdPath)
-		ModelUpdateTestUtil.addUCToBuilder(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder)
-		
-		dfd
+		ModelUpdateTestUtil.loadAndInitDFD(builder as org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests.modelupdate.ModelUpdaterTransformationWorkflowBuilder, ddcPath, dfdPath)
+
 	}
 	
 	protected override getQuery() {

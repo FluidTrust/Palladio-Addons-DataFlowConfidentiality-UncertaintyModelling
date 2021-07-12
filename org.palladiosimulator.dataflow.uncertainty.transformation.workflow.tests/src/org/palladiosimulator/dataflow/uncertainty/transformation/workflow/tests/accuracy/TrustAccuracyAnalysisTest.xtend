@@ -62,7 +62,7 @@ class TrustAccuracyAnalysisTest extends AnalysisIntegrationTestBase {
 	def void testRoleViolation() {
 		this.loadAndInitDFD(DDC_PATH, "models/accuracy/abac/abac_dfd_roleViolation.xmi")
 		var solution = findFlaws()
-		assertNumberOfSolutions(solution, 3, #["A", "PIN", "LOC", "LOC_TRUST", "ROLE", "ROLE_TRUST", "ORIG", "ORIG_TRUST", "STAT", "STAT_TRUST", "S"])
+		assertNumberOfSolutions(solution, 0, #["A", "PIN", "LOC", "LOC_TRUST", "ROLE", "ROLE_TRUST", "ORIG", "ORIG_TRUST", "STAT", "STAT_TRUST", "S"])
 	}
 	
 	@Test
