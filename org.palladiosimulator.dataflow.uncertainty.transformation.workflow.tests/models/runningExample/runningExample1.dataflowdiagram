@@ -71,23 +71,23 @@
     </ownedCharacteristics>
     <referencedBehavior href="runningExample.datadictionarycharacterized#_Bda89dVfEeqRbpVUMz5XAQ"/>
   </nodes>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_OMdmechGEeu_Wf8wLuiSoQ" name="dbEntry" target="_EoxepdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_oG4EENVhEeqRbpVUMz5XAQ">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_OMdmechGEeu_Wf8wLuiSoQ" name="valid read(dbEntry)" target="_EoxepdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_oG4EENVhEeqRbpVUMz5XAQ">
     <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
   </edges>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_fis5ichGEeu_Wf8wLuiSoQ" name="dbEntry" target="_Glj7ddVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_ytCKcNVhEeqRbpVUMz5XAQ">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_fis5ichGEeu_Wf8wLuiSoQ" name="invalid read(dbEntry)" target="_Glj7ddVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_ytCKcNVhEeqRbpVUMz5XAQ">
     <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
   </edges>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_j8-sechGEeu_Wf8wLuiSoQ" name="dbEntry" target="_JEgDFdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_-2tSANVhEeqRbpVUMz5XAQ">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_j8-sechGEeu_Wf8wLuiSoQ" name="invalid read(dbEntry)" target="_JEgDFdVfEeqRbpVUMz5XAQ" source="_bt1Dx9VhEeqRbpVUMz5XAQ" targetPin="_-2tSANVhEeqRbpVUMz5XAQ">
     <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
   </edges>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_nI-uachGEeu_Wf8wLuiSoQ" name="dbEntry" target="_bt1Dx9VhEeqRbpVUMz5XAQ" source="_gIROyNVhEeqRbpVUMz5XAQ">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_nI-uachGEeu_Wf8wLuiSoQ" name="LaboratoryDB->readDB(dbEntry)" target="_bt1Dx9VhEeqRbpVUMz5XAQ" source="_gIROyNVhEeqRbpVUMz5XAQ">
     <sourcePin href="runningExample.datadictionarycharacterized#_DEBuYdVfEeqRbpVUMz5XAQ"/>
     <targetPin href="runningExample.datadictionarycharacterized#_7LfE0NVeEeqRbpVUMz5XAQ"/>
   </edges>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_F09lqchqEeuNMePdRPFY4g" name="dbEntry" target="_qSfIF8hpEeuNMePdRPFY4g" source="_EoxepdVfEeqRbpVUMz5XAQ" sourcePin="_oaeVgdVhEeqRbpVUMz5XAQ">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_F09lqchqEeuNMePdRPFY4g" name="Scientist->write(dbEntry)" target="_qSfIF8hpEeuNMePdRPFY4g" source="_EoxepdVfEeqRbpVUMz5XAQ" sourcePin="_oaeVgdVhEeqRbpVUMz5XAQ">
     <targetPin href="runningExample.datadictionarycharacterized#_7LfE0NVeEeqRbpVUMz5XAQ"/>
   </edges>
-  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_J7OQachqEeuNMePdRPFY4g" name="dbEntry" target="_gIROyNVhEeqRbpVUMz5XAQ" source="_qSfIF8hpEeuNMePdRPFY4g">
+  <edges xsi:type="DataFlowDiagramCharacterized:CharacterizedDataFlow" id="_J7OQachqEeuNMePdRPFY4g" name="write(dbEntry)->LaboratoryDB" target="_gIROyNVhEeqRbpVUMz5XAQ" source="_qSfIF8hpEeuNMePdRPFY4g">
     <sourcePin href="runningExample.datadictionarycharacterized#_8BeRodVeEeqRbpVUMz5XAQ"/>
     <targetPin href="runningExample.datadictionarycharacterized#_CsafoNVfEeqRbpVUMz5XAQ"/>
   </edges>
