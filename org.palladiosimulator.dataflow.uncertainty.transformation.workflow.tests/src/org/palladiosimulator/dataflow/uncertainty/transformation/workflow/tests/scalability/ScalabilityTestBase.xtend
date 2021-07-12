@@ -97,22 +97,4 @@ class ScalabilityTestBase {
 		var query = prover.query(queryString)
 		query	
 	}
-	
-	protected def writeToFile(String prolog, String name, int i) {
-		var FileOutputStream fos
-		var Path prologPath = Path.of("/home/nicolas/Dokumente/Uni/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests/models/scalability/" + name + i + ".pl")
-		try {
-			if(Files.exists(prologPath)) {
-				Files.delete(prologPath)
-			}
-			Files.createFile(prologPath)
-			var prologFile = prologPath.toFile
-			fos = new FileOutputStream(prologPath.toString);
-			fos.write(prolog.bytes)
-		} catch(IOException e) {
-			e.printStackTrace
-		} finally {
-			fos.close
-		}
-	}
 }

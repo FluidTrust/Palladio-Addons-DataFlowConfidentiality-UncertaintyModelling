@@ -74,7 +74,5 @@ class PropertyScalabilityTest extends ScalabilityTestBase {
 		prologMappingTimeMapper.addTime(count, mappingTime)
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
-		//writeToFile(result.get, "PropertyScalability", count)
-		
 	}
 }

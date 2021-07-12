@@ -22,6 +22,7 @@ import org.eclipse.xtext.resource.SaveOptions
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.NameGenerationStrategie
 
 import static org.junit.jupiter.api.Assertions.*
+import static org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase.*
 import java.io.FileOutputStream
 import java.nio.file.Path
 import java.nio.file.Files
@@ -51,15 +52,15 @@ class RunningExampleACTest {
 	
 	@Test
 	def void testRunningExampleScenario1() {
-		testRunningExampleScenario(1)	
+		testRunningExampleScenario(1,2)	
 	}
 	
 	@Test
 	def void testRunningExampleScenario2() {
-		testRunningExampleScenario(2)
+		testRunningExampleScenario(2,4)
 	}
 	
-	def void testRunningExampleScenario(int index) {
+	def void testRunningExampleScenario(int index, int expectedSolutions) {
 		this.loadAndInitDFD(index)
 		
 		builder.addSerializeToString(SaveOptions.newBuilder.format.getOptions.toOptionsMap)
@@ -76,7 +77,7 @@ class RunningExampleACTest {
 
 		var solution = query.solve
 		
-		assertTrue(solution.success)
+		assertNumberOfSolutions(solution, expectedSolutions, Arrays.asList("A", "ST", "PIN", "SUBJ_LOC", "SUBJ_TRUST", "S"))
 	}
 	
 	protected def getQuery() {

@@ -53,7 +53,6 @@ class InformationServiceScalabilityTest extends ScalabilityTestBase {
 		prologMappingTimeMapper.addTime(count, mappingTime)
 		var result = workflow.getSerializedPrologProgram
 		assertFalse(result.isEmpty)
-		writeToFile(result.get, "InfoServiceScalability", count)
 	}
 	
 	def createInformationServices(FuzzyInferenceSystem fis, int count) {
