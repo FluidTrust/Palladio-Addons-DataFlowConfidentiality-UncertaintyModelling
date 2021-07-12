@@ -25,7 +25,6 @@
 		<module>org.palladiosimulator.dataflow.uncertainty.fis.transformation</module>
 		<module>org.palladiosimulator.dataflow.uncertainty.transformation</module>
 		<module>org.palladiosimulator.dataflow.uncertainty.transformation.workflow</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis.tests</module>
 		<module>org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests</module>
 	</modules>
 	
