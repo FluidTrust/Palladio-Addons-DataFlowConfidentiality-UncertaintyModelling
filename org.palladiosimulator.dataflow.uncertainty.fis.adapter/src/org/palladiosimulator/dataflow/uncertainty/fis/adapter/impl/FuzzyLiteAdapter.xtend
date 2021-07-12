@@ -107,7 +107,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	}
 	
 	private def Optional<File> extractExecutable() {
-		var cl = FuzzyLiteAdapter.classLoader
+		var ClassLoader cl = FuzzyLiteAdapter.classLoader
 		var execFileName = getFileName
 		var execInStream = cl.getResourceAsStream(execFileName) 
 		if(execInStream === null) {
