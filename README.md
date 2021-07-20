@@ -1,7 +1,11 @@
 # Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling
 
 ## Build:
-To build this project, fuzzy logic libraries need to build and added by hand manually. Currently, we support the use of FuzzyLite 6.0 on x64 operating systems.
+To build this project, first, the model java code needs to be generated and fuzzy logic libraries need to build by manually. 
+
+#### Build Fuzzy Logic Libraries:
+Currently, we support the use of FuzzyLite 6.0 on x64 operating systems.
+
 1. Download the sources of fuzzy lite [Link](https://www.fuzzylite.com/downloads/)
 2. Extract the archive
 3. Inside, open the 'INSTALL' file with a text editor and follow the instructions to build the executable
@@ -10,4 +14,3 @@ To build this project, fuzzy logic libraries need to build and added by hand man
     * fuzzylite-6.0-linux-x64
     * fuzzylite-6.0-win-x64.exe
 6. Copy the executable in the ./org.palladiosimulator.dataflow.uncertainty.fis.adapter/fuzzylite/ folder
-
