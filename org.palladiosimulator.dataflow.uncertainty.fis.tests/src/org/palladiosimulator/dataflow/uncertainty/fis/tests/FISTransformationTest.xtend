@@ -59,6 +59,4 @@ class FISTransformationTest {
 		maxMembershipName = FuzzySystemResultInterpreter.getMaxMembershipFunction(fis.output.term, executionResult).name
 		assertEquals("low", maxMembershipName)
 	}
-	
-
 }

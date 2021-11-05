@@ -12,17 +12,28 @@ import java.util.Optional
 import java.io.File
 import org.apache.commons.io.FileUtils
 import java.util.regex.Pattern
+import java.util.ArrayList
+import java.nio.file.Paths
 
 class FuzzyLiteAdapter implements FuzzySystemExecution {
-	var fuzzylitePath = ""
+	
+	var Path tmpExecutionDir
+	var String fuzzylitePath = ""
 	
 	new () {
-		var executable = extractExecutable
+		// Create temp directory and delete it at exit
+		tmpExecutionDir = Files.createTempDirectory("FuzzyLiteExec")
+		tmpExecutionDir.toFile.deleteOnExit
+		
+		var executable = extractExecutables
 		if(!executable.empty) {
 			fuzzylitePath = executable.get.absolutePath
 		}
 	}
 	
+	/**
+	 * Runs the FIS under fisPath with the provided inputs
+	 */
 	override runFIS(List<Double> inputs, Path fisPath) {
 		var dataPath = createDataFile(inputs)
 		var resultPath = runSystem(fisPath, dataPath)
@@ -34,9 +45,9 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	private def createDataFile(List<Double> data) {
 		try {
 			var line = String.join(" ", data.map[d| Double.toString(d)])
-            var tempFile = Files.createTempFile("tmpFISInputs", ".fld");
-            Files.deleteIfExists(tempFile);
-            Files.write(tempFile, line.getBytes(StandardCharsets.UTF_8));
+			
+			var tempFile = createTempFileInTempDir("tmpFISInputs.fld")
+            Files.write(tempFile, line.getBytes(StandardCharsets.UTF_8))
             
             return tempFile
         } catch (IOException e) {
@@ -44,15 +55,15 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
         }
 	}
 	
+	// Run fuzzylite executable; output file is created first to ensure that there is no duplicate
 	private def runSystem(Path systemPath, Path dataPath) {
 	    try {
-	    	var resultPath = Files.createTempFile("tmpFISOutput", ".fld");
-	    	Files.deleteIfExists(resultPath);
+	    	var resultPath = createTempFileInTempDir("tmpFISOutput.fld");
 	        val pb = new ProcessBuilder(fuzzylitePath, "-i", systemPath.toString, "-of", "fld", "-o", resultPath.toString, "-d", dataPath.toString)
 	        pb.redirectOutput(Redirect.DISCARD)
 	        pb.redirectError(Redirect.DISCARD)
 	        val process = pb.start()
-	        process.waitFor();
+	        process.waitFor()
 	        
 	        return resultPath
 	    } catch(IOException e) {
@@ -84,45 +95,54 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 	
 	private def readResultFile(Path resultPath) {
 		try {
-			var resultFileContent = Files.readString(resultPath);
+			var resultFileContent = Files.readString(resultPath)
         	return resultFileContent
 		} catch (IOException e) {
 			e.printStackTrace
 		}
 	}
-
-	private def String getFileName() {
-		var os = "";
-		var ending = "";
+	
+	private def ArrayList<String> getExecFileNames() {
+		var fileNames = new ArrayList
+		
 		if (SystemUtils.IS_OS_WINDOWS) {
-			os = "win";
-			ending = ".exe";
+			fileNames.add("fuzzylite.exe")
+			fileNames.add("fuzzylite.dll")
 		} else if (SystemUtils.IS_OS_LINUX) {
-			os = "linux";
-			ending = "";
+			fileNames.add("fuzzylite")
 		}
-		var version = "6.0";
-		var architecture = "x64";
-		return String.format("fuzzylite-%s-%s-%s%s", version, os, architecture, ending);
+		return fileNames
 	}
 	
-	private def Optional<File> extractExecutable() {
+	private def Optional<File> extractExecutables() {
+		var execFileNames = getExecFileNames
+		var Optional<File> execFile = null
+		for(fileName : execFileNames) {
+			var tmpFile = extractFile(fileName)
+			
+			// First filename in execFileNames is the actual executable
+			if(execFile === null) {
+				execFile = tmpFile
+			}
+		}
+		
+		return execFile
+	}
+	
+	private def Optional<File> extractFile(String fileName) {
 		var ClassLoader cl = FuzzyLiteAdapter.classLoader
-		var execFileName = getFileName
-		var execInStream = cl.getResourceAsStream(execFileName) 
+		var execInStream = cl.getResourceAsStream(fileName)
 		if(execInStream === null) {
 			return Optional.empty
 		}
 		try {
-			var execFilePath = Files.createTempFile(execFileName, "")
-	        var execFile = execFilePath.toFile
+			var filePath = createTempFileInTempDir(fileName)
+	        var file = filePath.toFile
 	        
-	        FileUtils.copyInputStreamToFile(execInStream, execFile)
-	        
-	        execFile.deleteOnExit
-	        execFile.setExecutable(true)
+	        FileUtils.copyInputStreamToFile(execInStream, file)
+	        file.setExecutable(true)
 			
-			return Optional.of(execFile)
+			return Optional.of(file)
 		} catch (IOException e) {
 			e.printStackTrace
 		} finally {
@@ -130,5 +150,15 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		}
 		
 		return Optional.empty
+	}
+	
+	// Creates temp file in temp folder that deletes on exit
+	private def Path createTempFileInTempDir(String fileName) {
+		var filePath = Paths.get(this.tmpExecutionDir + File.separator + fileName)
+		Files.deleteIfExists(filePath)
+		filePath = Files.createFile(filePath)
+        filePath.toFile.deleteOnExit
+        
+        return filePath
 	}
 }
