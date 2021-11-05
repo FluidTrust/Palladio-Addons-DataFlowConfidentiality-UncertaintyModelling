@@ -35,15 +35,21 @@ class DACModelUpdateAnalysisTest extends DACAnalysisTests {
 	@Test
 	override void testReadViolation() {
 		initProver("models/evaluation/dac/dac_dfd_readViolation.xmi")
-		assertNumberOfSolutions(findWriteViolation(), 0, #["A", "STORE", "S"])
-		assertNumberOfSolutions(findReadViolation(), 2, #["A", "STORE", "S"])
+		var writeSolution = findWriteViolation()
+		var readSolution = findReadViolation()
+		
+		assertNumberOfSolutions(writeSolution, 0, #["A", "STORE", "S"])
+		assertNumberOfSolutions(readSolution, 2, #["A", "STORE", "S"])
 	}
 	
 	@Test
 	override void testWriteViolation() {
 		initProver("models/evaluation/dac/dac_dfd_writeViolation.xmi")
-		assertNumberOfSolutions(findReadViolation(), 0, #["A", "STORE", "S"])
-		assertNumberOfSolutions(findWriteViolation(), 1, #["A", "STORE", "S"])
+		var readSolution = findReadViolation()
+		var writeSolution = findWriteViolation()
+		
+		assertNumberOfSolutions(readSolution, 0, #["A", "STORE", "S"])
+		assertNumberOfSolutions(writeSolution, 1, #["A", "STORE", "S"])
 	}
 	
 	protected override String getAnalysisRules(String ctIdentity, String ctReadAccess, String ctWriteAccess) '''

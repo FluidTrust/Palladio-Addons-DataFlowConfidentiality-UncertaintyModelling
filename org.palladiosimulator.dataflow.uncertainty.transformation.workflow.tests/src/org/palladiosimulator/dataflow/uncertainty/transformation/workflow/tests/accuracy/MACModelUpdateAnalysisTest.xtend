@@ -29,28 +29,39 @@ class MACModelUpdateAnalysisTest extends MACAnalysisTests {
 	@Test
 	override void testNoFlaw() {
 		initProver("models/evaluation/mac/mac_dfd.xmi")
-		assertNumberOfSolutions(findReadViolation(), 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
-		assertNumberOfSolutions(findWriteViolation(), 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		var readSolution = findReadViolation()
+		var writeSolution = findWriteViolation()
+		
+		assertNumberOfSolutions(readSolution, 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		assertNumberOfSolutions(writeSolution, 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
 	}
 	
 	@Test
 	override void testReadViolation() {
 		initProver("models/evaluation/mac/mac_dfd_readViolation.xmi")
-		assertNumberOfSolutions(findWriteViolation(), 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
-		assertNumberOfSolutions(findReadViolation(), 2, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		var readSolution = findReadViolation()
+		var writeSolution = findWriteViolation()
+		
+		assertNumberOfSolutions(writeSolution, 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		assertNumberOfSolutions(readSolution, 2, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
 	}
 	
 	@Test
 	override void testWriteViolation() {
 		initProver("models/evaluation/mac/mac_dfd_writeViolation.xmi")
-		assertNumberOfSolutions(findWriteViolation(), 2, Arrays.asList("N", "CLEARANCE", "STORE", "CLASSIFICATION", "S"))
+		var writeSolution = findWriteViolation()
+		
+		assertNumberOfSolutions(writeSolution, 2, Arrays.asList("N", "CLEARANCE", "STORE", "CLASSIFICATION", "S"))
 	}
 	
 	@Test
 	override void testNoFlawAfterIntegrityViolation() {
 		initProver("models/evaluation/mac/mac_dfd_integrityViolation.xmi")
-		assertNumberOfSolutions(findReadViolation(), 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
-		assertNumberOfSolutions(findWriteViolation(), 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		var readSolution = findReadViolation()
+		var writeSolution = findWriteViolation()
+		
+		assertNumberOfSolutions(readSolution, 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
+		assertNumberOfSolutions(writeSolution, 0, Arrays.asList("N", "CLASSIFICATION", "CLEARANCE", "S"))
 	}
 	
 	protected override String getAnalysisRules(String classificationType, String clearanceType) '''

@@ -144,8 +144,6 @@ class TrustAccuracyAnalysisTest extends AnalysisIntegrationTestBase {
 		workflow.run()
 		var result = workflow.getSerializedPrologProgram()
 		assertFalse(result.isEmpty())
-		
-		writeToFile(result.get)
 
 		prover.loadTheory(result.get())
 		
@@ -190,24 +188,6 @@ class TrustAccuracyAnalysisTest extends AnalysisIntegrationTestBase {
 	
 	protected static def getRelativeURI(String path) {
 		return UncertaintyStandaloneUtil.getRelativeURI(path)
-	}
-	
-	private def writeToFile(String prolog) {
-		var FileOutputStream fos
-		var Path prologPath = Path.of("/home/nicolas/Dokumente/Uni/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests/models/debug.pl")
-		try {
-			if(Files.exists(prologPath)) {
-				Files.delete(prologPath)
-			}
-			Files.createFile(prologPath)
-			var prologFile = prologPath.toFile
-			fos = new FileOutputStream(prologPath.toString);
-			fos.write(prolog.bytes)
-		} catch(IOException e) {
-			e.printStackTrace
-		} finally {
-			fos.close
-		}
 	}
 	
 }

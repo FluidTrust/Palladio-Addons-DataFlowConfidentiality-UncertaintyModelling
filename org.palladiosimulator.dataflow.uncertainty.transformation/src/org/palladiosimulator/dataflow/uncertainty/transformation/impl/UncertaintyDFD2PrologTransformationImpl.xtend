@@ -316,7 +316,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 		var referencedCharacteristicType = rhs.characteristicType as TrustedEnumCharacteristicType ?: param.trustedCt
 		var referencedLiteral = rhs.literal ?: param.l
 		var referencedTrust = rhs.trust ?: param.t
-		var treeVariable = '''S«param.node.behavior.inputs.indexOf(rhs.pin)»''' 
+		var treeVariable = '''S«param.node.behavior.inputs.indexOf(rhs.pin)»'''
 		createCharacteristicTerm(param.node, new UncertaintyDFD2PrologTransformationParameter(param.node, rhs.pin, referencedCharacteristicType, referencedLiteral, referencedTrust), treeVariable.toVar, "VISITED".toVar)
 	}
 	
@@ -338,5 +338,4 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 	protected def dispatch createNodeCharacteristicTerm(UncertaintyDFD2PrologTransformationParameter param) {
 		createCompoundTerm("nodeCharacteristic", param.node.uniqueQuotedString, param.ct.uniqueQuotedString, param.l.uniqueQuotedString, param.t.uniqueQuotedString)
 	}
-	
 }

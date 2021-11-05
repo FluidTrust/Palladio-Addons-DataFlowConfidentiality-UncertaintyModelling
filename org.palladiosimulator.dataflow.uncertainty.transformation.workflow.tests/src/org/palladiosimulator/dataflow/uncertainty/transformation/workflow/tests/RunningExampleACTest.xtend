@@ -23,10 +23,6 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.Name
 
 import static org.junit.jupiter.api.Assertions.*
 import static org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase.*
-import java.io.FileOutputStream
-import java.nio.file.Path
-import java.nio.file.Files
-import java.io.IOException
 
 class RunningExampleACTest {
 	
