@@ -6,7 +6,7 @@
     editorDirectory="/org.palladiosimulator.dataflow.uncertainty.editor/src-gen" modelPluginID="org.palladiosimulator.dataflow.uncertainty"
     modelName="Uncertainty" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
-    copyrightFields="false" runtimeVersion="2.19" usedGenPackages="../../org.palladiosimulator.dataflow.dictionary/model/DataDictionary.genmodel#//DataDictionary ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.genmodel#//DataDictionaryCharacterized ../../org.palladiosimulator.dataflow.diagram/model/DataFlowDiagram.genmodel#//DataFlowDiagram ../../org.palladiosimulator.dataflow.diagram.characterized/model/DataFlowDiagramCharacterized.genmodel#//DataFlowDiagramCharacterized ../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier"
+    copyrightFields="false" runtimeVersion="2.24" usedGenPackages="../../org.palladiosimulator.dataflow.dictionary/model/DataDictionary.genmodel#//DataDictionary ../../org.palladiosimulator.dataflow.dictionary.characterized/model/DataDictionaryCharacterized.genmodel#//DataDictionaryCharacterized ../../org.palladiosimulator.dataflow.diagram/model/DataFlowDiagram.genmodel#//DataFlowDiagram ../../org.palladiosimulator.dataflow.diagram.characterized/model/DataFlowDiagramCharacterized.genmodel#//DataFlowDiagramCharacterized ../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier"
     importOrganizing="true">
   <foreignModel>Uncertainty.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
