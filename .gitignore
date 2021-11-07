@@ -10,7 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -19,6 +19,9 @@
 *.tar.gz
 *.rar
 
+# Eclipse files
+*.prefs
+
 # Xtend files
 *.xtendbin
 *._trace
@@ -26,6 +29,18 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# Execution files and model instances
+*.fis
+*.fld
+
+*.exe
+*.dll
+*.lib
+*.exp
+
+# Generated model files
 org.palladiosimulator.dataflow.uncertainty.edit
 org.palladiosimulator.dataflow.uncertainty.editor
-org.palladiosimulator.dataflow.uncertainty/src-gen
+
+# Generated maven files
+target/

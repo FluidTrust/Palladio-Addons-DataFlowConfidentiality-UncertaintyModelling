@@ -1,2 +1,4 @@
-/bin/
-/xtend-gen/
+bin/
+target/
+src-gen/
+xtend-gen/

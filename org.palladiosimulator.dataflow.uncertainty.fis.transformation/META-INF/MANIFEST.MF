@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Transformation
+Bundle-Name: FISTransformation
 Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.fis.transformation
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty.fis.transformation
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: com.google.guava,
+Require-Bundle: org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
+ com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
- org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.16.0"
 Export-Package: org.palladiosimulator.dataflow.uncertainty.fis.transformation

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Uncertainty
 Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty;singleton:=true
 Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty
 Bundle-Version: 0.1.0.qualifier

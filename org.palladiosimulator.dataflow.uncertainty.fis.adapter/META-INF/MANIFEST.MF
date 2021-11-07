@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Adapter
+Bundle-Name: FISAdapter
 Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.fis.adapter
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty.fis.adapter
