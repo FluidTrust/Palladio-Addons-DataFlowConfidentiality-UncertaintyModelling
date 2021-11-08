@@ -26,8 +26,6 @@ import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCha
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal
 import java.util.List
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Pin
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.EnumCharacteristicReference
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Term
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 
 class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationImpl {
