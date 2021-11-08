@@ -1,3 +1,4 @@
+
 # Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling
 Project and package names have been chosen following the naming of the data flow diagramm approach of Seifermann et al. [1], which we base our implementation on.
 
@@ -21,6 +22,8 @@ Currently, we support the use of FuzzyLite 6.0 operating systems.
 	
 ## Build and Run Tests:
 After the fuzzy logic libraries have been built and copied in the right folder, open a command line in this folder and run `mvn install`. This command builds the project and also runs the included tests.
+
+The `Accuracy Evaluation Tests` bundle includes test cases that automatically run the analysis process for the described *S0/S1/S2/S3* scenarios. If none of the tests fail, the precision and recall are `1.0`. The run test cases can be seen in the maven console output.
 
 ## Import in Eclipse:
 The source code can also be imported and executed in Eclipse. 
