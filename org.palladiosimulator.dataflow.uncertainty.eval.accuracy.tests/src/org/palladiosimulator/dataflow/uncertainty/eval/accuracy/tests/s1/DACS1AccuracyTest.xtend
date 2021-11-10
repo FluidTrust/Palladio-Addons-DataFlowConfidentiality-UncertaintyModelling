@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s1.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.DACAnalysisTests
 import org.junit.jupiter.api.BeforeAll
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class S1DACAnalysisTest extends DACAnalysisTests {
+class DACS1AccuracyTest extends DACAnalysisTests {
 	
 	@BeforeAll
 	static def void init() {

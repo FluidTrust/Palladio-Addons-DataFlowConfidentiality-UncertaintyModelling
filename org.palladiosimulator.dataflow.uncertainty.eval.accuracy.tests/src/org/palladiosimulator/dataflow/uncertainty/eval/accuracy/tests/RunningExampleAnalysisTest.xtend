@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s2.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests
 
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage
@@ -24,7 +24,7 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.Name
 import static org.junit.jupiter.api.Assertions.*
 import static org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase.*
 
-class S2RunningExampleAnalysisTest {
+class RunningExampleAnalysisTest {
 	
 	static var IProverFactory proverFactory;
 	protected var UncertaintyTransformationWorkflowBuilder builder;
@@ -47,12 +47,12 @@ class S2RunningExampleAnalysisTest {
 	}
 	
 	@Test
-	def void findS2Scenario1Analysis() {
+	def void scenario1AnalysisTest() {
 		testRunningExampleScenario(1,2)	
 	}
 	
 	@Test
-	def void findS2Scenario2Analysis() {
+	def void scenario2AnalysisTest() {
 		testRunningExampleScenario(2,4)
 	}
 	
@@ -84,28 +84,6 @@ class S2RunningExampleAnalysisTest {
 		flowTree(A,PIN,S), 
 		traversedNode(S,ST).
 		'''
-		
-//		'''
-//		actor(A),
-//		store(ST),
-//		nodeCharacteristic(A, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', SUBJ_LOC, SUBJ_TRUST),
-//		nodeCharacteristic(ST, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', ACCESS_LOC, ACCESS_TRUST),
-//		inputPin(A, PIN),
-//		flowTree(A, PIN, S),
-//		traversedNode(S, ST),
-//		(
-//			SUBJ_LOC \= ACCESS_LOC;
-//			SUBJ_LOC = ACCESS_LOC,
-//			SUBJ_TRUST \= ACCESS_TRUST
-//		).
-//		'''
-		
-//		'''
-//		inputPin(P, PIN),
-//		setof(R, nodeCharacteristic(P, 'Location (_o7_1k9VeEeqRbpVUMz5XAQ)', R, T), LOC),
-//		setof_characteristics_with_trust(P, PIN, 'Read Access (_rd9cA9VeEeqRbpVUMz5XAQ)', RIGHTS, T, S),
-//		intersection(RIGHTS, LOC, []).
-//		'''
 		
 		var query = prover.query(queryString)
 		query	

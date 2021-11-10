@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s1.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
 
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -7,7 +7,7 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.te
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class S1DistanceTrackerAnalysisTest extends DistanceTrackerAccessControlTest {
+class DistanceTrackerS1AccuracyTest extends DistanceTrackerAccessControlTest {
 		
 	@BeforeAll
 	static def void init() {

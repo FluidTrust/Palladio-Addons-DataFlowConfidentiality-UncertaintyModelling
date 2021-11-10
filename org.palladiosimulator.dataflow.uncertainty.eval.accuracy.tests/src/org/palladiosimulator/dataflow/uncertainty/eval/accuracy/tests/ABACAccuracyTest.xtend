@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s2.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 import org.junit.jupiter.api.BeforeAll
@@ -16,9 +16,13 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.Name
 
 import static org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.DataFlowDiagramCharacterizedFactory
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
+import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.Behaving
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
 
-class S2ABACAnalysisTest extends AnalysisIntegrationTestBase {
+class ABACAccuracyTest extends AnalysisIntegrationTestBase {
 	
 	static val DFD_PATH = "models/accuracy/abac/abac_dfd.xmi"
 	static val DDC_PATH = "models/accuracy/abac/abac_dd.xmi"
@@ -60,6 +64,22 @@ class S2ABACAnalysisTest extends AnalysisIntegrationTestBase {
 		this.loadAndInitDFD(DDC_PATH, "models/accuracy/abac/abac_dfd_locationViolation.xmi")
 		var solution = findFlaws()
 		assertNumberOfSolutions(solution, 8, #["A", "PIN", "LOC", "LOC_TRUST", "ROLE", "ROLE_TRUST", "ORIG", "ORIG_TRUST", "STAT", "STAT_TRUST", "S"])
+	}
+	
+	@Test
+	def void findS3PropertyAndConfidentialityViolation() {		
+		var dfd = loadAndInitDFD(DDC_PATH, "models/accuracy/abac/abac_dfd_roleViolation.xmi")
+
+		var flow = DataFlowDiagramCharacterizedFactory.eINSTANCE.createCharacterizedDataFlow
+		flow.name = "celebrity customer details"
+		flow.source = dfd.nodes.filter(CharacterizedExternalActor).findFirst["Manager" == name]
+		flow.sourcePin = (flow.source as Behaving).behavior.outputs.findFirst["celebrityCustomerDetails" == name]
+		flow.target = dfd.nodes.filter(CharacterizedProcess).findFirst["US.registerCustomer" == name]
+		flow.targetPin = (flow.target as Behaving).behavior.inputs.get(0)
+		dfd.edges += flow
+
+		var solution = findFlaws()
+		assertNumberOfSolutionsWithoutDuplicates(solution, 6, #["A", "PIN", "LOC", "LOC_TRUST", "ROLE", "ROLE_TRUST", "ORIG", "ORIG_TRUST", "STAT", "STAT_TRUST", "S"])
 	}
 	
 	protected def Solution<Object> findFlaws() {

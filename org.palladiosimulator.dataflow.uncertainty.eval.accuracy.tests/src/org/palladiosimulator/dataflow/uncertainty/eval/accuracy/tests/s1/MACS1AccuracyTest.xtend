@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s1.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.MACAnalysisTests
 import org.junit.jupiter.api.BeforeAll
@@ -8,7 +8,7 @@ import java.util.Arrays
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class S1MACAnalysisTest extends MACAnalysisTests {
+class MACS1AccuracyTest extends MACAnalysisTests {
 	
 	@BeforeAll
 	static def void init() {

@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.s1.tests
+package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
 
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -7,7 +7,7 @@ import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.te
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
 import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class S1TravelPlannerAnalysisTest extends TravelPlannerAccessControlTest {
+class TravelPlannerS1AccuracyTest extends TravelPlannerAccessControlTest {
 	
 	@BeforeAll
 	static def void init() {
