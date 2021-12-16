@@ -44,3 +44,6 @@ org.palladiosimulator.dataflow.uncertainty.editor
 
 # Generated maven files
 target/
+
+# Local compiled fuzzylite
+org.palladiosimulator.dataflow.uncertainty.fis.adapter/fuzzylite/
