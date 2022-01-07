@@ -108,7 +108,7 @@ class FuzzyLiteAdapter implements FuzzySystemExecution {
 		if (SystemUtils.IS_OS_WINDOWS) {
 			fileNames.add("fuzzylite.exe")
 			fileNames.add("fuzzylite.dll")
-		} else if (SystemUtils.IS_OS_LINUX) {
+		} else if (SystemUtils.IS_OS_LINUX || SystemUtils.IS_OS_MAC) {
 			fileNames.add("fuzzylite")
 		}
 		return fileNames
