@@ -4,8 +4,8 @@ This project contains the extension code of the master thesis [Architectural Unc
 
 ## Research projects
 
-- [Palladio](https://www.palladio-simulator.com/home/): 
-- [FluidTrust](https://fluidtrust.ipd.kit.edu/home/):
+- [Palladio](https://www.palladio-simulator.com/home/): software architecture simulation approach which analyses your software at the model level for performance bottlenecks, scalability issues, reliability threats, and allows for a subsequent optimisation 
+- [FluidTrust](https://fluidtrust.ipd.kit.edu/home/): enabling trust by fluid access control to data and physical resources in Industry 4.0 systems
 
 
 ## Project description
@@ -27,7 +27,7 @@ This repository adds uncertainty to the confidentiality analyses of data flow di
 - Install [Eclipse Modeling Tools 2020-12](https://www.eclipse.org/downloads/packages/release/2020-12/r/eclipse-modeling-tools)
 
 
-### Requirements
+### Java and Maven requirements
 To build this project and run the included tests for evaluation you need:
 - Install [Java version 11.0.3](https://www.oracle.com/java/technologies/java-se-development-kit11-downloads.html) **and** set as default version (other Java versions may not be supported)
 - Install [Maven](https://maven.apache.org/download.cgi) 
@@ -39,11 +39,12 @@ To build this project and run the included tests for evaluation you need:
 	1. [Palladio-Supporting-DataFlowDiagram](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagram) and 
 	2. [Palladio-Supporting-DataFlowDiagramConfidentiality](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagramConfidentiality/tree/uncertainty-integration) and 
 	3. [this repository](https://github.com/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling) in one folder
-- Make sure to clone the uncertainty-integration branch (as linked above) from the 2. repository (switching to uncertainty-integration branch after cloning the master branch can cause Eclipse problems)
+- Make sure to directly clone the uncertainty-integration branch (as linked above) from the 2. repository (switching to uncertainty-integration branch after cloning the master branch can cause Eclipse problems)
 - Create new Eclipse Workspace 
 - Import all three repositories: 
 	- Open in the menu *File* > Import > General > *Existing Projects into Workspace*
 	- Select your root directory
+	- Under Options, check `Search for nested projects` to correctly import repo (ii.)
 
 
 ### Installation of new software within Eclipse 
@@ -86,22 +87,31 @@ The library FuzzyLite enables uncertainty in the confidentiality analyses of the
 	- Linux/MacOS: fuzzylite
 
 
-### Rectify Eclipse problems: 
-The Java classes still need to be generated from the models made with the Eclipse Modeling Framework.
-- Run ...
+### Rectify Eclipse problems / generate java classes from EMF: 
+The Java classes still need to be generated from the models made with the Eclipse Modeling Framework (EMF).
+- In the project `org.palladiosimulator.dataflow.diagram.mwe2` of repo (i.), run `workflow/generate.mwe2` as MWE2 Workflow
+- In the project `org.palladiosimulator.dataflow.confidentiality.mwe2` of repo (ii.) uncertainty-integration branch, run `workflow/generate.mwe2` and `workflow/GenerateCharacterizedDataDictionary.mwe2` as MWE2 Workflow
+- In the project `org.palladiosimulator.dataflow.uncertainty.mwe2` of this repo (iii.), run `workflow/generate.mwe2` as MWE2 Workflow
    
 
 ### Build and Run Tests:
-Run `mvn install`. This command builds the project and also runs the included tests.
+Run `mvn clean install`. This command builds the project and also runs the included tests.
 
 
 ## How to use the project
-
+...
 
 
 ## Problems log 
+### Open problems
+- TrustAccuracyAnalysisTest - 7/8 tests fail: reason is a higher number of solutions than expected
+- RunningExapleACTest - testRunningExampleScenario2 fail: reason is a higher number of solutions than expected
+- Eclipse error in pom.xml of `org.palladiosimulator.dataflow.uncertainty.mwe2` in repo (iii.): `Plugin execution not covered by lifecycle configuration` and `unknown packaging: eclipse-plugin`
 
+### Solutions
+- For several Eclipse problems and warnings: Open in the menu *Project* > Clean
 
 
 ## Bibliography
-[1] Stephan Seifermann et al. "Detecting Violations of Access Control and Information Flow Policies in DataFlow Diagrams". In: Journal of Systems and Software (2021). DOI: [10.5445/IR/1000139064](https://publikationen.bibliothek.kit.edu/1000139064). Accepted.
+[1] Nicolas Boltz. "Architectural Uncertainty Analysis for Access Control Scenarios in Industry 4.0". 2021. DOI: [10.5445/IR/1000135847](https://publikationen.bibliothek.kit.edu/1000135847).
+[2] Stephan Seifermann et al. "Detecting Violations of Access Control and Information Flow Policies in DataFlow Diagrams". In: Journal of Systems and Software (2021). DOI: [10.5445/IR/1000139064](https://publikationen.bibliothek.kit.edu/1000139064). Accepted.
