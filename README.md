@@ -36,10 +36,9 @@ To build this project and run the included tests for evaluation you need:
 ### Clone repositories and add to Eclipse Workspace
 
 - Clone the repositories: 
-	1. [Palladio-Supporting-DataFlowDiagram](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagram) and 
-	2. [Palladio-Supporting-DataFlowDiagramConfidentiality](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagramConfidentiality/tree/uncertainty-integration) and 
+	1. [Palladio-Supporting-DataFlowDiagram](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagram) 
+	2. [Palladio-Supporting-DataFlowDiagramConfidentiality](https://github.com/FluidTrust/Palladio-Supporting-DataFlowDiagramConfidentiality/tree/uncertainty-integration) - Make sure to directly clone the uncertainty-integration branch (as linked above) from the 2. repository with `git clone -b uncertainty-integration ...` (switching to uncertainty-integration branch after cloning the master branch can cause Eclipse problems)
 	3. [this repository](https://github.com/FluidTrust/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling) in one folder
-- Make sure to directly clone the uncertainty-integration branch (as linked above) from the 2. repository (switching to uncertainty-integration branch after cloning the master branch can cause Eclipse problems)
 - Create new Eclipse Workspace 
 - Import all three repositories: 
 	- Open in the menu *File* > Import > General > *Existing Projects into Workspace*
