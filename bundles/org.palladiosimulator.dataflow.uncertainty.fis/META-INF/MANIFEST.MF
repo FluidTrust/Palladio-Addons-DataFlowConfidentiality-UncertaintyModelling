@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FIS
+Bundle-SymbolicName: org.palladiosimulator.dataflow.uncertainty.fis
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.palladiosimulator.dataflow.uncertainty.fis
+Export-Package: org.palladiosimulator.dataflow.uncertainty.fis
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.palladiosimulator.dataflow.uncertainty;bundle-version="0.1.0",
+ org.palladiosimulator.dataflow.uncertainty.fis.adapter;bundle-version="1.0.0",
+ org.palladiosimulator.dataflow.uncertainty.fis.transformation;bundle-version="1.0.0"
