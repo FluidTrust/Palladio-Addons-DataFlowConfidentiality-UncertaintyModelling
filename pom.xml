@@ -18,15 +18,9 @@
 	</properties>
 	
 	<modules>
-		<module>org.palladiosimulator.dataflow.uncertainty.targetplatform</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.mwe2</module>
-		<module>org.palladiosimulator.dataflow.uncertainty</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis.adapter</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis.transformation</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.transformation</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.transformation.workflow</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests</module>
+		<module>releng</module>
+		<module>bundles</module>
+		<module>tests</module>
 	</modules>
 	
 </project>
