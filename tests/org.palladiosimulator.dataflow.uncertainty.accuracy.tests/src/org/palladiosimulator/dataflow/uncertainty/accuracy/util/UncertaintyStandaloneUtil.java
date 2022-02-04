@@ -18,6 +18,8 @@ public class UncertaintyStandaloneUtil {
                     "org.palladiosimulator.dataflow.confidentiality.transformation.prolog")
             .registerProjectURI(UncertaintyDFD2PrologTransformationImpl.class,
                     "org.palladiosimulator.dataflow.uncertainty.transformation")
+            .registerProjectURI(UncertaintyStandaloneUtil.class, 
+            		"org.palladiosimulator.dataflow.uncertainty.accuracy.tests")
             .addCustomTask(new Log4jInitilizationTask())
             .addCustomTask(PrologStandaloneSetup::doSetup)
             .build();
