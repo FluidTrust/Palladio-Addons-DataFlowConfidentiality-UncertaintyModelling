@@ -1,14 +1,14 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests.s1
 
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.ContactSMSAccessControlTest
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
+import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.DistanceTrackerAccessControlTest
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdateTestUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class ContactSMSS1AccuracyTest extends ContactSMSAccessControlTest {
-	
+class DistanceTrackerS1AccuracyTest extends DistanceTrackerAccessControlTest {
+		
 	@BeforeAll
 	static def void init() {
 		ModelUpdateTestUtil.initTest
@@ -17,7 +17,7 @@ class ContactSMSS1AccuracyTest extends ContactSMSAccessControlTest {
 	@BeforeEach
 	override void setup() {
 		super.setup();
-		builder = new ModelUpdaterTransformationWorkflowBuilder();
+		builder = new ModelUpdaterTransformationWorkflowBuilder
 	}
 	
 	override DataFlowDiagram loadAndInitDFD(String ddcPath, String dfdPath) {
@@ -25,7 +25,7 @@ class ContactSMSS1AccuracyTest extends ContactSMSAccessControlTest {
 
 	}
 	
-	protected override getQuery() { 
+	protected override getQuery() {
 		ModelUpdateTestUtil.getAccessControlQuery(prover, roleName, roleId, accessRightsName, accessRightsId)	
 	}
 }

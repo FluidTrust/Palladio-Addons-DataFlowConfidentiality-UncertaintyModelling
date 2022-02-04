@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate;
+package org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate;
 
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.blackboards.KeyValueMDSDBlackboard;

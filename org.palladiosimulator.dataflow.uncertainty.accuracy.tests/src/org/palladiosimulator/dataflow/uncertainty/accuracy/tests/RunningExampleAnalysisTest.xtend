@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests
 
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage
@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyContainer
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterized
 import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.UncertaintyTransformationWorkflowBuilder
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.util.UncertaintyStandaloneUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.util.UncertaintyStandaloneUtil
 import org.prolog4j.IProverFactory
 import org.prolog4j.Prover
 import org.prolog4j.swicli.SWIPrologCLIProverFactory.SWIPrologExecutableProviderStandalone

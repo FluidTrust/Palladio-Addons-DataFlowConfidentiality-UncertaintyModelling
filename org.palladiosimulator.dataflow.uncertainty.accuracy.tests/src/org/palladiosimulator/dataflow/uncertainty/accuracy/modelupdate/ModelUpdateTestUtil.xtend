@@ -1,6 +1,6 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate
+package org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate
 
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.util.UncertaintyStandaloneUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.util.UncertaintyStandaloneUtil
 import org.prolog4j.Prover
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl

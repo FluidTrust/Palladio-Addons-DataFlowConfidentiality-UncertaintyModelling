@@ -1,11 +1,11 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests.s1
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.ABACAnalysisTests
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.BeforeAll
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdateTestUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
 class ABACS1AccuracyTest extends ABACAnalysisTests {
 	

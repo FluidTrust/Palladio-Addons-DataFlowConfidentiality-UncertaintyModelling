@@ -1,14 +1,14 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests.s1
 
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.DistanceTrackerAccessControlTest
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
+import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.TravelPlannerAccessControlTest
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdateTestUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class DistanceTrackerS1AccuracyTest extends DistanceTrackerAccessControlTest {
-		
+class TravelPlannerS1AccuracyTest extends TravelPlannerAccessControlTest {
+	
 	@BeforeAll
 	static def void init() {
 		ModelUpdateTestUtil.initTest
@@ -25,7 +25,7 @@ class DistanceTrackerS1AccuracyTest extends DistanceTrackerAccessControlTest {
 
 	}
 	
-	protected override getQuery() {
+	protected override getQuery() { 
 		ModelUpdateTestUtil.getAccessControlQuery(prover, roleName, roleId, accessRightsName, accessRightsId)	
 	}
 }

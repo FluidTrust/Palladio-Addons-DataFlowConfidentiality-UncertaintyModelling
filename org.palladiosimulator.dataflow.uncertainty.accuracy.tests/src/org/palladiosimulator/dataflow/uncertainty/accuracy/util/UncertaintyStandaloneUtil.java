@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.util;
+package org.palladiosimulator.dataflow.uncertainty.accuracy.util;
 
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.transformation.prolog.DFD2PrologTransformation;
@@ -19,7 +19,7 @@ public class UncertaintyStandaloneUtil {
             .registerProjectURI(UncertaintyDFD2PrologTransformationImpl.class,
                     "org.palladiosimulator.dataflow.uncertainty.transformation")
             .registerProjectURI(UncertaintyStandaloneUtil.class,
-                    "org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests")
+                    "org.palladiosimulator.dataflow.uncertainty.accuracy.tests")
             .addCustomTask(new Log4jInitilizationTask())
             .addCustomTask(PrologStandaloneSetup::doSetup)
             .build();
@@ -28,6 +28,6 @@ public class UncertaintyStandaloneUtil {
 	
 	
     public static URI getRelativeURI(String relativePath) {
-        return URI.createPlatformPluginURI("/org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests/" + relativePath, false);
+        return URI.createPlatformPluginURI("/org.palladiosimulator.dataflow.uncertainty.accuracy.tests/" + relativePath, false);
     }
 }

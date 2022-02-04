@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests
 
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.impl.AnalysisIntegrationTestBase
 import org.junit.jupiter.api.BeforeAll
@@ -8,7 +8,7 @@ import org.palladiosimulator.dataflow.uncertainty.transformation.workflow.Uncert
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterized
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyContainer
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.util.UncertaintyStandaloneUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.util.UncertaintyStandaloneUtil
 import org.palladiosimulator.dataflow.Uncertainty.UncertaintyPackage
 import org.prolog4j.Solution
 import org.eclipse.xtext.resource.SaveOptions
@@ -20,7 +20,7 @@ import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramChara
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedExternalActor
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.CharacterizedProcess
 import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramCharacterized.Behaving
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdateTestUtil
 
 class ABACAccuracyTest extends AnalysisIntegrationTestBase {
 	

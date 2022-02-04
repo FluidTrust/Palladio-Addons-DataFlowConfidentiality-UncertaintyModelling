@@ -1,13 +1,13 @@
-package org.palladiosimulator.dataflow.uncertainty.eval.accuracy.tests.s1
+package org.palladiosimulator.dataflow.uncertainty.accuracy.tests.s1
 
+import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.ContactSMSAccessControlTest
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.palladiosimulator.dataflow.diagram.DataFlowDiagram.DataFlowDiagram
-import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.tests.TravelPlannerAccessControlTest
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdateTestUtil
-import org.palladiosimulator.dataflow.uncertainty.eval.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdateTestUtil
+import org.palladiosimulator.dataflow.uncertainty.accuracy.modelupdate.ModelUpdaterTransformationWorkflowBuilder
 
-class TravelPlannerS1AccuracyTest extends TravelPlannerAccessControlTest {
+class ContactSMSS1AccuracyTest extends ContactSMSAccessControlTest {
 	
 	@BeforeAll
 	static def void init() {
@@ -17,7 +17,7 @@ class TravelPlannerS1AccuracyTest extends TravelPlannerAccessControlTest {
 	@BeforeEach
 	override void setup() {
 		super.setup();
-		builder = new ModelUpdaterTransformationWorkflowBuilder
+		builder = new ModelUpdaterTransformationWorkflowBuilder();
 	}
 	
 	override DataFlowDiagram loadAndInitDFD(String ddcPath, String dfdPath) {
