@@ -31,9 +31,10 @@ import org.palladiosimulator.dataflow.diagram.characterized.DataFlowDiagramChara
 class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationImpl {
 	
 	val uncertaintyDFDFactory = UncertaintyFactory.eINSTANCE
+	val static UNCERTAINTY_PERFORMANCETWEAKS = false
 	
 	new(UniqueNameProvider nameProvider) {
-		super(nameProvider)
+		super(nameProvider, UNCERTAINTY_PERFORMANCETWEAKS)
 	}
 	
 	interface UncertaintyDFD2PrologOutputBehaviorCreator {
@@ -59,7 +60,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 			override createOutputCharacteristicRule(UncertaintyDFD2PrologTransformationParameter param) {
 				// the flow tree has to be bound before the assignments can use them because the assignment
 				// could be a pure negation, which is not able to bind a valid flow stack.
-				val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs))
+				val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs, param.node.behavior.inputs))
 				val term = uncertaintyDFDFactory.createTrustedDataCharacteristicReference
 				term.pin = param.node.behavior.inputs.get(0)
 				term.characteristicType = param.ct
@@ -84,7 +85,7 @@ class UncertaintyDFD2PrologTransformationImpl extends DFD2PrologTransformationIm
 				if (needsFlowTree) {
 					// the flow tree has to be bound before the assignments can use them because the assignment
 					// could be a pure negation, which is not able to bind a valid flow stack.
-					val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs))
+					val flowClauses = new ArrayList<Expression>(createFlowTreeClauses(param.node, param.node.behavior.inputs, param.node.behavior.inputs))
 					flowClauses += transformedAssignment
 					createRule(
 						createCharacteristicTerm(process, param, "S".toVar, "VISITED".toVar),

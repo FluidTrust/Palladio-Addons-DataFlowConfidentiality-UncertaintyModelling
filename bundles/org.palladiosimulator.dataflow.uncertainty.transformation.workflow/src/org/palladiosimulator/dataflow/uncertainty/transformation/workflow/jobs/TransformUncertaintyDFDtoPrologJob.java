@@ -9,9 +9,11 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ModelLocation;
 
 public class TransformUncertaintyDFDtoPrologJob <T extends KeyValueMDSDBlackboard> extends TransformDFDToPrologJob<T>{
 	
+	private static final boolean UNCERTAINTY_PERFORMANCETWEAKS = false;
+	
     public TransformUncertaintyDFDtoPrologJob(ModelLocation dfdLocation, ModelLocation prologLocation, String traceKey,
             NameGenerationStrategie nameGenerationStrategy) {
-    	super(dfdLocation, prologLocation, traceKey, nameGenerationStrategy);
+    	super(dfdLocation, prologLocation, traceKey, nameGenerationStrategy, UNCERTAINTY_PERFORMANCETWEAKS);
 
         setTransformationBuilder(UncertaintyDFD2PrologTransformationBuilder.create()
             .setNameProvider(nameGenerationStrategy));
