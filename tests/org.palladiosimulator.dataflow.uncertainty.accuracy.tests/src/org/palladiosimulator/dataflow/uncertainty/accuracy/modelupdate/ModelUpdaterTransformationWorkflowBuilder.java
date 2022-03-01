@@ -25,7 +25,7 @@ public class ModelUpdaterTransformationWorkflowBuilder extends UncertaintyTransf
 	}
 
 	@Override
-	protected SequentialBlackboardInteractingJob<Blackboard<?>> createJobSequence() {
+	public SequentialBlackboardInteractingJob<Blackboard<?>> createJobSequence() {
         var jobSequence = super.createJobSequence();
         
         // As the ddc and uc are going to be modified, they need to be explicitly loaded to the blackboard.

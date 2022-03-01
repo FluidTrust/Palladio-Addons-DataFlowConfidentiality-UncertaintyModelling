@@ -37,7 +37,7 @@ public class UncertaintyTransformationWorkflowBuilder extends TransformationWork
 	}
 	
 	@Override
-	protected SequentialBlackboardInteractingJob<Blackboard<?>> createJobSequence() {
+	public SequentialBlackboardInteractingJob<Blackboard<?>> createJobSequence() {
         var jobSequence = new SequentialBlackboardInteractingJob<>("DFD to Prolog Transformation");
 
         // add model loading job
