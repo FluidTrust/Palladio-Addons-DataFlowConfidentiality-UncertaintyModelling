@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="https://updatesite.palladio-simulator.com/fluidtrust/palladio-supporting-dataflowdiagramconfidentiality/branches/uncertainty-integration/" selected="true" name="Data Flow Diagram Confidentiality"/>
+   <site url="https://updatesite.palladio-simulator.com/fluidtrust/palladio-supporting-dataflowdiagram/releases/latest/" selected="true" name="Data Flow Diagram"/>
+   <site url="http://download.itemis.com/updates/releases/2.1.1" selected="true" name="Itemis Xtext"/>
+   <site url="https://download.eclipse.org/releases/latest" selected="true" name="Latest Eclipse Release"/>
+   <site url="https://download.eclipse.org/technology/m2e/releases/latest/" selected="true" name="Maven Integration"/>
+   <site url="https://updatesite.mdsd.tools/ecore-workflow/releases" selected="true" name="MDSD Tools EcoreWorkflow"/>
+   <site url="https://updatesite.mdsd.tools/library-standaloneinitialization/releases/latest" selected="true" name="MDSD Tools Standalone Init"/>
+   <site url="http://download.eclipse.org/tools/orbit/downloads/2020-12" selected="true" name="Orbit 2020-12"/>
+   <site url="https://updatesite.palladio-simulator.com/palladio-build-updatesite/releases/5.0.0/" selected="true" name="Palladio 5.0 release"/>
+   <site url="https://updatesite.palladio-simulator.com/fluidtrust/palladio-supporting-prolog/nightly/" selected="true" name="Prolog"/>
+   <site url="https://updatesite.palladio-simulator.com/fluidtrust/palladio-supporting-prolog4j/nightly/" selected="true" name="Prolog4J"/>
+</bookmarks>

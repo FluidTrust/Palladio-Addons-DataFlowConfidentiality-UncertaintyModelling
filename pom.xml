@@ -14,19 +14,13 @@
 	<packaging>pom</packaging>
 	
 	<properties>
-		<org.palladiosimulator.maven.tychotprefresh.tplocation.2>${project.basedir}/org.palladiosimulator.dataflow.uncertainty.targetplatform/tp.target</org.palladiosimulator.maven.tychotprefresh.tplocation.2>
+		<org.palladiosimulator.maven.tychotprefresh.tplocation.2>${project.basedir}/releng/org.palladiosimulator.dataflow.uncertainty.targetplatform/tp.target</org.palladiosimulator.maven.tychotprefresh.tplocation.2>
 	</properties>
 	
 	<modules>
-		<module>org.palladiosimulator.dataflow.uncertainty.targetplatform</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.mwe2</module>
-		<module>org.palladiosimulator.dataflow.uncertainty</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis.adapter</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.fis.transformation</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.transformation</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.transformation.workflow</module>
-		<module>org.palladiosimulator.dataflow.uncertainty.transformation.workflow.tests</module>
+		<module>releng</module>
+		<module>bundles</module>
+		<module>tests</module>
 	</modules>
 	
 </project>

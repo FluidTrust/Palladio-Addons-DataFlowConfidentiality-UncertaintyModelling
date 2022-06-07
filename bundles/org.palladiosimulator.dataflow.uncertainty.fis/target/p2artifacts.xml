@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='2'>
+  <artifact classifier='osgi.bundle' id='org.palladiosimulator.dataflow.uncertainty.fis' version='1.0.0.202202021148'>
+    <properties size='5'>
+      <property name='artifact.size' value='8451'/>
+      <property name='download.size' value='8451'/>
+      <property name='maven-groupId' value='org.palladiosimulator.dataflow.uncertainty'/>
+      <property name='maven-artifactId' value='org.palladiosimulator.dataflow.uncertainty.fis'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+  <artifact classifier='osgi.bundle' id='org.palladiosimulator.dataflow.uncertainty.fis.source' version='1.0.0.202202021148'>
+    <properties size='6'>
+      <property name='artifact.size' value='6137'/>
+      <property name='download.size' value='6137'/>
+      <property name='maven-groupId' value='org.palladiosimulator.dataflow.uncertainty'/>
+      <property name='maven-artifactId' value='org.palladiosimulator.dataflow.uncertainty.fis'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+      <property name='maven-classifier' value='sources'/>
+    </properties>
+  </artifact>
+</artifacts>

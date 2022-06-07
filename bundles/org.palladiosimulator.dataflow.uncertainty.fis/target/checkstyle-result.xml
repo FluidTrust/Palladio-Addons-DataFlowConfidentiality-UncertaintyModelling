@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.29">
+<file name="/home/manuel/eclipse/FluidTrust/Repositories/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/bundles/org.palladiosimulator.dataflow.uncertainty.fis/xtend-gen/org/palladiosimulator/dataflow/uncertainty/fis/FuzzySystemResultInterpreter.java">
+<error line="1" severity="warning" message="Missing package-info.java file." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheck"/>
+<error line="8" severity="warning" message="Class FuzzySystemResultInterpreter should be declared as final." source="com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheck"/>
+<error line="17" column="49" severity="warning" message="Name &apos;_function&apos; must match pattern &apos;^[a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalFinalVariableNameCheck"/>
+<error line="24" column="14" severity="warning" message="Name &apos;_get&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="25" column="15" severity="warning" message="Name &apos;_greaterThan&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+</file>
+<file name="/home/manuel/eclipse/FluidTrust/Repositories/Palladio-Addons-DataFlowConfidentiality-UncertaintyModelling/bundles/org.palladiosimulator.dataflow.uncertainty.fis/xtend-gen/org/palladiosimulator/dataflow/uncertainty/fis/SourceTrustEvaluator.java">
+<error line="6" column="1" severity="warning" message="Redundant import from the same package - org.palladiosimulator.dataflow.uncertainty.fis.FuzzySystemResultInterpreter." source="com.puppycrawl.tools.checkstyle.checks.imports.RedundantImportCheck"/>
+<error line="11" severity="warning" message="Class SourceTrustEvaluator should be declared as final." source="com.puppycrawl.tools.checkstyle.checks.design.FinalClassCheck"/>
+<error line="21" column="24" severity="warning" message="Name &apos;_xblockexpression&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="22" column="5" severity="warning" message="Avoid nested blocks." source="com.puppycrawl.tools.checkstyle.checks.blocks.AvoidNestedBlocksCheck"/>
+<error line="26" severity="info" message="Line is longer than 130 characters (found 144)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+</file>
+</checkstyle>
